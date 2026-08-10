@@ -94,11 +94,13 @@
                             <i id="engine-icon" class="fab fa-google text-blue-400"></i>
                             <i class="fas fa-chevron-down text-xs opacity-50"></i>
                         </button>
-                        <div id="engine-menu" class="absolute left-2 top-full mt-2 w-36 bg-slate-950/95 border border-slate-800 rounded-xl shadow-2xl hidden backdrop-blur-md overflow-hidden z-[110]">
+                        <div id="engine-menu" class="absolute left-2 top-full mt-2 w-40 bg-slate-950/95 border border-slate-800 rounded-xl shadow-2xl hidden backdrop-blur-md overflow-hidden z-[110]">
                             <button type="button" onclick="selectEngine('google')" class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer"><i class="fab fa-google text-blue-400"></i> <span data-i18n="enGoogle">谷歌 Google</span></button>
                             <button type="button" onclick="selectEngine('bing')" class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer"><i class="fab fa-microsoft text-teal-400"></i> <span data-i18n="enBing">必应 Bing</span></button>
                             <button type="button" onclick="selectEngine('baidu')" class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer"><i class="fas fa-paw text-red-400"></i> <span data-i18n="enBaidu">百度 Baidu</span></button>
                             <button type="button" onclick="selectEngine('github')" class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer"><i class="fab fa-github text-slate-400"></i> <span>GitHub</span></button>
+                            <div class="border-t border-slate-800 my-1"></div>
+                            <button type="button" onclick="selectEngine('sitesearch')" class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer"><i class="fas fa-search-location text-amber-400"></i> <span>站内搜索</span></button>
                         </div>
                     </div>
                     <input type="text" id="search-input" name="q" data-i18n-placeholder="searchGoogle" placeholder="在 Google 中搜索..." autocomplete="off" class="w-full bg-transparent border-none py-4 px-3 focus:outline-none focus:ring-0 text-base">
@@ -106,6 +108,8 @@
                 </div>
             </form>
         </div>
+<!-- ============ 导航卡片网格 ============ -->
+<div id="main-nav-grid" class="w-full grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 relative z-10 items-start">
 
         <!-- ============ 导航卡片网格 ============ -->
         <div id="main-nav-grid" class="w-full grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 relative z-10 items-start">
@@ -569,7 +573,390 @@
                 <span class="text-sm font-medium text-slate-400 mt-1" data-i18n="addSectionBtn">添加自定义区域</span>
             </div>
 
-        </div>
+
+<!-- ========== 从 kjgx.168668520.xyz 合并的新增分类卡片（已去重）========== -->
+
+            <!-- 社区咨询 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-cyan-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-cyan-400 mb-4 flex items-center"><i class="fas fa-comments mr-2.5"></i> 社区咨询</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.leiphone.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>雷锋网</a>
+                    <a href="https://36kr.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>36kr</a>
+                    <a href="https://www.digitaling.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-yellow-400"></span>数英网</a>
+                    <a href="https://www.lieyunwang.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-indigo-400"></span>猎云网</a>
+                    <a href="https://www.woshipm.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>人人都是产品经理</a>
+                    <a href="https://www.zaodula.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-teal-400"></span>互联网早读课</a>
+                    <a href="http://www.chanpin100.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>产品壹佰</a>
+                    <a href="http://www.pmcaff.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>PMCAFF</a>
+                    <a href="http://www.iyunying.org" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-green-400"></span>爱运营</a>
+                    <a href="https://www.niaogebiji.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-amber-400"></span>鸟哥笔记</a>
+                    <a href="http://www.gtn9.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>古田路9号</a>
+                    <a href="http://www.uigreat.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>优阁网</a>
+                </div>
+            </div>
+
+            <!-- 发现产品 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-lime-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-lime-400 mb-4 flex items-center"><i class="fas fa-rocket mr-2.5"></i> 发现产品</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.producthunt.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>ProductHunt</a>
+                    <a href="https://next.36kr.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>NEXT</a>
+                    <a href="https://sspai.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>少数派</a>
+                    <a href="https://liqi.app" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>利器</a>
+                    <a href="https://usetoday.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>Today</a>
+                    <a href="https://www.appinn.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>小众软件</a>
+                </div>
+            </div>
+
+            <!-- 界面灵感 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-violet-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-violet-400 mb-4 flex items-center"><i class="fas fa-mobile-alt mr-2.5"></i> 界面灵感</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://pttrns.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Pttrns</a>
+                    <a href="https://collectui.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-teal-400"></span>Collect UI</a>
+                    <a href="https://uiuigreat.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>UI uigreat</a>
+                    <a href="https://androidniceties.tumblr.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-green-400"></span>Android Niceties</a>
+                </div>
+            </div>
+
+            <!-- 网页灵感 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-fuchsia-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-fuchsia-400 mb-4 flex items-center"><i class="fas fa-globe-asia mr-2.5"></i> 网页灵感</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.awwwards.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-black dark:bg-white"></span>Awwwards</a>
+                    <a href="https://www.cssdesignawards.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>CSS Design Awards</a>
+                    <a href="https://thefwa.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>The FWA</a>
+                    <a href="https://ecommercefolio.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>Ecommercefolio</a>
+                    <a href="https://lapa.ninja" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>Lapa</a>
+                    <a href="https://reeoo.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>Reeoo</a>
+                    <a href="https://designmunk.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>Designmunk</a>
+                    <a href="https://bestwebsite.gallery" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>BWG</a>
+                    <a href="https://pages.craft" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-indigo-400"></span>Pages</a>
+                    <a href="https://sitesee.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-teal-400"></span>SiteSee</a>
+                    <a href="https://siteinspire.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-amber-400"></span>Site Inspire</a>
+                    <a href="https://webinspiration.net" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-rose-400"></span>WebInspiration</a>
+                    <a href="https://navnav.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-cyan-400"></span>navnav</a>
+                    <a href="https://reallygoodux.io" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-green-400"></span>Really Good UX</a>
+                </div>
+            </div>
+
+            <!-- 图标素材 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-amber-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-amber-400 mb-4 flex items-center"><i class="icons fas fa-icons mr-2.5"></i> 图标素材</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://iconfinder.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Iconfinder</a>
+                    <a href="https://www.iconfont.cn" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>iconfont</a>
+                    <a href="https://iconmonstr.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>iconmonstr</a>
+                    <a href="https://iconarchive.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>Icon Archive</a>
+                    <a href="https://findicons.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>FindIcons</a>
+                    <a href="https://icomoon.io/app" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>IcoMoonApp</a>
+                    <a href="https://easyicon.net" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>easyicon</a>
+                    <a href="https://flaticon.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>flaticon</a>
+                    <a href="https://www.uicloud.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-indigo-400"></span>UICloud</a>
+                    <a href="https://material.io/icons" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-500"></span>Material icons</a>
+                    <a href="https://fontawesome.com/icons" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-500"></span>Font Awesome Icon</a>
+                    <a href="https://ionicicons.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-indigo-500"></span>ion icons</a>
+                    <a href="https://simplelineicons.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-gray-400"></span>Simpleline Icons</a>
+                </div>
+            </div>
+
+            <!-- LOGO设计 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-rose-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-rose-400 mb-4 flex items-center"><i class="fas fa-trademark mr-2.5"></i> LOGO设计</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://iconsfeed.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>Iconsfeed</a>
+                    <a href="https://iosicongallery.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>iOS Icon Gallery</a>
+                    <a href="https://worldvectorlogo.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>World Vector Logo</a>
+                    <a href="https://instantlogosearch.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>Instant Logo Search</a>
+                </div>
+            </div>
+
+            <!-- 平面素材 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-orange-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-orange-400 mb-4 flex items-center"><i class="fas fa-image mr-2.5"></i> 平面素材</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://freepik.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-green-400"></span>freepik</a>
+                    <a href="https://wallha.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>wallhalla</a>
+                    <a href="https://365psd.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>365PSD</a>
+                    <a href="https://medialoot.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>Medialoot</a>
+                    <a href="https://58pic.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-amber-400"></span>千图网</a>
+                    <a href="https://qianku.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>千库网</a>
+                    <a href="https://ooopic.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>我图网</a>
+                    <a href="https://90sheji.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-500"></span>90设计</a>
+                    <a href="https://nipic.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>昵图网</a>
+                    <a href="https://lantutu.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-teal-400"></span>懒人图库</a>
+                    <a href="https://sou.sucai.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-indigo-400"></span>素材搜索</a>
+                    <a href="https://psefan.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-500"></span>PS饭团网</a>
+                    <a href="https://sc.nnzc.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-500"></span>素材中国</a>
+                </div>
+            </div>
+
+            <!-- UI资源 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-indigo-400 mb-4 flex items-center"><i class="fas fa-layer-group mr-2.5"></i> UI资源</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://freebiesbug.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>Freebiesbug</a>
+                    <a href="https://freebiesupply.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Freebie Supply</a>
+                    <a href="https://yrucd.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-teal-400"></span>云瑞</a>
+                    <a href="https://designmodo.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>Designmodo</a>
+                    <a href="https://xituqu.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>稀土区</a>
+                    <a href="https://ui8.net" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>ui8</a>
+                    <a href="https://uplabs.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>uplabs</a>
+                    <a href="https://uikit.me" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>UIkit.me</a>
+                    <a href="https://fribbble.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-500"></span>Fribbble</a>
+                    <a href="https://principlerepo.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>PrincipleRepo</a>
+                </div>
+            </div>
+
+            <!-- Sketch资源 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-yellow-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-yellow-400 mb-4 flex items-center"><i class="fab fa-sketch mr-2.5"></i> Sketch资源</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://sketch.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-yellow-400"></span>Sketch</a>
+                    <a href="https://sketchmeasure.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Sketch Measure</a>
+                    <a href="https://sketchappsources.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>Sketch App Sources</a>
+                    <a href="https://sketch.im" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>Sketch.im</a>
+                    <a href="https://sketchhunt.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>Sketch Hunt</a>
+                    <a href="https://sketchcn.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>Sketch中文网</a>
+                    <a href="https://awesomesketchplugins.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>Awesome Sketch Plugins</a>
+                    <a href="https://sketchcasts.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>Sketchcasts</a>
+                </div>
+            </div>
+
+            <!-- 字体资源 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-stone-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-stone-400 mb-4 flex items-center"><i class="fas fa-font mr-2.5"></i> 字体资源</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://fonts.google.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>Google Font</a>
+                    <a href="https://fonts.adobe.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>Typekit</a>
+                    <a href="https://www.foundertype.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-500"></span>方正字库</a>
+                    <a href="https://ziticq.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>字体传奇网</a>
+                    <a href="https://sicangziti.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>私藏字体</a>
+                    <a href="https://fontsquirrel.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>Fontsquirrel</a>
+                    <a href="https://urbanfonts.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Urban Fonts</a>
+                    <a href="https://losttype.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-amber-400"></span>Lost Type</a>
+                    <a href="https://fonts2u.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>FONTS2U</a>
+                    <a href="https://fontex.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>Fontex</a>
+                    <a href="https://fontm.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-500"></span>FontM</a>
+                    <a href="https://myfonts.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>My Fonts</a>
+                    <a href="https://dafont.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-green-400"></span>Da Font</a>
+                    <a href="https://onlinewebfonts.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-indigo-400"></span>OnlineWebFonts</a>
+                    <a href="https://abstractfonts.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-teal-400"></span>Abstract Fonts</a>
+                </div>
+            </div>
+
+            <!-- Mockup -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-sky-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-sky-400 mb-4 flex items-center"><i class="fas fa-box-open mr-2.5"></i> Mockup</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://mockupzone.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>MockupZone</a>
+                    <a href="https://dunnnk.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>Dunnnk</a>
+                    <a href="https://graphberry.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>Graphberry</a>
+                    <a href="https://threed.io" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>Threed</a>
+                    <a href="https://mockupworld.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Mockup World</a>
+                    <a href="https://lstore.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>Lstore</a>
+                    <a href="https://pixeden.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>pixeden</a>
+                    <a href="https://graphic.tm" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-indigo-400"></span>For Graphic TM</a>
+                </div>
+            </div>
+
+            <!-- 摄影图库 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-emerald-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><i class="fas fa-camera-retro mr-2.5"></i> 摄影图库</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>Unsplash</a>
+                    <a href="https://visualhunt.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>visualhunt</a>
+                    <a href="https://librestock.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>librestock</a>
+                    <a href="https://pixabay.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>pixabay</a>
+                    <a href="https://splitshire.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>SplitShire</a>
+                    <a href="https://stocksnap.io" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>StockSnap</a>
+                    <a href="https://albumarium.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>albumarium</a>
+                    <a href="https://myphotopack.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-500"></span>myphotopack</a>
+                    <a href="https://notaselfie.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-amber-400"></span>Notaselfie</a>
+                    <a href="https://papers.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>papers</a>
+                    <a href="https://stokpic.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-teal-400"></span>stokpic</a>
+                    <a href="https://55mm.org" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-indigo-400"></span>55mm</a>
+                    <a href="https://thestocks.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-green-400"></span>thestocks</a>
+                    <a href="https://freenaturestock.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-500"></span>freenaturestock</a>
+                    <a href="https://negativespace.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>negativespace</a>
+                    <a href="https://gratisography.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>gratisography</a>
+                    <a href="https://imcreator.com/free" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>imcreator</a>
+                    <a href="https://lifeofpix.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-yellow-400"></span>lifeofpix</a>
+                    <a href="https://skitterphoto.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>skitterphoto</a>
+                    <a href="https://mmtstock.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>mmtstock</a>
+                    <a href="https://magdeleine.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>magdeleine</a>
+                    <a href="https://jeshoots.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>jeshoots</a>
+                    <a href="https://hdwallpapers.net" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>hdwallpapers</a>
+                    <a href="https://publicdomainarchive.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-amber-400"></span>publicdomainarchive</a>
+                </div>
+            </div>
+
+            <!-- PPT资源 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-red-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-red-400 mb-4 flex items-center"><i class="fas fa-file-powerpoint mr-2.5"></i> PPT资源</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://officeplus.cn" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>OfficePLUS</a>
+                    <a href="https://ypppt.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>优品PPT</a>
+                    <a href="https://ppt.plus" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>PPT+</a>
+                    <a href="https://pptmind.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>PPTMind</a>
+                    <a href="https://tretars.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>tretars</a>
+                    <a href="https://500d.me" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>5百丁</a>
+                </div>
+            </div>
+
+            <!-- 图形创意 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-blue-600/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-blue-500 mb-4 flex items-center"><i class="fas fa-bezier-curve mr-2.5"></i> 图形创意</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.adobe.com/products/photoshop.html" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-600"></span>Photoshop</a>
+                    <a href="https://affinity.serif.com/designer" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>Affinity Designer</a>
+                    <a href="https://www.adobe.com/products/illustrator.html" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>Illustrator</a>
+                    <a href="https://www.adobe.com/products/indesign.html" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>InDesign</a>
+                    <a href="https://www.maxon.net/cinema-4d" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Cinema 4D</a>
+                    <a href="https://www.autodesk.com/products/3ds-max" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>3ds Max</a>
+                    <a href="https://blender.org" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-500"></span>Blender</a>
+                </div>
+            </div>
+
+            <!-- 界面设计 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-pink-400 mb-4 flex items-center"><i class="fas fa-pencil-ruler mr-2.5"></i> 界面设计</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://sketch.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-yellow-400"></span>Sketch</a>
+                    <a href="https://www.adobe.com/products/xd.html" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-500"></span>Adobe XD</a>
+                    <a href="https://invisionapp.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>InVision</a>
+                    <a href="https://marvelapp.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>Marvel App</a>
+                    <a href="https://www.adobe.com/products/muse.html" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>Muse CC</a>
+                    <a href="https://figma.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>Figma</a>
+                </div>
+            </div>
+
+            <!-- 交互动效 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-amber-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-amber-400 mb-4 flex items-center"><i class="fas fa-magic mr-2.5"></i> 交互动效</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.adobe.com/products/aftereffects.html" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>After Effects CC</a>
+                    <a href="https://principleformac.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>Principle</a>
+                    <a href="https://flinto.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>Flinto</a>
+                    <a href="https://framer.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Framer</a>
+                    <a href="https://protopie.io" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>ProtoPie</a>
+                </div>
+            </div>
+
+            <!-- 在线配色（扩展版，合并原有色彩工具+目标网站新增） -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-gradient-to-r hover:from-pink-500 hover:to-violet-500 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent mb-4 flex items-center"><i class="fas fa-palette mr-2.5"></i> 在线配色</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://khroma.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>khroma</a>
+                    <a href="https://uigradients.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>uigradients</a>
+                    <a href="https://gradienthunt.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>gradients</a>
+                    <a href="https://coolors.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-violet-400"></span>Coolest</a>
+                    <a href="https://webgradients.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>webgradients</a>
+                    <a href="https://grabient.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-teal-400"></span>grabient</a>
+                    <a href="https://thedayscolor.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-amber-400"></span>thedayscolor</a>
+                    <a href="https://flatuicolors.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>flatuicolors</a>
+                    <a href="https://colorhunt.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>colorhunt</a>
+                    <a href="https://color.adobe.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>Adobe Color CC</a>
+                    <a href="https://flatuicolorpicker.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>flatuicolorpicker</a>
+                    <a href="https://trianglify.io" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-indigo-400"></span>trianglify</a>
+                    <a href="https://klart.one" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-500"></span>klart</a>
+                    <a href="https://vanschneider.com/color-claim" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>vanschneider</a>
+                </div>
+            </div>
+
+            <!-- Chrome插件 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-green-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-green-400 mb-4 flex items-center"><i class="fab fa-chrome mr-2.5"></i> Chrome插件</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://www.wappalyzer.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>wappalyzer</a>
+                    <a href="https://usepanda.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>Panda</a>
+                    <a href="https://sizzy.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>sizzy</a>
+                    <a href="https://csspeeper.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>csspeeper</a>
+                    <a href="https://insight.co" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>insight</a>
+                    <a href="https://mustsee.berlin" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-amber-400"></span>mustsee</a>
+                </div>
+            </div>
+
+            <!-- 设计规范 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-teal-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-teal-400 mb-4 flex items-center"><i class="fas fa-book-open mr-2.5"></i> 设计规范</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://designguidelines.info" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Design Guidelines</a>
+                    <a href="https://awesomedesignsystems.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>Awesome design systems</a>
+                    <a href="https://material.io/design" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-500"></span>Material Design</a>
+                    <a href="https://developer.apple.com/design/human-interface-guidelines" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>Human Interface Guidelines</a>
+                    <a href="https://photoshopetiquette.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Photoshop Etiquette</a>
+                </div>
+            </div>
+
+            <!-- 视频教程 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-orange-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-orange-400 mb-4 flex items-center"><i class="fas fa-video mr-2.5"></i> 视频教程</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://photoshoplady.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>Photoshop Lady</a>
+                    <a href="https://doyoudo.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>doyoudo</a>
+                    <a href="https://meiwedao.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>没位道</a>
+                    <a href="https://www.imooc.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>慕课网</a>
+                </div>
+            </div>
+
+            <!-- 设计文章 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-indigo-400 mb-4 flex items-center"><i class="fas fa-newspaper mr-2.5"></i> 设计文章</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://uisdc.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>优设网</a>
+                    <a href="https://webdesignledger.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>Web Design Ledger</a>
+                    <a href="https://medium.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>Medium</a>
+                </div>
+            </div>
+
+            <!-- 设计电台 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-purple-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><i class="fas fa-headphones-alt mr-2.5"></i> 设计电台</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://uxcoffee.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-amber-400"></span>UX Coffee</a>
+                    <a href="https://anyway.fm" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>Anyway.FM</a>
+                    <a href="https://yineng.fm" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>异能电台</a>
+                </div>
+            </div>
+
+            <!-- 交互设计 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-cyan-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-cyan-400 mb-4 flex items-center"><i class="fas fa-hand-pointer mr-2.5"></i> 交互设计</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://littlebigdetails.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>Little Big Details</a>
+                    <a href="https://smashingmagazine.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>Smashing Magazine</a>
+                    <a href="https://nngroup.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>nngroup</a>
+                    <a href="https://boxesandarrows.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-amber-400"></span>Boxes and Arrows</a>
+                    <a href="https://uxdesignweekly.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>UX Design Weekly</a>
+                    <a href="https://uxren.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>UX Ren</a>
+                </div>
+            </div>
+
+            <!-- UED团队 -->
+            <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-violet-500/30 transition-all duration-300 cat-card">
+                <h3 class="text-lg font-semibold text-violet-400 mb-4 flex items-center"><i class="fas fa-users-cog mr-2.5"></i> UED团队</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://airbnb.design" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>Airbnb Design</a>
+                    <a href="https://facebook.design" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-500"></span>Facebook Design</a>
+                    <a href="https://design.google" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>Google Design</a>
+                    <a href="https://eico-design.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>eico design</a>
+                    <a href="https://niceui.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-pink-400"></span>nice design</a>
+                    <a href="https://cdc.tencent.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>腾讯CDC</a>
+                    <a href="https://tgideas.qq.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-emerald-400"></span>TGideas</a>
+                    <a href="https://isux.tencent.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-500"></span>ISUX</a>
+                    <a href="https://mxd.tencent.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-purple-400"></span>MXD</a>
+                    <a href="https://aliued.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-orange-400"></span>Aliued</a>
+                    <a href="https://ued.yixin.im" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>U一点</a>
+                    <a href="https://ued.163.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-500"></span>网易UEDC</a>
+                    <a href="https://ux.baidu.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-blue-400"></span>百度用户体验中心</a>
+                    <a href="https://jdc.jd.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-red-400"></span>京东设计中心</a>
+                    <a href="https://eux.baidu.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-slate-400"></span>百度企业产品用户体验中心</a>
+                    <a href="https://design.ctrip.com" target="_blank" rel="noopener noreferrer" class="link-pill"><span class="link-dot bg-sky-400"></span>携程设计委员会</a>
+                </div>
+            </div>
+
+            <!-- ========== 从 kjgx.168668520.xyz 合并的新增分类卡片结束 ========== -->
 
         <!-- 友情链接 -->
         <div class="w-full relative z-10 mb-12">
@@ -624,32 +1011,34 @@
                 pageTitle: "chefdon-智能多功能响应式导航", langTitle: "语言 / Language", themeTitle: "基础色彩模式 (本地偏好)",
                 themeLight: "日间", themeDark: "夜间", bgTitle: "自定义背景 (全站同步)", bgInputPlace: "输入图片网址 https://...",
                 applyBtn: "应用", clearBg: "清除壁纸", logoutBtn: "退出后台管理", weatherLoading: "正在定位测算天气...",
-                enGoogle: "谷歌 Google", enBing: "必应 Bing", enBaidu: "百度 Baidu", searchGoogle: "在 Google 中搜索...", searchBing: "在 必应 Bing 中搜索...", searchBaidu: "在 百度 Baidu 中搜索...", searchGithub: "在 GitHub 中搜索仓库...",
+                enGoogle: "谷歌 Google", enBing: "必应 Bing", enBaidu: "百度 Baidu",
+                searchGoogle: "在 Google 中搜索...", searchBing: "在 必应 Bing 中搜索...", searchBaidu: "在 百度 Baidu 中搜索...", searchGithub: "在 GitHub 中搜索仓库...", searchSiteSearch: "站内搜索 · 输入关键词搜索本站链接...",
                 cardRec: "常用推荐", cardDev: "效率与开发", cardCustom: "站长推荐", cardFriend: "友情链接",
                 linkBlog: "科技共享博客", linkBili: "哔哩哔哩", linkZhihu: "知乎", linkWeibo: "微博", linkJuejin: "稀土掘金",
                 addCloud: "添加 (云端)", addLocal: "添加 (本地)", expandMore: "展开显示更多", collapseMore: "收起部分站点",
                 footerText: "&copy; 2026 科技共享-智能生态导航 · Powered by Cloudflare", adminBadge: "已登入",
                 modalAddCloud: "添加云端站长推荐", modalAddFriend: "添加友情链接", siteName: "网站名称", siteNamePlace: "例如：百度", siteUrl: "网站网址 (URL)",
                 btnCancel: "取消", btnSave: "保存站点", noCloudLinks: "暂无自定义链接", loadingCloud: "正在从云端加载...",
-                delConfirm: "确定要删除这个链接吗？", pwdPrompt: "🔐 请输入后台管理员安全密码：", pwdSuccess: "🎉 认证成功！管理功能已全部解锁。", pwdFail: "❌ 密码错误，鉴权失败！", logoutMsg: "🔒 已安全退出管理后台，页面回归只读状态。",
-                weatherCloudy: "多云", weatherClear: "晴朗", weatherRain: "阵雨", weatherSnow: "降雪", weatherThunder: "雷阵雨", weatherDefault: "风调雨顺 · 晴", validUrlMsg: "提示：请输入有效的网址！",
+                delConfirm: "确定要删除这个链接吗？", pwdPrompt: "\ud83d\udd10 请输入后台管理员安全密码：", pwdSuccess: "\ud83c\udf89 认证成功！管理功能已全部解锁。", pwdFail: "\u274c 密码错误，鉴权失败！", logoutMsg: "\ud83d\udd12 已安全退出管理后台，页面回归只读状态。",
+                weatherCloudy: "多云", weatherClear: "晴朗", weatherRain: "阵雨", weatherSnow: "降雪", weatherThunder: "雷阵雨", weatherDefault: "风调雨顺 \u00b7 晴", validUrlMsg: "提示：请输入有效的网址！",
                 addSectionBtn: "添加自定义区域", promptSectionName: "请输入新区域的名称 (例如：AI工具)：", delSectionConfirm: "确定要删除整个区域及其所有链接吗？", modalAddSection: "添加到自定义区域",
                 renameSectionPrompt: "请输入新的区域名称：",
                 pwdTitle: "修改管理员密码 (全站同步)", pwdInputPlace: "输入新密码", saveBtn: "保存", pwdUpdateSuccess: "管理员密码修改成功！下次登录生效。"
             },
             en: {
-                pageTitle: "TechShare - Smart Responsive Nav", langTitle: "Language / 语言", themeTitle: "Color Theme (Local Pref)",
+                pageTitle: "TechShare - Smart Responsive Nav", langTitle: "Language / \u8bed\u8a00", themeTitle: "Color Theme (Local Pref)",
                 themeLight: "Light", themeDark: "Dark", bgTitle: "Custom Wallpaper (Cloud Sync)", bgInputPlace: "Image URL https://...",
                 applyBtn: "Apply", clearBg: "Clear Wallpaper", logoutBtn: "Logout Admin", weatherLoading: "Fetching weather...",
-                enGoogle: "Google", enBing: "Bing", enBaidu: "Baidu", searchGoogle: "Search in Google...", searchBing: "Search in Bing...", searchBaidu: "Search in Baidu...", searchGithub: "Search in GitHub...",
+                enGoogle: "Google", enBing: "Bing", enBaidu: "Baidu",
+                searchGoogle: "Search in Google...", searchBing: "Search in Bing...", searchBaidu: "Search in Baidu...", searchGithub: "Search in GitHub...", searchSiteSearch: "Site Search \u00b7 Type keywords to search links on this page...",
                 cardRec: "Recommended", cardDev: "Dev & Tools", cardCustom: "Webmaster Picks", cardFriend: "Friend Links",
                 linkBlog: "TechShare Blog", linkBili: "Bilibili", linkZhihu: "Zhihu", linkWeibo: "Weibo", linkJuejin: "Juejin",
                 addCloud: "Add (Cloud)", addLocal: "Add (Local)", expandMore: "Show More", collapseMore: "Collapse",
-                footerText: "&copy; 2026 TechShare Smart Nav · Powered by Cloudflare", adminBadge: "Logged In",
+                footerText: "&copy; 2026 TechShare Smart Nav \u00b7 Powered by Cloudflare", adminBadge: "Logged In",
                 modalAddCloud: "Add Cloud Link", modalAddFriend: "Add Friend Link", siteName: "Site Name", siteNamePlace: "e.g., Google", siteUrl: "Site URL",
                 btnCancel: "Cancel", btnSave: "Save Site", noCloudLinks: "No custom links yet", loadingCloud: "Loading from cloud...",
-                delConfirm: "Are you sure you want to delete this link?", pwdPrompt: "🔐 Enter Admin Password:", pwdSuccess: "🎉 Authenticated! Admin features unlocked.", pwdFail: "❌ Incorrect password!", logoutMsg: "🔒 Logged out safely. Read-only mode activated.",
-                weatherCloudy: "Cloudy", weatherClear: "Clear", weatherRain: "Rain", weatherSnow: "Snow", weatherThunder: "Thunder", weatherDefault: "Good Weather · Clear", validUrlMsg: "Please enter a valid URL!",
+                delConfirm: "Are you sure you want to delete this link?", pwdPrompt: "\ud83d\udd10 Enter Admin Password:", pwdSuccess: "\ud83c\udf89 Authenticated! Admin features unlocked.", pwdFail: "\u274c Incorrect password!", logoutMsg: "\ud83d\udd12 Logged out safely. Read-only mode activated.",
+                weatherCloudy: "Cloudy", weatherClear: "Clear", weatherRain: "Rain", weatherSnow: "Snow", weatherThunder: "Thunder", weatherDefault: "Good Weather \u00b7 Clear", validUrlMsg: "Please enter a valid URL!",
                 addSectionBtn: "Add Custom Section", promptSectionName: "Enter new section name (e.g., AI Tools):", delSectionConfirm: "Are you sure you want to delete this entire section?", modalAddSection: "Add to Custom Section",
                 renameSectionPrompt: "Enter new section name:",
                 pwdTitle: "Change Admin Password (Cloud Sync)", pwdInputPlace: "Enter new password", saveBtn: "Save", pwdUpdateSuccess: "Admin password updated successfully! Valid on next login."
@@ -657,9 +1046,9 @@
         };
 
         const dynamicLinkDict = {
-            "https://kjgx668.blogspot.com": { zh: "科技共享", en: "TechShare Blog" },
-            "https://kjgx.168668520.xyz": { zh: "科技共享导航", en: "TechShare Nav" },
-            "https://it-toutiao.blogspot.com": { zh: "IT头条博客", en: "IT Toutiao Blog" }
+            "https://kjgx668.blogspot.com": { zh: "\u79d1\u6280\u5171\u4eab", en: "TechShare Blog" },
+            "https://kjgx.168668520.xyz": { zh: "\u79d1\u6280\u5171\u4eab\u5bfc\u822a", en: "TechShare Nav" },
+            "https://it-toutiao.blogspot.com": { zh: "IT\u5934\u6765\u535a\u5ba2", en: "IT Toutiao Blog" }
         };
 
         function getLocalizedLinkName(originalName, url) { if (url && dynamicLinkDict[url]) return dynamicLinkDict[url][currentLang]; return originalName; }
@@ -668,10 +1057,10 @@
         function applyLanguage() { document.getElementById('page-title').innerText = t('pageTitle'); document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n')); }); document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.getAttribute('data-i18n-placeholder')); }); loadCustomLinks(); loadFriendLinks(); renderDynamicSections(); }
 
         function checkAdminSession() { const isAdmin = localStorage.getItem('nav_admin_auth') === 'true'; if (isAdmin) { document.body.classList.add('is-admin'); document.getElementById('admin-badge').classList.remove('hidden'); } else { document.body.classList.remove('is-admin'); document.getElementById('admin-badge').classList.add('hidden'); } }
-        function triggerAdminLogin() { if (localStorage.getItem('nav_admin_auth') === 'true') { alert(currentLang === 'zh' ? "提示：您已处于后台管理模式。" : "Notice: You are already in admin mode."); return; } const pwd = prompt(t('pwdPrompt')); if (pwd === null) return; const currentValidPwd = cloudConfig.adminPwd || "admin888"; if (pwd === currentValidPwd) { localStorage.setItem('nav_admin_auth', 'true'); alert(t('pwdSuccess')); checkAdminSession(); } else { alert(t('pwdFail')); } }
+        function triggerAdminLogin() { if (localStorage.getItem('nav_admin_auth') === 'true') { alert(currentLang === 'zh' ? "\u63d0\u793a\uff1a\u60a8\u5df2\u5904\u4e8e\u540e\u53f0\u7ba1\u7406\u6a21\u5f0f\u3002" : "Notice: You are already in admin mode."); return; } const pwd = prompt(t('pwdPrompt')); if (pwd === null) return; const currentValidPwd = cloudConfig.adminPwd || "admin888"; if (pwd === currentValidPwd) { localStorage.setItem('nav_admin_auth', 'true'); alert(t('pwdSuccess')); checkAdminSession(); } else { alert(t('pwdFail')); } }
         function logoutAdmin() { localStorage.removeItem('nav_admin_auth'); alert(t('logoutMsg')); isCustomLinksExpanded = false; expandedDynamicSections = {}; checkAdminSession(); document.getElementById('theme-panel').classList.add('hidden'); }
 
-        async function updateAdminPwd() { const newPwd = document.getElementById('custom-pwd-input').value.trim(); if (!newPwd) return; cloudConfig.adminPwd = newPwd; document.getElementById('custom-pwd-input').value = ''; document.getElementById('theme-panel').classList.add('hidden'); try { await fetch('/api/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cloudConfig) }); alert(t('pwdUpdateSuccess')); } catch (e) { console.error("云端密码同步失败", e); } }
+        async function updateAdminPwd() { const newPwd = document.getElementById('custom-pwd-input').value.trim(); if (!newPwd) return; cloudConfig.adminPwd = newPwd; document.getElementById('custom-pwd-input').value = ''; document.getElementById('theme-panel').classList.add('hidden'); try { await fetch('/api/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cloudConfig) }); alert(t('pwdUpdateSuccess')); } catch (e) { console.error("\u4e91\u7aef\u5bc6\u7801\u540c\u6b65\u5931\u8d25", e); } }
 
         function handleDragStart(e, type, secId, linkIdx = null) { e.stopPropagation(); if (localStorage.getItem('nav_admin_auth') !== 'true') { e.preventDefault(); return; } dragType = type; dragSecId = secId; dragLinkIdx = linkIdx; e.dataTransfer.effectAllowed = 'move'; const target = e.currentTarget; setTimeout(() => target.classList.add('dragging'), 0); }
         function handleDragEnd(e) { e.stopPropagation(); e.currentTarget.classList.remove('dragging'); document.querySelectorAll('.dynamic-section-card, .group').forEach(el => el.style.border = ''); }
@@ -699,32 +1088,157 @@
 
         function deleteSectionLink(e, secId, linkIdx) { e.preventDefault(); e.stopPropagation(); let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === secId); if (sec) { sec.links.splice(linkIdx, 1); saveDynamicSections(secs); } }
 
-        const sTermNames = ["小寒","大寒","立春","雨水","惊蛰","春分","清明","谷雨","立夏","小满","芒种","夏至","小暑","大暑","立秋","处暑","白露","秋分","寒露","霜降","立冬","小雪","大雪","冬至"];
+        const sTermNames = ["\u5c0f\u5bd2","\u5927\u5bd2","\u7acb\u6625","\u96e8\u6c34","\u60ca\u86f0","\u6625\u5206","\u6e05\u660e","\u8c37\u96e3","\u7acb\u590f","\u5c0f\u6ee1","\u8292\u79cd","\u590f\u81f3","\u5c0f\u6691","\u5927\u6691","\u7acb\u79cb","\u5904\u6691","\u767d\u9732","\u79cb\u5206","\u5bd2\u9732","\u971c\u964d","\u7acb\u51ac","\u5c0f\u96ea","\u5927\u96ea","\u51ac\u81f3"];
         const sTermInfo = [0,21208,42467,63836,85337,107014,128867,150921,173149,195551,218072,240693,263343,285989,308563,331033,353350,375494,397447,419210,440795,462224,483532,504758];
         function getSolarTerm(y,m,d){ const b=new Date(1900,0,6,2,5,0); const t1=new Date((31556925974.7*(y-1900)+sTermInfo[(m*2)])+b.getTime()); if(t1.getMonth()==m&&t1.getDate()==d)return sTermNames[m*2]; const t2=new Date((31556925974.7*(y-1900)+sTermInfo[(m*2+1)])+b.getTime()); if(t2.getMonth()==m&&t2.getDate()==d)return sTermNames[m*2+1]; return null; }
-        function updateClockAndGreeting(){ const n=new Date(); const y=n.getFullYear(),m=n.getMonth(),d=n.getDate(),h=n.getHours(); document.getElementById('clock').innerText=`${String(h).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`; let g=""; if(currentLang==='zh'){ const t=getSolarTerm(y,m,d); const md=`${String(m+1).padStart(2,'0')}${String(d).padStart(2,'0')}`; const fs={"0101":"元旦快乐","0308":"妇女节快乐","0501":"五一劳动节","0601":"儿童节快乐","1001":"国庆节快乐","1225":"圣诞节"}; const f=fs[md]||null; if(f)g=`🎉 今天是 ${f}，祝你开心！`; else if(t)g=`🍃 今日节气 · 【${t}】，顺应四时，平安喜乐。`; else{ if(h>=0&&h<5)g="🌙 夜深了，静谧的星空在守护你，早点休息哦"; else if(h>=5&&h<8)g="🌅 清晨的朝阳刚刚升起，新的一天充满希望"; else if(h>=8&&h<11.5)g="☀️ 早上好，专注当下，今天也要元气满满"; else if(h>=11.5&&h<13.5)g="🍲 中午好，记得按时吃饭，歇息一下双眼"; else if(h>=13.5&&h<17.5)g="☕ 下午好，来杯清茶或咖啡，继续保持高效"; else if(h>=17.5&&h<19.5)g="🌇 傍晚好，落日余晖很美，放下疲惫准备享受夜晚吧"; else g="✨ 晚上好，属于自己的惬意时光，好好犒劳一下自己"; } } else{ if(h>=0&&h<5)g="🌙 Late night, the stars are watching over you. Sleep early."; else if(h>=5&&h<8)g="🌅 The morning sun is rising, a new day full of hope."; else if(h>=8&&h<11.5)g="☀️ Good morning! Stay focused and full of energy."; else if(h>=11.5&&h<13.5)g="🍲 Good noon! Remember to eat on time and rest your eyes."; else if(h>=13.5&&h<17.5)g="☕ Good afternoon! Grab a tea or coffee and keep it up."; else if(h>=17.5&&h<19.5)g="🌇 Good evening! The sunset is beautiful. Relax and enjoy."; else g="✨ Good night! Enjoy your cozy time and treat yourself well."; } document.getElementById('greeting').innerText=g; }
+        function updateClockAndGreeting(){ const n=new Date(); const y=n.getFullYear(),m=n.getMonth(),d=n.getDate(),h=n.getHours(); document.getElementById('clock').innerText=`${String(h).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`; let g=""; if(currentLang==='zh'){ const t=getSolarTerm(y,m,d); const md=`${String(m+1).padStart(2,'0')}${String(d).padStart(2,'0')}`; const fs={"0101":"\u5143\u65e6\u5feb\u4e50","0308":"\5987\u5973\u8282\u5feb\u4e50","0501":"\u4e94\u4e00\u52b3\u52a8\u8282","0601":"\u513f\u7ae5\u8282\u5feb\u4e50","1001":"\u56fd\u5e86\u8282\u5feb\u4e50","1225":"\u5723\u8bde\u8282"}; const f=fs[md]||null; if(f)g=`\ud83c\udf89 \u4eca\u5929\u662f ${f}\uff0c\u795d\u4f60\u5f00\u5fc3\uff01`; else if(t)g=`\ud83c\df03 \u4eca\u65e5\u8282\u6c14 \u00b7 【${t}】\uff0c\u987a\u5e94\u56db\u65f6\uff0c\u5e73\u5b89\u559c\u4e50\u3002`; else{ if(h>=0&&h<5)g="\ud83c\df19 \u591c\u6df1\u4e86\uff0c\u9759\u8c27\u7684\u661f\u7a7a\u5728\u5b88\u62a4\u4f60\uff0c\u65e9\u70b9\u4f11\u606f\u54e6"; else if(h>=5&&h<8)g="\ud83c\df05 \u6e05\u6668\u7684\u671d\u9633\u521a\u521a\u5347\u8d77\uff0c\u65b0\u7684\u4e00\u5929\u5145\u6ee1\u5e0c\u671b"; else if(h>=8&&h<11.5)g="\u2600\ufe0f \u65e9\u4e0a\u597d\uff0c\u4e13\u6ce8\u5f53\u4e0b\uff0c\u4eca\u5929\u4e5f\u8981\u5143\u6c14\u6ee1\u6ee1"; else if(h>=11.5&&h<13.5)g="\ud83c\udf72 \u4e2d\u5348\u597d\uff0c\u8bb0\u5f97\u6309\u65f6\u5403\u996d\uff0c\u6b47\u606f\u4e00\u4e0b\u53cc\u773c"; else if(h>=13.5&&h<17.5)g="\u2615 \u4e0b\u5348\u597d\uff0c\u6765\u676f\u6e05\u8336\u6216\u5496\u5561\uff0c\u7ee7\u7eed\u9ad8\u6548"; else if(h>=17.5&&h<19.5)g="\ud83c\df07 \u508d\u665a\u597d\uff0c\u843d\u65e5\u9918\u8f89\u5f88\u7f8e\uff0c\u653e\u4e0b\u75b2\u7eb9\u51c6\u5907\u4eab\u53d7\u591c\u665a\u5427"; else g="\u2728 \u665a\u4e0a\u597d\uff0c\u5c5e\u4e8e\u81ea\u5df1\u7684\u610f\u65f6\u5149\uff0c\u597d\u597d\u6170\u52b3\u4e00\u4e0b\u81ea\u5df1"; } } else{ if(h>=0&&h<5)g="\ud83c\df19 Late night, the stars are watching over you. Sleep early."; else if(h>=5&&h<8)g="\ud83c\df05 The morning sun is rising, a new day full of hope."; else if(h>=8&&h<11.5)g="\u2600\ufe0f Good morning! Stay focused and full of energy."; else if(h>=11.5&&h<13.5)g="\ud83c\df72 Good noon! Remember to eat on time and rest your eyes."; else if(h>=13.5&&h<17.5)g="\u2615 Good afternoon! Grab a tea or coffee and keep it up."; else if(h>=17.5&&h<19.5)g="\ud83c\df07 Good evening! The sunset is beautiful. Relax and enjoy."; else g="\u2728 Good night! Enjoy your cozy time and treat yourself well."; } document.getElementById('greeting').innerText=g; }
         setInterval(updateClockAndGreeting, 1000);
 
         let weatherState = { city: "Earth", temp: 26, code: 0, fetched: false };
         async function fetchWeather(){ try{ const ipRes=await fetch('https://ipapi.co/json/'); if(!ipRes.ok)throw new Error(); const ipData=await ipRes.json(); const {latitude,longitude,city}=ipData; if(!latitude||!longitude)throw new Error(); const wRes=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`); const wData=await wRes.json(); weatherState={city:city||"Earth",temp:Math.round(wData.current_weather.temperature),code:wData.current_weather.weathercode,fetched:true}; }catch(e){weatherState.fetched=false;} renderWeather(); }
-        function renderWeather(){ const el=document.getElementById('weather-info'); if(!weatherState.fetched){el.innerHTML=`<i class="fas fa-cloud text-slate-400"></i> <span>${t('weatherDefault')}</span>`;return;} let dc=weatherState.city; if(currentLang==='zh'){ const cm={"Singapore":"新加坡","Santa Clara":"圣克拉拉","San Jose":"圣何塞","Beijing":"北京","Shanghai":"上海","Shenzhen":"深圳","Guangzhou":"广州","Hangzhou":"杭州","Chengdu":"成都","Hong Kong":"香港"}; dc=cm[dc]||dc; dc=dc.replace(/Province|City/gi,"").trim(); } const code=weatherState.code; let icon='fa-cloud'; let dk='weatherCloudy'; if(code===0){icon='fa-sun text-amber-500';dk='weatherClear';}else if([1,2,3].includes(code)){icon='fa-cloud-sun text-indigo-300';dk='weatherCloudy';}else if([51,53,55,61,63,65,80,81,82].includes(code)){icon='fa-cloud-showers-heavy text-sky-400';dk='weatherRain';}else if([71,73,75,77,85,86].includes(code)){icon='fa-snowflake text-blue-200';dk='weatherSnow';}else if([95,96,99].includes(code)){icon='fa-bolt text-yellow-500';dk='weatherThunder';} el.innerHTML=`<i class="fas ${icon}"></i> <span>${dc} · ${t(dk)} ${weatherState.temp}°C</span>`; }
+        function renderWeather(){ const el=document.getElementById('weather-info'); if(!weatherState.fetched){el.innerHTML=`<i class="fas fa-cloud text-slate-400"></i> <span>${t('weatherDefault')}</span>`;return;} let dc=weatherState.city; if(currentLang==='zh'){ const cm={"Singapore":"\u65b0\u52a0\u5761","Santa Clara":"\u5725\u514b\u62c9\u62c9","San Jose":"\u5723\u4f55\u585e","Beijing":"\u5317\u4eac","Shanghai":"\u4e0a\u6d77","Shenzhen":"\u6df1\u5733","Guangzhou":"\u5e7f\u5dde","Hangzhou":"\u676d\u5dde","Hong Kong":"\u9999\u6e2f"}; dc=cm[dc]||dc; dc=dc.replace(/Province|City/gi,"").trim(); } const code=weatherState.code; let icon='fa-cloud'; let dk='weatherCloudy'; if(code===0){icon='fa-sun text-amber-500';dk='weatherClear';}else if([1,2,3].includes(code)){icon='fa-cloud-sun text-indigo-300';dk='weatherCloudy';}else if([51,53,55,61,63,65,80,81,82].includes(code)){icon='fa-cloud-showers-heavy text-sky-400';dk='weatherRain';}else if([71,73,75,77,85,86].includes(code)){icon='fa-snowflake text-blue-200';dk='weatherSnow';}else if([95,96,99].includes(code)){icon='fa-bolt text-yellow-500';dk='weatherThunder';} el.innerHTML=`<i class="fas ${icon}"></i> <span>${dc} \u00b7 ${t(dk)} ${weatherState.temp}\u00b0C</span>`; }
 
-        const engines = { google: { action: 'https://www.google.com/search', name: 'q', placeholderKey: 'searchGoogle', icon: 'fab fa-google text-blue-400' }, bing: { action: 'https://cn.bing.com/search', name: 'q', placeholderKey: 'searchBing', icon: 'fab fa-microsoft text-teal-400' }, baidu: { action: 'https://www.baidu.com/s', name: 'wd', placeholderKey: 'searchBaidu', icon: 'fas fa-paw text-red-400' }, github: { action: 'https://github.com/search', name: 'q', placeholderKey: 'searchGithub', icon: 'fab fa-github text-slate-400' } };
+        // ======== ENGINES (MODIFIED: added sitesearch) ========
+        const engines = {
+            google: { action: 'https://www.google.com/search', name: 'q', placeholderKey: 'searchGoogle', icon: 'fab fa-google text-blue-400' },
+            bing: { action: 'https://cn.bing.com/search', name: 'q', placeholderKey: 'searchBing', icon: 'fab fa-microsoft text-teal-400' },
+            baidu: { action: 'https://www.baidu.com/s', name: 'wd', placeholderKey: 'searchBaidu', icon: 'fas fa-paw text-red-400' },
+            github: { action: 'https://github.com/search', name: 'q', placeholderKey: 'searchGithub', icon: 'fab fa-github text-slate-400' },
+            sitesearch: { action: '', name: '', placeholderKey: 'searchSiteSearch', icon: 'fas fa-search-location text-amber-400' }
+        };
+
         function toggleEngineMenu(e) { e.stopPropagation(); document.getElementById('engine-menu').classList.toggle('hidden'); }
-        function selectEngine(key) { currentEngineKey = key; const form = document.getElementById('search-form'); const input = document.getElementById('search-input'); const icon = document.getElementById('engine-icon'); form.action = engines[key].action; input.name = engines[key].name; input.setAttribute('data-i18n-placeholder', engines[key].placeholderKey); input.placeholder = t(engines[key].placeholderKey); icon.className = engines[key].icon; document.getElementById('engine-menu').classList.add('hidden'); }
+        function selectEngine(key) {
+            currentEngineKey = key;
+            const form = document.getElementById('search-form');
+            const input = document.getElementById('search-input');
+            const icon = document.getElementById('engine-icon');
+            
+            if (key === 'sitesearch') {
+                // 站内搜索：拦截表单提交，在当前页面搜索所有链接
+                form.action = 'javascript:void(0)';
+                input.name = '';
+                input.setAttribute('data-i18n-placeholder', engines[key].placeholderKey);
+                input.placeholder = t(engines[key].placeholderKey);
+                icon.className = engines[key].icon;
+                // 改变提交行为为站内搜索
+                form.onsubmit = function(e) {
+                    e.preventDefault();
+                    performSiteSearch(input.value.trim());
+                };
+            } else {
+                form.action = engines[key].action;
+                input.name = engines[key].name;
+                input.setAttribute('data-i18n-placeholder', engines[key].placeholderKey);
+                input.placeholder = t(engines[key].placeholderKey);
+                icon.className = engines[key].icon;
+                // 恢复正常提交
+                form.onsubmit = null;
+            }
+            document.getElementById('engine-menu').classList.add('hidden');
+        }
+
+        // ======== 站内搜索功能 ========
+        function performSiteSearch(query) {
+            if (!query) return;
+            query = query.toLowerCase();
+            
+            // 收集页面中所有链接
+            const allLinks = Array.from(document.querySelectorAll('#main-nav-grid a[href]'));
+            const results = [];
+            const seenUrls = new Set();
+            
+            allLinks.forEach(link => {
+                const url = link.href;
+                const text = (link.textContent || '').trim().toLowerCase();
+                
+                // 去重
+                if (seenUrls.has(url)) return;
+                seenUrls.add(url);
+                
+                // 匹配标题或URL
+                if (text.includes(query) || url.toLowerCase().includes(query)) {
+                    results.push({ url, text: link.textContent.trim(), element: link });
+                }
+            });
+            
+            // 显示搜索结果
+            showSiteSearchResults(query, results);
+        }
+
+        function showSiteSearchResults(query, results) {
+            // 移除旧结果面板
+            const oldPanel = document.getElementById('site-search-results');
+            if (oldPanel) oldPanel.remove();
+            
+            const panel = document.createElement('div');
+            panel.id = 'site-search-results';
+            panel.className = 'fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[200] flex items-start justify-center pt-24 overflow-y-auto';
+            panel.onclick = function(e) { if (e.target === panel) panel.remove(); };
+            
+            let resultsHtml = '';
+            if (results.length === 0) {
+                resultsHtml = `
+                    <div class="text-center py-12">
+                        <i class="fas fa-search text-4xl text-slate-500 mb-4"></i>
+                        <p class="text-slate-400">\u672a\u627e\u5230\u4e0e "<strong class="text-indigo-400">${escapeHtml(query)}</strong>" \u76f8\u5173\u7684\u94fe\u63a5</p>
+                        <p class="text-xs text-slate-500 mt-2">\u5efa\u8bae\u5c1d\u8bd5\u5176\u4ed6\u5173\u952e\u8bcd</p>
+                    </div>`;
+            } else {
+                resultsHtml = `
+                    <div class="mb-4 pb-3 border-b border-slate-700">
+                        <span class="text-slate-400 text-sm">\u641c\u7d22\u5173\u952e\u8bcd:</span>
+                        <strong class="text-indigo-400 ml-2">${escapeHtml(query)}</strong>
+                        <span class="text-slate-500 text-sm ml-3">\u5171 ${results.length} \u4e2a\u7ed3\u679c</span>
+                    </div>
+                    <div class="space-y-2 max-h-[60vh] overflow-y-auto">`;
+                results.forEach(r => {
+                    resultsHtml += `
+                        <a href="${r.url}" target="_blank" rel="noopener noreferrer"
+                           class="flex items-center gap-3 p-3 bg-slate-800/60 hover:bg-indigo-600/20 rounded-xl transition-all group">
+                            <i class="fas fa-external-link-alt text-slate-500 group-hover:text-indigo-400 text-xs"></i>
+                            <span class="text-sm text-slate-200 group-hover:text-white">${escapeHtml(r.text)}</span>
+                            <span class="text-xs text-slate-500 ml-auto truncate max-w-[200px]">${escapeHtml(r.url)}</span>
+                        </a>`;
+                });
+                resultsHtml += '</div>';
+            }
+            
+            panel.innerHTML = `
+                <div class="bg-slate-900/95 border border-slate-700/80 rounded-2xl shadow-2xl w-full max-w-2xl mx-4 my-8 p-6 relative" onclick="event.stopPropagation()">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-indigo-400 flex items-center gap-2">
+                            <i class="fas fa-search-location"></i> \u7ad9\u5185\u641c\u7d22
+                        </h3>
+                        <button onclick="this.closest('#site-search-results').remove()"
+                                class="text-slate-400 hover:text-white transition-colors p-1">
+                            <i class="fas fa-times text-lg"></i>
+                        </button>
+                    </div>
+                    ${resultsHtml}
+                </div>`;
+            
+            document.body.appendChild(panel);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
 
         function openLinkModal(target) { currentModalTarget = target; const textEl = document.getElementById('modal-title-text'); if (target === 'friend') textEl.innerText = t('modalAddFriend'); else if (target === 'custom') textEl.innerText = t('modalAddCloud'); else textEl.innerText = t('modalAddSection'); toggleModal(true); }
         function toggleModal(show) { const modal = document.getElementById('modal'); if (show) { document.getElementById('site-name').value = ''; document.getElementById('site-url').value = ''; modal.classList.remove('hidden'); } else { modal.classList.add('hidden'); } }
         function closeModalOnBlank(e) { if (e.target.id === 'modal') toggleModal(false); }
 
-        async function saveActiveLink() { const name = document.getElementById('site-name').value.trim(); let url = document.getElementById('site-url').value.trim(); if (!name || !url) return alert(currentLang === 'zh' ? '请完整填写名称和网址！' : 'Please fill in both name and URL!'); if (!/^https?:\/\//i.test(url)) url = 'https://' + url; if (currentModalTarget.startsWith('section_')) { const secId = currentModalTarget.replace('section_', ''); let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === secId); if (sec) { sec.links.push({ name, url }); saveDynamicSections(secs); } } else if (currentModalTarget === 'friend') { let links = JSON.parse(localStorage.getItem('nav_friend_links') || '[]'); links.push({ name, url }); localStorage.setItem('nav_friend_links', JSON.stringify(links)); loadFriendLinks(); } else { try { const res = await fetch('/api/links'); let links = res.ok ? await res.json() : JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.push({ name, url }); await fetch('/api/links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(links) }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); loadCustomLinks(); } catch (error) { const links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.push({ name, url }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); loadCustomLinks(); } } toggleModal(false); }
+        async function saveActiveLink() { const name = document.getElementById('site-name').value.trim(); let url = document.getElementById('site-url').value.trim(); if (!name || !url) return alert(currentLang === 'zh' ? '\u8bf7\u5b8c\u6574\u586b\u5199\u540d\u79f0\u548c\u7f51\u5740\uff01' : 'Please fill in both name and URL!'); if (!/^https?:\\/\\//i.test(url)) url = 'https://' + url; if (currentModalTarget.startsWith('section_')) { const secId = currentModalTarget.replace('section_', ''); let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === secId); if (sec) { sec.links.push({ name, url }); saveDynamicSections(secs); } } else if (currentModalTarget === 'friend') { let links = JSON.parse(localStorage.getItem('nav_friend_links') || '[]'); links.push({ name, url }); localStorage.setItem('nav_friend_links', JSON.stringify(links)); loadFriendLinks(); } else { try { const res = await fetch('/api/links'); let links = res.ok ? await res.json() : JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.push({ name, url }); await fetch('/api/links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(links) }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); loadCustomLinks(); } catch (error) { const links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.push({ name, url }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); loadCustomLinks(); } } toggleModal(false); }
 
         async function loadCustomLinks() { const container = document.getElementById('custom-links-container'); const actionWrapper = document.getElementById('expand-action-wrapper'); container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-400/60 py-10"><i class="fas fa-spinner fa-spin"></i> ${t('loadingCloud')}</div>`; let links = []; try { const res = await fetch('/api/links'); if (res.ok) links = await res.json(); else throw new Error(); } catch (e) { links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); } container.innerHTML = ''; if (links.length === 0) { container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-400/60 py-10">${t('noCloudLinks')}</div>`; actionWrapper.classList.add('hidden'); container.className = 'grid grid-cols-2 gap-3'; return; } const isCompact = links.length > 6; container.className = isCompact ? 'grid grid-cols-3 gap-2' : 'grid grid-cols-2 gap-3'; let visibleLinks = links; let showExpandBtn = false; if (links.length > 9) { showExpandBtn = true; if (!isCustomLinksExpanded) visibleLinks = links.slice(0, 9); } const pClass = isCompact ? 'p-2' : 'p-3'; const spaceXClass = isCompact ? 'space-x-1.5' : 'space-x-2.5'; const iconSizeClass = isCompact ? 'w-4 h-4 text-[9px]' : 'w-5 h-5 text-[10px]'; const imgSizeClass = isCompact ? 'w-4 h-4' : 'w-5 h-5'; const textSizeClass = isCompact ? 'text-[11px]' : 'text-sm'; const prClass = isCompact ? 'pr-4' : 'pr-5'; visibleLinks.forEach((item, index) => { const displayName = getLocalizedLinkName(item.name, item.url); let displayIcon = `<div class="${iconSizeClass} rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">${displayName.charAt(0).toUpperCase()}</div>`; try { if (item.url) displayIcon = `<img src="https://unavatar.io/duckduckgo/${new URL(item.url).hostname}" draggable="false" onerror="this.style.display='none'" class="${imgSizeClass} rounded object-contain shrink-0" alt="icon" />`; } catch (err) {} container.innerHTML += `<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all"><div class="flex items-center w-full overflow-hidden"><a href="${item.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="flex items-center ${spaceXClass} truncate w-full ${prClass}">${displayIcon} <span class="${textSizeClass} font-medium truncate">${displayName}</span></a></div><button type="button" onclick="deleteCustomLink(event, ${index})" class="admin-only absolute right-2 text-xs p-1 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/20 rounded cursor-pointer shrink-0"><i class="fas fa-trash-alt"></i></button></div>`; }); if (showExpandBtn) { actionWrapper.classList.remove('hidden'); const btn = document.getElementById('expand-btn'); btn.innerHTML = isCustomLinksExpanded ? `<span data-i18n="collapseMore">${t('collapseMore')}</span> <i class="fas fa-chevron-up text-[10px]"></i>` : `<span data-i18n="expandMore">${t('expandMore')}</span> (${links.length - 9}) <i class="fas fa-chevron-down text-[10px]"></i>`; } else { actionWrapper.classList.add('hidden'); } }
         function toggleExpandCustomLinks() { isCustomLinksExpanded = !isCustomLinksExpanded; loadCustomLinks(); }
         async function deleteCustomLink(e, index) { e.preventDefault(); e.stopPropagation(); if (!confirm(t('delConfirm'))) return; try { const res = await fetch('/api/links'); let links = res.ok ? await res.json() : JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.splice(index, 1); await fetch('/api/links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(links) }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); if (links.length <= 9) isCustomLinksExpanded = false; loadCustomLinks(); } catch (error) { const links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.splice(index, 1); localStorage.setItem('nav_custom_links', JSON.stringify(links)); if (links.length <= 9) isCustomLinksExpanded = false; loadCustomLinks(); } }
 
-        function loadFriendLinks() { const container = document.getElementById('friend-links-container'); let linksStr = localStorage.getItem('nav_friend_links'); let links = linksStr ? JSON.parse(linksStr) : []; container.innerHTML = ''; if (links.length === 0) { links = [{ name: "IT头条博客", url: "https://it-toutiao.blogspot.com" }, { name: "科技共享导航", url: "https://kjgx.168668520.xyz" }]; } links.forEach((item, index) => { const displayName = getLocalizedLinkName(item.name, item.url); container.innerHTML += `<div class="group relative flex items-center justify-between p-2.5 bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-emerald-600/10 transition-all text-center"><a href="${item.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="w-full text-xs font-medium text-slate-400 hover:text-emerald-400 transition-colors truncate px-2">${displayName}</a><button type="button" onclick="deleteFriendLink(event, ${index})" class="admin-only absolute right-1 text-[10px] text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/10 px-1 rounded cursor-pointer"><i class="fas fa-times"></i></button></div>`; }); }
-        function deleteFriendLink(e, index) { e.preventDefault(); e.stopPropagation(); let linksStr = localStorage.getItem('nav_friend_links'); let links = linksStr ? JSON.parse(linksStr) : []; if (links.length === 0) { links = [{ name: "IT头条博客", url: "https://it-toutiao.blogspot.com" }, { name: "科技共享导航", url: "https://kjgx.168668520.xyz" }]; } links.splice(index, 1); localStorage.setItem('nav_friend_links', JSON.stringify(links)); loadFriendLinks(); }
+        function loadFriendLinks() { const container = document.getElementById('friend-links-container'); let linksStr = localStorage.getItem('nav_friend_links'); let links = linksStr ? JSON.parse(linksStr) : []; container.innerHTML = ''; if (links.length === 0) { links = [{ name: "IT\u5934\u6765\u535a\u5ba2", url: "https://it-toutiao.blogspot.com" }, { name: "\u79d1\u6280\u5171\u4eab\u5bfc\u822a", url: "https://kjgx.168668520.xyz" }]; } links.forEach((item, index) => { const displayName = getLocalizedLinkName(item.name, item.url); container.innerHTML += `<div class="group relative flex items-center justify-between p-2.5 bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-emerald-600/10 transition-all text-center"><a href="${item.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="w-full text-xs font-medium text-slate-400 hover:text-emerald-400 transition-colors truncate px-2">${displayName}</a><button type="button" onclick="deleteFriendLink(event, ${index})" class="admin-only absolute right-1 text-[10px] text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/10 px-1 rounded cursor-pointer"><i class="fas fa-times"></i></button></div>`; }); }
+        function deleteFriendLink(e, index) { e.preventDefault(); e.stopPropagation(); let linksStr = localStorage.getItem('nav_friend_links'); let links = linksStr ? JSON.parse(linksStr) : []; if (links.length === 0) { links = [{ name: "IT\u5934\u6765\u535a\u5ba2", url: "https://it-toutiao.blogspot.com" }, { name: "\u79d1\u6280\u5171\u4eab\u5bfc\u822a", url: "https://kjgx.168668520.xyz" }]; } links.splice(index, 1); localStorage.setItem('nav_friend_links', JSON.stringify(links)); loadFriendLinks(); }
 
         document.addEventListener('click', () => { document.getElementById('engine-menu').classList.add('hidden'); document.getElementById('theme-panel').classList.add('hidden'); });
         checkAdminSession(); document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en'; applyLanguage(); updateClockAndGreeting(); fetchWeather(); initCloudData();
