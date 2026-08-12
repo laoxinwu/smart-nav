@@ -172,17 +172,18 @@ v12升级：
 <i class="fas fa-chevron-down text-xs opacity-50"></i>
 </button>
 <div class="absolute left-2 top-full mt-2 w-36 bg-slate-950/95 border border-slate-800 rounded-xl shadow-2xl hidden backdrop-blur-md overflow-hidden z-[110]" id="engine-menu">
+<button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('site')" type="button"><i class="fas fa-search text-indigo-400"></i> <span data-i18n="enSite">站内搜索</span></button>
 <button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('google')" type="button"><i class="fab fa-google text-blue-400"></i> <span data-i18n="enGoogle">谷歌 Google</span></button>
 <button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('bing')" type="button"><i class="fab fa-microsoft text-teal-400"></i> <span data-i18n="enBing">必应 Bing</span></button>
 <button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('baidu')" type="button"><i class="fas fa-paw text-red-400"></i> <span data-i18n="enBaidu">百度 Baidu</span></button>
 <button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('github')" type="button"><i class="fab fa-github text-slate-400"></i> <span>GitHub</span></button>
-<button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('site')" type="button"><i class="fas fa-search text-indigo-400"></i> <span data-i18n="enSite">站内搜索</span></button>
 </div>
 </div>
 <input autocomplete="off" class="w-full bg-transparent border-none py-4 px-3 focus:outline-none focus:ring-0 text-base" data-i18n-placeholder="searchGoogle" id="search-input" name="q" placeholder="在 Google 中搜索..." type="text"/>
 <button aria-label="搜索" class="mr-3 p-2.5 text-slate-400 hover:text-indigo-400 transition-colors" type="submit"><i class="fas fa-search text-lg"></i></button>
 </div>
 </form>
+<div id="site-search-results" class="hidden mt-4 glass-card rounded-2xl p-4 shadow-xl"></div>
 </div>
 <!-- ============ 导航卡片网格 ============ -->
 <div class="w-full grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 relative z-10 items-start" id="main-nav-grid"><div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 xl:col-span-1" id="card-custom">
@@ -825,7 +826,28 @@ v12升级：
         function loadFriendLinks() { const container = document.getElementById('friend-links-container'); let linksStr = localStorage.getItem('nav_friend_links'); let links = linksStr ? JSON.parse(linksStr) : []; container.innerHTML = ''; if (links.length === 0) { links = [{ name: "IT头条博客", url: "https://it-toutiao.blogspot.com" }, { name: "科技共享导航", url: "https://kjgx.168668520.xyz" }]; } links.forEach((item, index) => { const displayName = getLocalizedLinkName(item.name, item.url); container.innerHTML += `<div class="group relative flex items-center justify-between p-2.5 bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-emerald-600/10 transition-all text-center"><a href="${item.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="w-full text-xs font-medium text-slate-400 hover:text-emerald-400 transition-colors truncate px-2">${displayName}</a><button type="button" onclick="deleteFriendLink(event, ${index})" class="admin-only absolute right-1 text-[10px] text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/10 px-1 rounded cursor-pointer"><i class="fas fa-times"></i></button></div>`; }); }
         function deleteFriendLink(e, index) { e.preventDefault(); e.stopPropagation(); let linksStr = localStorage.getItem('nav_friend_links'); let links = linksStr ? JSON.parse(linksStr) : []; if (links.length === 0) { links = [{ name: "IT头条博客", url: "https://it-toutiao.blogspot.com" }, { name: "科技共享导航", url: "https://kjgx.168668520.xyz" }]; } links.splice(index, 1); localStorage.setItem('nav_friend_links', JSON.stringify(links)); loadFriendLinks(); }
 
-        function clearSiteSearchHighlights() { document.querySelectorAll('.site-search-highlight').forEach(el => { el.classList.remove('site-search-highlight'); el.style.outline = ''; el.style.outlineOffset = ''; el.style.backgroundColor = ''; el.style.borderRadius = ''; }); } document.getElementById('search-form').addEventListener('submit', function(e) { if (currentEngineKey === 'site') { e.preventDefault(); clearSiteSearchHighlights(); const query = document.getElementById('search-input').value.trim().toLowerCase(); if (!query) return; const allLinks = document.querySelectorAll('a[href]:not([href="#"]):not([href=""]):not([href^="javascript"])'); let found = []; allLinks.forEach(link => { const text = link.textContent.toLowerCase(); const href = link.getAttribute('href').toLowerCase(); if (text.includes(query) || href.includes(query)) { found.push(link); } }); if (found.length === 0) { alert(currentLang === 'zh' ? '未找到匹配的导航链接。' : 'No matching links found.'); return; } found.forEach((link, i) => { link.classList.add('site-search-highlight'); link.style.outline = '2px solid #6366f1'; link.style.outlineOffset = '3px'; link.style.backgroundColor = 'rgba(99,102,241,0.15)'; link.style.borderRadius = '6px'; if (i === 0) { link.scrollIntoView({ behavior: 'smooth', block: 'center' }); } }); } });
+        function clearSiteSearchHighlights() { document.querySelectorAll('.site-search-highlight').forEach(el => { el.classList.remove('site-search-highlight'); el.style.outline = ''; el.style.outlineOffset = ''; el.style.backgroundColor = ''; el.style.borderRadius = ''; }); } document.getElementById('search-form').addEventListener('submit', function(e) { 
+            if (currentEngineKey === 'site') { 
+                e.preventDefault(); 
+                const query = document.getElementById('search-input').value.trim().toLowerCase();
+                const box = document.getElementById('site-search-results');
+                box.innerHTML = '';
+                if (!query) { box.classList.add('hidden'); return; }
+                const allLinks = [...document.querySelectorAll('a[href]:not([href="#"]):not([href=""]):not([href^="javascript"])')];
+                const found = allLinks.filter(link => {
+                    const text = link.textContent.trim().toLowerCase();
+                    const href = (link.getAttribute('href') || '').toLowerCase();
+                    return text.includes(query) || href.includes(query);
+                });
+                if (!found.length) {
+                    box.innerHTML = '<div class="text-sm text-slate-400">未找到匹配的网址。</div>';
+                } else {
+                    box.innerHTML = '<div class="text-sm font-bold mb-3 text-indigo-400">找到 '+found.length+' 个结果</div>' +
+                    found.map(link => `<a target="_blank" href="${link.href}" class="block p-2 rounded-lg hover:bg-indigo-500/20 text-sm"><span class="font-medium">${link.textContent.trim()}</span><span class="block text-xs text-slate-400 truncate">${link.href}</span></a>`).join('');
+                }
+                box.classList.remove('hidden');
+            } 
+        }); 
         document.addEventListener('click', () => { document.getElementById('engine-menu').classList.add('hidden'); document.getElementById('theme-panel').classList.add('hidden'); });
         checkAdminSession(); document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en'; applyLanguage(); updateClockAndGreeting(); fetchWeather(); initCloudData();
     </script>
