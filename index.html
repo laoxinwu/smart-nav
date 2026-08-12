@@ -1,1860 +1,998 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ChefDon 智能生态导航 v14.1</title>
-<meta name="description" content="ChefDon智能生态导航 - 个人导航站">
-<meta name="theme-color" content="#1a1a2e">
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQ2hlZkRvbiDohJzmlqXnlLXljbEg5MyIsInNob3J0X25hbWUiOiLohJzmlqXnlLXkiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzFhMWEyZSIsInRoZW1lX2NvbG9yIjoiIzFhMWEyZSJ9">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="ChefDon导航">
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://cdn.jsdelivr.net/npm/@fontsource-variable/noto-sans-sc@5.2.10/index.css" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="chefdon智能多功能响应式导航。提供高效的搜索、云端自定义网址管理、动态天气与专属壁纸等个性化功能。" name="description"/>
+<meta content="网址导航, chefdon, 开发者导航, 智能导航, 响应式网站, 云端同步" name="keywords"/>
+<title id="page-title">chefdon-智能多功能响应式导航</title>
+<link crossorigin="" href="https://cdn.tailwindcss.com" rel="preconnect"/>
+<link crossorigin="" href="https://cdnjs.cloudflare.com" rel="preconnect"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 <style>
-/* ========== CSS Variables ========== */
-:root {
-  --bg-primary: #0d1117;
-  --bg-secondary: #161b22;
-  --bg-card: #1c2128;
-  --bg-hover: #252b35;
-  --border-color: #30363d;
-  --text-primary: #e6edf3;
-  --text-secondary: #8b949e;
-  --text-muted: #6e7681;
-  --accent: #58a6ff;
-  --accent-hover: #79c0ff;
-  --accent-dim: #1f6feb;
-  --success: #3fb950;
-  --warning: #d29922;
-  --danger: #f85149;
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --shadow: 0 4px 24px rgba(0,0,0,.4);
-  --font-body: "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --font-mono: "SFMono-Regular", Consolas, monospace;
-}
+        body.theme-light { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); color: #0f172a; }
+        body.theme-light .glass-card { background: rgba(255,255,255,0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
+        body.theme-light .glass-input { background: rgba(0,0,0,0.04); color: #000; }
+        body.theme-light input::placeholder { color: #94a3b8; }
+        body.theme-light #engine-menu { background: #ffffff; border-color: #e2e8f0; }
+        body.theme-light #engine-menu button { color: #334155; }
+        body.theme-light #engine-menu button:hover { background: rgba(79,70,229,0.08); }
+        body.theme-dark { background: linear-gradient(135deg, #0f172a 0%, #020617 100%); color: #f8fafc; }
+        body.theme-dark .glass-card { background: rgba(30,41,59,0.45); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); }
+        body.theme-dark .glass-input { background: rgba(255,255,255,0.07); }
+        body.has-custom-bg::before { content: ''; position: fixed; inset: 0; background: rgba(15,23,42,0.55); backdrop-filter: blur(2px); z-index: -1; }
+        body, .glass-card, .glass-input, #custom-links-container { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+        #admin-status-hint { position: fixed; top: 4.25rem; right: 1rem; z-index: 149; }
+        @media (max-width: 640px) {
+            #admin-top-entry { right: 4rem; top: 0.75rem; }
+            #admin-top-entry button { min-height: 40px; }
+            #theme-panel { width: min(15rem, calc(100vw - 1rem)); }
+            #search-form { margin-top: 0.25rem; }
+            #search-input { min-width: 0; }
+            #admin-status-hint { top: 3.9rem; right: 0.75rem; font-size: 10px; max-width: calc(100vw - 1.5rem); }
+        }
 
-[data-theme="light"] {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f6f8fa;
-  --bg-card: #ffffff;
-  --bg-hover: #f3f4f6;
-  --border-color: #d0d7de;
-  --text-primary: #1f2328;
-  --text-secondary: #656d76;
-  --text-muted: #8c959f;
-  --accent: #0969da;
-  --accent-hover: #0550ae;
-  --accent-dim: #54aeff;
-  --shadow: 0 4px 20px rgba(0,0,0,.08);
-}
+        .dragging { opacity: 0.4; transform: scale(0.98); border: 2px dashed #6366f1 !important; }
+        body:not(.is-admin) .admin-only { display: none !important; }
+        .cat-card .subcat-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid rgba(148,163,184,0.15); }
+        .cat-card .link-pill { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(148,163,184,0.06); border: 1px solid rgba(148,163,184,0.08); border-radius: 10px; font-size: 12px; transition: all 0.15s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cat-card .link-pill:hover { background: rgba(99,102,241,0.15); border-color: rgba(99,102,241,0.25); }
+        .cat-card .link-pill .link-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    </style>
 
-/* ========== Reset & Base ========== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; scroll-behavior: smooth; }
-body {
-  font-family: var(--font-body);
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  min-height: 100vh;
-  transition: background .3s, color .3s;
-}
-a { text-decoration: none; color: inherit; transition: color .2s; }
-button { cursor: pointer; border: none; background: none; font-family: inherit; font-size: inherit; color: inherit; }
-input, select, textarea { font-family: inherit; font-size: inherit; }
-
-/* ========== Layout ========== */
-.app-container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
-
-/* Header / Top Bar */
-.top-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 0; border-bottom: 1px solid var(--border-color);
-  flex-wrap: wrap; gap: 10px;
-}
-.top-bar-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.logo {
-  font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em;
-  background: linear-gradient(135deg, var(--accent), #a37cff);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.lang-switch, .theme-toggle, .admin-btn {
-  padding: 5px 12px; border-radius: var(--radius-sm); font-size: .82rem;
-  border: 1px solid var(--border-color); color: var(--text-secondary);
-  transition: all .2s;
-}
-.lang-switch:hover, .theme-toggle:hover, .admin-btn:hover {
-  border-color: var(--accent); color: var(--accent); }
-
-/* Search Bar Area */
-.search-area {
-  display: flex; justify-content: center; align-items: center;
-  padding: 28px 0 18px; gap: 10px; flex-wrap: wrap;
-}
-.search-box-wrap {
-  position: relative; width: 100%; max-width: 600px;
-}
-.search-input {
-  width: 100%; padding: 13px 48px 13px 18px;
-  border-radius: var(--radius-lg); border: 2px solid var(--border-color);
-  background: var(--bg-card); color: var(--text-primary);
-  font-size: 1rem; outline: none; transition: border-color .2s;
-}
-.search-input:focus { border-color: var(--accent); }
-.search-btn-clear {
-  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-  color: var(--text-muted); font-size: 1.1rem; padding: 4px;
-}
-.search-engines {
-  display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
-}
-.se-btn {
-  padding: 6px 16px; border-radius: 20px; font-size: .85rem;
-  border: 1px solid var(--border-color); color: var(--text-secondary);
-  background: var(--bg-card); transition: all .2s; white-space: nowrap;
-}
-.se-btn:hover, .se-btn.active {
-  border-color: var(--accent); color: var(--accent); background: rgba(88,166,255,.08);
-}
-
-/* Search Results Panel */
-.search-results-panel {
-  display: none; position: fixed; top: 120px; left: 50%; transform: translateX(-50%);
-  width: 90%; max-width: 700px; max-height: 60vh; overflow-y: auto;
-  background: var(--bg-card); border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg); box-shadow: var(--shadow); z-index: 1000;
-  padding: 16px;
-}
-.search-results-panel.show { display: block; animation: fadeDown .2s ease; }
-@keyframes fadeDown { from{opacity:0;transform:translateX(-50%) translateY(-10px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
-.sr-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color);
-}
-.sr-title { font-size: .95rem; font-weight: 600; color: var(--text-primary); }
-.sr-count { font-size: .82rem; color: var(--text-muted); }
-.sr-item {
-  display: flex; align-items: center; gap: 12px; padding: 10px 12px;
-  border-radius: var(--radius-sm); transition: background .15s; cursor: pointer;
-}
-.sr-item:hover { background: var(--bg-hover); }
-.sr-info { flex: 1; min-width: 0; }
-.sr-name { font-size: .92rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.sr-url { font-size: .78rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
-.sr-cat-tag {
-  font-size: .72rem; padding: 2px 8px; border-radius: 10px;
-  background: rgba(88,166,255,.1); color: var(--accent); flex-shrink: 0;
-}
-.sr-empty { text-align: center; padding: 30px; color: var(--text-muted); font-size: .92rem; }
-
-/* Main Content Grid */
-.main-content { padding: 10px 0 40px; }
-
-.section-block { margin-bottom: 28px; }
-.section-title {
-  font-size: 1.05rem; font-weight: 700; margin-bottom: 14px;
-  display: flex; align-items: center; gap: 8px;
-  color: var(--text-primary);
-}
-.section-title::before {
-  content: ''; width: 4px; height: 18px; border-radius: 2px;
-  background: linear-gradient(180deg, var(--accent), #a37cff);
-}
-.sub-section-title {
-  font-size: .9rem; font-weight: 600; margin: 14px 0 10px;
-  color: var(--text-secondary); padding-left: 6px;
-}
-
-/* Link Cards Grid */
-.links-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
-}
-.link-card {
-  position: relative; display: flex; align-items: center; gap: 10px;
-  padding: 10px 14px; border-radius: var(--radius-md);
-  background: var(--bg-card); border: 1px solid transparent;
-  transition: all .2s; overflow: hidden;
-}
-.link-card:hover {
-  border-color: var(--accent); background: var(--bg-hover);
-  transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.2);
-}
-.link-icon {
-  width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; font-weight: 700; color: #fff;
-  background: linear-gradient(135deg, var(--accent-dim), #a37cff);
-}
-.link-text { flex: 1; min-width: 0; }
-.link-name {
-  font-size: .87rem; font-weight: 500; white-space: nowrap;
-  overflow: hidden; text-overflow: ellipsis;
-}
-.link-url-text {
-  font-size: .72rem; color: var(--text-muted); white-space: nowrap;
-  overflow: hidden; text-overflow: ellipsis; display: none;
-}
-.link-card:hover .link-url-text { display: block; }
-
-/* Favorite Button on Card */
-
-/* Status Dot */
-.status-dot {
-  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-  background: var(--text-muted);
-}
-.status-dot.ok { background: var(--success); }
-.status-dot.fail { background: var(--danger); }
-.status-dot.checking { background: var(--warning); animation: pulse 1s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-
-/* ========== Advanced Features Section ========== */
-.advanced-section {
-  background: var(--bg-secondary); border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg); padding: 24px; margin-top: 20px;
-}
-.adv-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px; margin-top: 16px;
-}
-.adv-card {
-  background: var(--bg-card); border: 1px solid var(--border-color);
-  border-radius: var(--radius-md); padding: 18px; transition: all .2s;
-}
-.adv-card:hover { border-color: var(--accent); }
-.adv-card h3 {
-  font-size: .95rem; font-weight: 600; margin-bottom: 12px;
-  display: flex; align-items: center; gap: 8px;
-}
-.adv-card p { font-size: .82rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5; }
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 18px; border-radius: var(--radius-sm);
-  background: var(--accent-dim); color: #fff; font-size: .85rem;
-  font-weight: 500; transition: all .2s; border: none; cursor: pointer;
-}
-.btn-primary:hover { background: var(--accent); }
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 8px 18px; border-radius: var(--radius-sm);
-  background: var(--bg-hover); color: var(--text-primary);
-  font-size: .85rem; border: 1px solid var(--border-color);
-  transition: all .2s; cursor: pointer;
-}
-.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
-.btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
-
-/* ========== Modal / Panel ========== */
-.modal-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.6);
-  z-index: 2000; align-items: center; justify-content: center;
-  backdrop-filter: blur(4px);
-}
-.modal-overlay.show { display: flex; animation: fadeIn .2s ease; }
-@keyframes fadeIn { from{opacity:0} to{opacity:1} }
-.modal-panel {
-  background: var(--bg-card); border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg); width: 90%; max-width: 720px;
-  max-height: 80vh; overflow-y: auto; box-shadow: var(--shadow);
-  padding: 24px;
-}
-.modal-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color);
-}
-.modal-header h2 { font-size: 1.15rem; font-weight: 700; }
-.modal-close {
-  width: 32px; height: 32px; border-radius: 50%; display: flex;
-  align-items: center; justify-content: center; font-size: 1.2rem;
-  color: var(--text-muted); transition: all .2s;
-}
-.modal-close:hover { background: var(--bg-hover); color: var(--danger); }
-
-/* Management Panel Forms */
-.form-group { margin-bottom: 16px; }
-.form-label {
-  display: block; font-size: .85rem; font-weight: 600;
-  margin-bottom: 6px; color: var(--text-secondary);
-}
-.form-input {
-  width: 100%; padding: 10px 14px; border-radius: var(--radius-sm);
-  border: 1px solid var(--border-color); background: var(--bg-primary);
-  color: var(--text-primary); outline: none; transition: border-color .2s;
-}
-.form-input:focus { border-color: var(--accent); }
-.form-row { display: flex; gap: 12px; }
-.form-row .form-group { flex: 1; }
-
-/* Category List in Management */
-.cat-list-item {
-  display: flex; align-items: center; gap: 10px; padding: 10px 14px;
-  border: 1px solid var(--border-color); border-radius: var(--radius-sm);
-  margin-bottom: 8px; background: var(--bg-primary); transition: all .2s;
-}
-.cat-list-item:hover { border-color: var(--accent); }
-.cat-name { flex: 1; font-size: .9rem; font-weight: 500; }
-.cat-actions { display: flex; gap: 6px; }
-.btn-xs {
-  padding: 4px 10px; border-radius: 4px; font-size: .78rem;
-  border: 1px solid var(--border-color); color: var(--text-secondary);
-  transition: all .2s; cursor: pointer;
-}
-.btn-xs:hover { border-color: var(--accent); color: var(--accent); }
-.btn-xs.danger:hover { border-color: var(--danger); color: var(--danger); }
-
-/* Link List Item in Management */
-.mgmt-link-item {
-  display: flex; align-items: center; gap: 10px; padding: 8px 12px;
-  border-bottom: 1px solid var(--border-color); transition: background .15s;
-}
-.mgmt-link-item:last-child { border-bottom: none; }
-.mgmt-link-item:hover { background: var(--bg-hover); }
-.mgmt-link-name { flex: 1; font-size: .85rem; }
-.mgmt-link-url { font-size: .75rem; color: var(--text-muted); max-width: 200px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-/* Detection Results Table */
-.detect-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: .84rem; }
-.detect-table th {
-  text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--border-color);
-  color: var(--text-secondary); font-weight: 600; font-size: .8rem;
-}
-.detect-table td {
-  padding: 8px 12px; border-bottom: 1px solid var(--border-color);
-  color: var(--text-primary);
-}
-.detect-table tr:hover td { background: var(--bg-hover); }
+<!-- v14最终执行版
+后台入口：右上角；登录状态持久化；30分钟后台无操作自动退出；退出确认；
+移动端顶部布局适配；后台状态提示；退出立即恢复普通模式。
+保持原有分类/网址/搜索引擎排序、拖拽、站内多结果搜索及数据结构。
+-->
+<!-- v5第五轮整理 -->
+<!--
+第五轮优化：
+- 导航结构继续保持：站长推荐 > 常用 > 专业分类。
+- 增加分类规划：
+  搜索与发现、影音娱乐、生活服务、云存储与文件工具、开源社区。
+- 分类资源不进入常用，避免常用臃肿。
+-->
 
 
+<!-- v6第六轮内容完善 -->
+<!--
+第六轮优化：
+- 增加内容层分类整理规划；
+- 常用继续保持简洁；
+- 新增精选资源方向：AI工具、开发社区、设计素材、办公效率、云端工具；
+- 检查分类职责，避免重复入口。
+-->
 
-/* Toast Notification */
-.toast {
-  position: fixed; bottom: 24px; right: 24px; padding: 12px 22px;
-  border-radius: var(--radius-md); background: var(--bg-card);
-  border: 1px solid var(--border-color); color: var(--text-primary);
-  font-size: .88rem; box-shadow: var(--shadow); z-index: 3000;
-  transform: translateY(100px); opacity: 0; transition: all .3s;
-}
-.toast.show { transform: translateY(0); opacity: 1; }
-.toast.success { border-left: 4px solid var(--success); }
-.toast.error { border-left: 4px solid var(--danger); }
+<!-- v7第七轮优化 -->
+<!--
+第七轮优化：
+1. 保持站长推荐 > 常用 > 专业分类结构。
+2. 优化分类说明和精品筛选预留。
+3. 保持移动端和原功能兼容。
+-->
 
-/* Footer */
-.footer {
-  text-align: center; padding: 24px 0; color: var(--text-muted);
-  font-size: .82rem; border-top: 1px solid var(--border-color);
-  margin-top: 30px;
-}
+<!-- v8第八轮精品化优化 -->
+<!--
+第八轮处理：
+1. 为网址展示预留用途说明。
+2. 优化分类排序逻辑。
+3. 统一卡片内容表达方式。
+4. 优化移动端阅读体验规划。
+5. 不增加热门推荐动态区域。
+-->
 
-/* Responsive */
-@media (max-width: 768px) {
-  .links-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
-  .search-results-panel { width: 96%; left: 2%; transform: none; }
-  .adv-grid { grid-template-columns: 1fr; }
-  .modal-panel { width: 96%; max-height: 90vh; }
-  .top-bar { flex-direction: column; align-items: stretch; }
-  .top-bar-left { justify-content: center; }
-}
+<!-- v9第九轮最终整理 -->
+<!--
+第九轮优化：
+1. 检查分类层级与命名一致性。
+2. 保留站长推荐 > 常用 > 专业分类结构。
+3. 优化HTML结构可维护性。
+4. 减少重复说明，保持加载轻量。
+-->
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+<!-- v10最终精修 -->
+<!--
+最终精修：
+1. 完成发布前结构整理；
+2. 保持：站长推荐 > 常用 > 专业分类；
+3. 不加入热门推荐/今日精选动态区域；
+4. 保留搜索、主题切换和原有功能；
+5. 保持响应式布局。
+-->
 
-/* ========== v14 Login/Admin Status ========== */
-.admin-area {display:flex;align-items:center;gap:8px;}
-.admin-status {display:none;padding:5px 10px;border-radius:var(--radius-sm);font-size:.8rem;color:var(--success);border:1px solid var(--success);}
-.admin-status.show {display:inline-flex;}
-.login-mask {display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:4000;align-items:center;justify-content:center;}
-.login-mask.show {display:flex;}
-.login-box {width:90%;max-width:360px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow);}
-.login-box h3 {margin-bottom:16px;}
-@media(max-width:768px){.admin-area{justify-content:center;}.admin-status{font-size:.75rem;}.admin-btn{padding:6px 10px;}}
+<!-- v11高级功能扩展 -->
+<!--
+高级增强版：
+1. 预留后台分类管理能力；
+2. 增加本地收藏功能扩展接口；
+3. 增加失效链接检测模块扩展接口；
+4. 增加PWA应用模式扩展接口；
+5. 不调整网址搜索权重。
+-->
 
-</style>
+
+<!-- v12功能实现版 -->
+<!--
+v12升级：
+1. 本地收藏功能；
+2. 分类管理功能扩展；
+3. PWA应用模式扩展；
+4. 链接维护工具扩展；
+5. 保持站长推荐 > 常用 > 专业分类结构；
+6. 不增加网址搜索权重。
+-->
+
 </head>
-<body>
+<body class="theme-dark font-sans antialiased selection:bg-indigo-500 selection:text-white">
 
-<!-- ===== TOP BAR ===== -->
-<div class="app-container">
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <div class="logo">⚡ ChefDon 导航 v14</div>
-      <button class="lang-switch" onclick="toggleLang()">中文 / English</button>
-      <button class="theme-toggle" onclick="toggleTheme()">🌓 切换主题</button>
-    </div>
-    <div style="display:flex;gap:8px;">
-      <button class="admin-btn" onclick="openAdminPanel()">⚙️ 管理面板</button>
-    </div>
-  </div>
-
-  <!-- ===== SEARCH AREA ===== -->
-  <div class="search-area">
-    <div class="search-box-wrap">
-      <input type="text" class="search-input" id="siteSearchInput"
-             placeholder="🔍 站内搜索网址..." autocomplete="off"
-             oninput="handleSiteSearch(this.value)">
-      <button class="search-btn-clear" onclick="clearSearch()" title="清除">✕</button>
-    </div>
-    <div class="search-engines" id="searchEngines">
-      <!-- Order: 站内搜索 → 谷歌 → 必应 → 百度 → GitHub -->
-      <button class="se-btn active" data-engine="site" onclick="switchEngine('site',this)">站内搜索</button>
-      <button class="se-btn" data-engine="google" onclick="switchEngine('google',this)">谷歌 Google</button>
-      <button class="se-btn" data-engine="bing" onclick="switchEngine('bing',this)">必应 Bing</button>
-      <button class="se-btn" data-engine="baidu" onclick="switchEngine('baidu',this)">百度 Baidu</button>
-      <button class="se-btn" data-engine="github" onclick="switchEngine('github',this)">GitHub</button>
-    </div>
-  </div>
-
-  <!-- ===== SEARCH RESULTS PANEL ===== -->
-  <div class="search-results-panel" id="searchResultsPanel">
-    <div class="sr-header">
-      <span class="sr-title">🔍 搜索结果</span>
-      <span class="sr-count" id="srCount"></span>
-      <button class="btn-xs" onclick="closeSearchResults()" style="margin-left:auto;">关闭</button>
-    </div>
-    <div id="searchResultsList"></div>
-  </div>
-
-  <!-- ===== MAIN CONTENT ===== -->
-  <div class="main-content">
-
-    <!-- === 站长推荐 === -->
-    <div class="section-block">
-      <h2 class="section-title">💎 站长推荐</h2>
-      <div class="links-grid" id="cat-zhanzhang"></div>
-      <button class="btn-secondary" style="margin-top:10px;" onclick="toggleExpand('zz')">展开显示更多</button>
-    </div>
-
-    <!-- === 常用 === -->
-    <div class="section-block">
-      <h2 class="section-title">⭐ 常用</h2>
-      <div class="links-grid" id="cat-changyong"></div>
-    </div>
-
-    <!-- === 效率与开发 === -->
-    <div class="section-block">
-      <h2 class="section-title">⚡ 效率与开发</h2>
-      <div class="links-grid" id="cat-xiaolv"></div>
-    </div>
-
-    <!-- === 开发与学习资源 === -->
-    <div class="section-block">
-      <h2 class="section-title">📚 开发与学习资源</h2>
-      <div class="links-grid" id="cat-kaifa-ziyuan"></div>
-    </div>
-
-    <!-- === 在线效率工具 === -->
-    <div class="section-block">
-      <h2 class="section-title">🛠️ 在线效率工具</h2>
-      <div class="links-grid" id="cat-gongju"></div>
-    </div>
-
-    <!-- === AI智能工具 === -->
-    <div class="section-block">
-      <h2 class="section-title">🤖 AI智能工具</h2>
-      <div class="links-grid" id="cat-ai"></div>
-    </div>
-
-    <!-- === 设计素材 === -->
-    <div class="section-block">
-      <h2 class="section-title">🎨 设计素材</h2>
-      <div class="links-grid" id="cat-sheji"></div>
-    </div>
-
-    <!-- === 常用入口 === -->
-    <div class="section-block">
-      <h2 class="section-title">🚀 常用入口</h2>
-      <h3 class="sub-section-title">搜索引擎</h3>
-      <div class="links-grid" id="cat-sousuo"></div>
-      <h3 class="sub-section-title">邮箱</h3>
-      <div class="links-grid" id="cat-youxiang"></div>
-      <h3 class="sub-section-title">常用生活</h3>
-      <div class="links-grid" id="cat-shenghuo"></div>
-    </div>
-
-    <!-- === 工作办公 === -->
-    <div class="section-block">
-      <h2 class="section-title">💼 工作办公</h2>
-      <h3 class="sub-section-title">协作文档</h3>
-      <div class="links-grid" id="cat-xiewendang"></div>
-      <h3 class="sub-section-title">视频会议</h3>
-      <div class="links-grid" id="cat-huiyi"></div>
-      <h3 class="sub-section-title">云存储</h3>
-      <div class="links-grid" id="cat-yun"></div>
-      <h3 class="sub-section-title">求职招聘</h3>
-      <div class="links-grid" id="cat-zhipin"></div>
-    </div>
-
-    <!-- === 开发技术 === -->
-    <div class="section-block">
-      <h2 class="section-title">💻 开发技术</h2>
-      <h3 class="sub-section-title">代码托管</h3>
-      <div class="links-grid" id="cat-daima"></div>
-      <h3 class="sub-section-title">技术社区</h3>
-      <div class="links-grid" id="cat-shequ"></div>
-      <h3 class="sub-section-title">前端开发</h3>
-      <div class="links-grid" id="cat-qianduan"></div>
-      <h3 class="sub-section-title">在线工具</h3>
-      <div class="links-grid" id="cat-zaixian-tool"></div>
-    </div>
-
-    <!-- === AI 工具（扩展）=== -->
-    <div class="section-block">
-      <h2 class="section-title">🧠 AI 工具</h2>
-      <h3 class="sub-section-title">对话助手</h3>
-      <div class="links-grid" id="cat-ai-chat"></div>
-      <h3 class="sub-section-title">AI 绘画</h3>
-      <div class="links-grid" id="cat-ai-art"></div>
-      <h3 class="sub-section-title">AI 编程</h3>
-      <div class="links-grid" id="cat-ai-code"></div>
-      <h3 class="sub-section-title">AI 搜索</h3>
-      <div class="links-grid" id="cat-ai-search"></div>
-    </div>
-
-    <!-- === 设计创意 === -->
-    <div class="section-block">
-      <h2 class="section-title">✏️ 设计创意</h2>
-      <h3 class="sub-section-title">灵感采集</h3>
-      <div class="links-grid" id="cat-inspire"></div>
-      <h3 class="sub-section-title">UI/UX 资源</h3>
-      <div class="links-grid" id="cat-uiux"></div>
-      <h3 class="sub-section-title">素材资源</h3>
-      <div class="links-grid" id="cat-sucai"></div>
-      <h3 class="sub-section-title">色彩工具</h3>
-      <div class="links-grid" id="cat-color"></div>
-    </div>
-
-    <!-- === 学习进修 === -->
-    <div class="section-block">
-      <h2 class="section-title">📖 学习进修</h2>
-      <h3 class="sub-section-title">在线课程</h3>
-      <div class="links-grid" id="cat-course"></div>
-      <h3 class="sub-section-title">电子书与论文</h3>
-      <div class="links-grid" id="cat-book"></div>
-      <h3 class="sub-section-title">算法刷题</h3>
-      <div class="links-grid" id="cat-algo"></div>
-    </div>
-
-    <!-- === 资讯阅读 === -->
-    <div class="section-block">
-      <h2 class="section-title">📰 资讯阅读</h2>
-      <h3 class="sub-section-title">综合新闻</h3>
-      <div class="links-grid" id="cat-news"></div>
-      <h3 class="sub-section-title">科技资讯</h3>
-      <div class="links-grid" id="cat-tech-news"></div>
-      <h3 class="sub-section-title">RSS 阅读</h3>
-      <div class="links-grid" id="cat-rss"></div>
-    </div>
-
-    <!-- === 实用工具 === -->
-    <div class="section-block">
-      <h2 class="section-title">🔧 实用工具</h2>
-      <h3 class="sub-section-title">图片处理</h3>
-      <div class="links-grid" id="cat-img"></div>
-      <h3 class="sub-section-title">PDF 工具</h3>
-      <div class="links-grid" id="cat-pdf"></div>
-      <h3 class="sub-section-title">文件传输</h3>
-      <div class="links-grid" id="cat-transfer"></div>
-      <h3 class="sub-section-title">笔记与思维</h3>
-      <div class="links-grid" id="cat-note"></div>
-    </div>
-
-    <!-- === 金融理财 === -->
-    <div class="section-block">
-      <h2 class="section-title">💰 金融理财</h2>
-      <h3 class="sub-section-title">网上银行</h3>
-      <div class="links-grid" id="cat-bank"></div>
-      <h3 class="sub-section-title">证券与基金</h3>
-      <div class="links-grid" id="cat-stock"></div>
-      <h3 class="sub-section-title">支付与税务</h3>
-      <div class="links-grid" id="cat-pay"></div>
-    </div>
-
-    <!-- === 购物消费 === -->
-    <div class="section-block">
-      <h2 class="section-title">🛒 购物消费</h2>
-      <h3 class="sub-section-title">综合电商</h3>
-      <div class="links-grid" id="cat-shop"></div>
-      <h3 class="sub-section-title">比价与二手</h3>
-      <div class="links-grid" id="cat-deal"></div>
-      <h3 class="sub-section-title">出行票务</h3>
-      <div class="links-grid" id="cat-travel"></div>
-    </div>
-
-    <!-- === 社交媒体 === -->
-    <div class="section-block">
-      <h2 class="section-title">🌐 社交媒体</h2>
-      <h3 class="sub-section-title">社区平台</h3>
-      <div class="links-grid" id="cat-social"></div>
-      <h3 class="sub-section-title">论坛</h3>
-      <div class="links-grid" id="cat-forum"></div>
-      <h3 class="sub-section-title">国际社交</h3>
-      <div class="links-grid" id="cat-intl-social"></div>
-    </div>
-
-    <!-- === 视频与流媒体 === -->
-    <div class="section-block">
-      <h2 class="section-title">🎬 视频与流媒体</h2>
-      <h3 class="sub-section-title">长视频</h3>
-      <div class="links-grid" id="cat-video"></div>
-      <h3 class="sub-section-title">直播</h3>
-      <div class="links-grid" id="cat-live"></div>
-    </div>
-
-    <!-- === 音乐与播客 === -->
-    <div class="section-block">
-      <h2 class="section-title">🎵 音乐与播客</h2>
-      <h3 class="sub-section-title">音乐平台</h3>
-      <div class="links-grid" id="cat-music"></div>
-      <h3 class="sub-section-title">播客</h3>
-      <div class="links-grid" id="cat-podcast"></div>
-    </div>
-
-    <!-- === 游戏相关 === -->
-    <div class="section-block">
-      <h2 class="section-title">🎮 游戏相关</h2>
-      <h3 class="sub-section-title">游戏平台</h3>
-      <div class="links-grid" id="cat-game-platform"></div>
-      <h3 class="sub-section-title">游戏社区</h3>
-      <div class="links-grid" id="cat-game-community"></div>
-    </div>
-
-    <!-- === 运动健康 === -->
-    <div class="section-block">
-      <h2 class="section-title">❤️ 运动健康</h2>
-      <h3 class="sub-section-title">运动健身</h3>
-      <div class="links-grid" id="cat-sport"></div>
-      <h3 class="sub-section-title">医疗健康</h3>
-      <div class="links-grid" id="cat-health"></div>
-    </div>
-
-    <!-- === 生活出行 === -->
-    <div class="section-block">
-      <h2 class="section-title">🏠 生活出行</h2>
-      <h3 class="sub-section-title">地图导航</h3>
-      <div class="links-grid" id="cat-map"></div>
-      <h3 class="sub-section-title">租房购房</h3>
-      <div class="links-grid" id="cat-house"></div>
-      <h3 class="sub-section-title">汽车与政务</h3>
-      <div class="links-grid" id="cat-car-gov"></div>
-    </div>
-
-    <!-- === 精品资源 === -->
-    <div class="section-block">
-      <h2 class="section-title">🔖 精品资源</h2>
-      <h3 class="sub-section-title">综合资源</h3>
-      <div class="links-grid" id="cat-jingpin"></div>
-    </div>
-
-    <!-- === 友情链接 === -->
-    <div class="section-block">
-      <h2 class="section-title">🔗 友情链接</h2>
-      <button class="btn-secondary" onclick="openAddLinkModal()">+ 添加 (本地)</button>
-    </div>
-
-    <!-- ===== ADVANCED FEATURES SECTION ===== -->
-    <div class="advanced-section">
-      <h2 class="section-title">⚡ 高级功能</h2>
-      <div class="adv-grid">
-
-        <!-- 可视化管理面板 -->
-        <div class="adv-card">
-          <h3>⚙️ 分类与网址管理</h3>
-          <p>可视化编辑分类和网址，增删改排序一目了然。</p>
-          <div class="btn-group">
-            <button class="btn-primary" onclick="openManageCategories()">管理分类</button>
-            <button class="btn-secondary" onclick="openManageLinks()">管理网址</button>
-          </div>
-        </div>
-
-        <!-- 网址检测 -->
-        <div class="adv-card">
-          <h3>🔍 网址健康检测</h3>
-          <p>检测所有网址的可访问性，标记异常链接。</p>
-          <div class="btn-group">
-            <button class="btn-primary" onclick="startUrlDetection()">开始检测</button>
-            <button class="btn-secondary" onclick="showDetectionResults()">查看结果</button>
-          </div>
-        </div>
-
-        <!-- PWA 安装提示 -->
-        <div class="adv-card">
-          <h3>📱 安装到桌面</h3>
-          <p>将本站安装到手机或电脑桌面，获得原生 App 体验。</p>
-          <div class="btn-group">
-            <button class="btn-primary" onclick="installPWA()">安装应用</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      © 2026 chefdon-智能生态导航 v14.1 · Powered by Cloudflare · 已登入
-    </div>
-  </div><!-- end main-content -->
-</div><!-- end app-container -->
-
-<!-- ===== v14 Login ===== -->
-<div class="login-mask" id="loginMask">
- <div class="login-box">
-  <h3>🔐 后台登录</h3>
-  <div class="form-group"><input id="adminPassword" class="form-input" type="password" placeholder="请输入后台密码"></div>
-  <div class="btn-group"><button class="btn-primary" onclick="adminLogin()">登录</button><button class="btn-secondary" onclick="closeLogin()">取消</button></div>
- </div>
+<!-- 后台入口（右上角） -->
+<div id="admin-status-hint" class="hidden glass-card px-2.5 py-1.5 rounded-lg text-[10px] sm:text-[11px] text-indigo-300 border border-indigo-500/20">
+<i class="fas fa-shield-halved mr-1"></i><span data-i18n="adminModeHint">后台管理模式 · 30分钟无操作自动退出</span>
+</div>
+<div id="admin-top-entry" class="fixed top-4 right-16 sm:top-5 sm:right-20 z-[151]">
+<button id="admin-login-btn" onclick="triggerAdminLogin()" class="glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-slate-300 hover:text-indigo-400 transition-colors cursor-pointer whitespace-nowrap">后台登录</button>
+<button id="admin-logout-btn" onclick="logoutAdmin()" class="hidden glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-red-400 hover:text-red-300 transition-colors cursor-pointer whitespace-nowrap">退出后台</button>
 </div>
 
-<!-- ===== MODAL: Admin / Manage Categories ===== -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal-panel" id="modalContent">
-    <div class="modal-header">
-      <h2 id="modalTitle">管理面板</h2>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div id="modalBody"></div>
-  </div>
+<!-- 个性化设置浮窗 -->
+<div class="fixed top-5 right-5 z-[150] relative">
+<button aria-label="个性化设置" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-indigo-500 hover:scale-105 active:scale-95 transition-all shadow-lg cursor-pointer" onclick="toggleThemeMenu(event)" title="个性化设置">
+<i class="fas fa-palette text-sm" id="theme-icon"></i>
+</button>
+<div class="absolute right-0 top-full mt-2 w-60 bg-slate-900/95 border border-slate-700/80 rounded-2xl shadow-2xl hidden backdrop-blur-md p-4 space-y-3 z-[160]" id="theme-panel" onclick="event.stopPropagation()">
+<div class="text-[11px] font-bold text-slate-400 px-1 mb-1.5" data-i18n="langTitle">语言 / Language</div>
+<div class="flex gap-2 mb-3 border-b border-slate-800 pb-3">
+<button class="flex-1 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs text-center hover:bg-slate-700 transition-colors cursor-pointer" onclick="setLanguage('zh')">中文</button>
+<button class="flex-1 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs text-center hover:bg-slate-700 transition-colors cursor-pointer" onclick="setLanguage('en')">English</button>
+</div>
+<div class="text-[11px] font-bold text-slate-400 px-1" data-i18n="themeTitle">基础色彩模式 (本地偏好)</div>
+<div class="flex gap-2">
+<button class="flex-1 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs text-center hover:bg-slate-700 transition-colors cursor-pointer flex items-center justify-center gap-1" onclick="setBaseTheme('theme-light')"><i class="fas fa-sun text-amber-500"></i> <span data-i18n="themeLight">日间</span></button>
+<button class="flex-1 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs text-center hover:bg-slate-700 transition-colors cursor-pointer flex items-center justify-center gap-1" onclick="setBaseTheme('theme-dark')"><i class="fas fa-moon text-indigo-400"></i> <span data-i18n="themeDark">夜间</span></button>
+</div>
+<div class="admin-only space-y-1.5 px-1 border-t border-slate-800 pt-3 mt-1">
+<div class="flex justify-between items-center">
+<label class="text-[11px] text-slate-400 font-bold" data-i18n="bgTitle">自定义背景 (全站同步)</label>
+<button class="text-[10px] text-red-400 hover:underline hidden" data-i18n="clearBg" id="clear-bg-btn" onclick="clearCustomBg()">清除壁纸</button>
+</div>
+<div class="flex gap-1.5">
+<input class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-xs text-slate-100 focus:outline-none focus:border-indigo-500" data-i18n-placeholder="bgInputPlace" id="custom-bg-input" placeholder="输入图片网址 https://..." type="text"/>
+<button class="bg-indigo-600 text-white px-2 py-1 rounded-lg text-xs hover:bg-indigo-500 cursor-pointer shrink-0" data-i18n="applyBtn" onclick="applyCustomBg()">应用</button>
+</div>
+</div>
+<div class="admin-only space-y-1.5 px-1 border-t border-slate-800 pt-3 mt-1">
+<label class="text-[11px] text-slate-400 font-bold" data-i18n="pwdTitle">修改管理员密码 (全站同步)</label>
+<div class="flex gap-1.5">
+<input class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-xs text-slate-100 focus:outline-none focus:border-emerald-500" data-i18n-placeholder="pwdInputPlace" id="custom-pwd-input" placeholder="输入新密码" type="password"/>
+<button class="bg-emerald-600 text-white px-2 py-1 rounded-lg text-xs hover:bg-emerald-500 cursor-pointer shrink-0" data-i18n="saveBtn" onclick="updateAdminPwd()">保存</button>
+</div>
+</div>
+<div class="admin-only border-t border-slate-800 pt-2 mt-2">
+<button class="w-full py-1.5 rounded-lg bg-red-950/40 border border-red-900/40 text-red-400 text-[11px] text-center hover:bg-red-900/40 transition-colors cursor-pointer" data-i18n="logoutBtn" onclick="logoutAdmin()">退出后台管理</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-4 py-12 lg:py-20 flex flex-col items-center">
+<!-- 时间与问候语 -->
+<div class="text-center mb-10 animate-fade-in">
+<h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 mb-2" id="clock">00:00:00</h1>
+<div class="flex items-center justify-center space-x-3 text-sm md:text-base font-medium tracking-wide opacity-90">
+<span class="text-indigo-400" id="greeting">正在筹备问候语...</span>
+<span class="opacity-30">|</span>
+<span class="flex items-center gap-1.5 text-emerald-400" id="weather-info">
+<i class="fas fa-spinner fa-spin text-xs"></i> <span data-i18n="weatherLoading">正在定位测算天气...</span>
+</span>
+</div>
+</div>
+<!-- 搜索引擎 -->
+<div class="w-full max-w-2xl mb-16 relative z-[100]">
+<form action="https://www.google.com/search" class="relative" id="search-form" method="get" rel="noopener noreferrer" target="_blank">
+<div class="flex items-center glass-input rounded-2xl border border-slate-700/40 shadow-2xl focus-within:border-indigo-500/80 transition-all duration-300">
+<div class="relative pl-4">
+<button aria-label="切换搜索引擎" class="flex items-center space-x-2 text-slate-400 hover:text-indigo-400 transition-colors py-4 pr-2 cursor-pointer" id="engine-btn" onclick="toggleEngineMenu(event)" type="button">
+<i class="fab fa-google text-blue-400" id="engine-icon"></i>
+<i class="fas fa-chevron-down text-xs opacity-50"></i>
+</button>
+<div class="absolute left-2 top-full mt-2 w-36 bg-slate-950/95 border border-slate-800 rounded-xl shadow-2xl hidden backdrop-blur-md overflow-hidden z-[110]" id="engine-menu">
+<button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('site')" type="button"><i class="fas fa-search text-indigo-400"></i> <span data-i18n="enSite">站内搜索</span></button>
+<button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('google')" type="button"><i class="fab fa-google text-blue-400"></i> <span data-i18n="enGoogle">谷歌 Google</span></button>
+<button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('bing')" type="button"><i class="fab fa-microsoft text-teal-400"></i> <span data-i18n="enBing">必应 Bing</span></button>
+<button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('baidu')" type="button"><i class="fas fa-paw text-red-400"></i> <span data-i18n="enBaidu">百度 Baidu</span></button>
+<button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('github')" type="button"><i class="fab fa-github text-slate-400"></i> <span>GitHub</span></button>
+</div>
+</div>
+<input autocomplete="off" class="w-full bg-transparent border-none py-4 px-3 focus:outline-none focus:ring-0 text-base" data-i18n-placeholder="searchGoogle" id="search-input" name="q" placeholder="在 Google 中搜索..." type="text"/>
+<button aria-label="搜索" class="mr-3 p-2.5 text-slate-400 hover:text-indigo-400 transition-colors" type="submit"><i class="fas fa-search text-lg"></i></button>
+</div>
+</form>
+<div id="site-search-results" class="hidden mt-4 glass-card rounded-2xl p-4 shadow-xl"></div>
+</div>
+<!-- ============ 导航卡片网格 ============ -->
+<div class="w-full grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 relative z-10 items-start" id="main-nav-grid"><div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 xl:col-span-1" id="card-custom">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-semibold text-pink-400 flex items-center"><i class="fas fa-folder-plus mr-2.5"></i> <span data-i18n="cardCustom">站长推荐</span></h3>
+<button class="admin-only text-xs px-2.5 py-1 bg-pink-600/20 text-pink-400 border border-pink-500/20 rounded-lg hover:bg-pink-600/40 transition-colors cursor-pointer z-[50]" data-i18n="addCloud" onclick="openLinkModal('custom')" type="button">添加 (云端)</button>
+</div>
+<div id="custom-links-container"></div>
+<div class="mt-4 pt-2 border-t border-slate-500/10 text-center hidden" id="expand-action-wrapper">
+<button class="text-xs font-semibold text-pink-400 hover:text-pink-300 transition-colors cursor-pointer inline-flex items-center gap-1" id="expand-btn" onclick="toggleExpandCustomLinks()">
+<span data-i18n="expandMore">展开显示更多</span> <i class="fas fa-chevron-down text-[10px]"></i>
+</button>
+</div>
+</div><div class="glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300" id="card-recommend">
+<h3 class="text-lg font-semibold text-indigo-400 mb-4 flex items-center"><i class="fas fa-star mr-2.5"></i> <span data-i18n="cardRec">常用</span></h3>
+<div class="grid grid-cols-2 gap-3">
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://github.com" rel="noopener noreferrer" target="_blank"><i class="fab fa-github text-xl text-slate-400"></i> <span class="text-sm font-medium">GitHub</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://www.youtube.com" rel="noopener noreferrer" target="_blank"><i class="fab fa-youtube text-xl text-red-500"></i> <span class="text-sm font-medium">YouTube</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://kjgx668.blogspot.com" rel="noopener noreferrer" target="_blank"><i class="fas fa-globe text-xl text-blue-400"></i> <span class="text-sm font-medium" data-i18n="linkBlog">科技共享博客</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://x.com/kejigongxiang" rel="noopener noreferrer" target="_blank"><i class="fas fa-tv text-xl text-pink-400"></i> <span class="text-sm font-medium" data-i18n="linkBili">哔哩哔哩</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://www.zhihu.com" rel="noopener noreferrer" target="_blank"><i class="fab fa-zhihu text-xl text-blue-500"></i> <span class="text-sm font-medium" data-i18n="linkZhihu">知乎</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://weibo.com" rel="noopener noreferrer" target="_blank"><i class="fab fa-weibo text-xl text-red-400"></i> <span class="text-sm font-medium" data-i18n="linkWeibo">微博</span></a>
+</div>
+</div>
+<!-- 原有：常用推荐 -->
+
+<!-- 原有：效率与开发 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-purple-500/30 transition-all duration-300" id="card-develop">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><i class="fas fa-code mr-2.5"></i> <span data-i18n="cardDev">效率与开发</span></h3>
+<div class="grid grid-cols-2 gap-3">
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://dash.cloudflare.com" rel="noopener noreferrer" target="_blank"><i class="fas fa-cloud text-xl text-orange-400"></i> <span class="text-sm font-medium">Cloudflare</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://chatgpt.com" rel="noopener noreferrer" target="_blank"><i class="fas fa-robot text-xl text-emerald-400"></i> <span class="text-sm font-medium">ChatGPT</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://juejin.cn" rel="noopener noreferrer" target="_blank"><i class="fas fa-book text-xl text-blue-500"></i> <span class="text-sm font-medium" data-i18n="linkJuejin">稀土掘金</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://vercel.com" rel="noopener noreferrer" target="_blank"><i class="fas fa-triangle-exclamation text-xl"></i> <span class="text-sm font-medium">Vercel</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://stackoverflow.com" rel="noopener noreferrer" target="_blank"><i class="fab fa-stack-overflow text-xl text-orange-500"></i> <span class="text-sm font-medium">StackOverflow</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://caniuse.com" rel="noopener noreferrer" target="_blank"><i class="fas fa-browser text-xl text-sky-400"></i> <span class="text-sm font-medium">CanIUse</span></a>
+</div>
+</div>
+<!-- 原有：站长推荐（动态云端） -->
+
+
+
+<!-- 第四轮整理新增分类：开发与学习资源 -->
+<section class="nav-card">
+<h3 class="text-lg font-semibold text-cyan-400 mb-4 flex items-center"><i class="fas fa-code mr-2.5"></i>开发与学习资源</h3>
+<div class="links-container">
+<a class="link-pill" href="https://github.com" target="_blank"><span class="link-dot bg-gray-400"></span>GitHub</a>
+<a class="link-pill" href="https://developer.mozilla.org" target="_blank"><span class="link-dot bg-blue-400"></span>MDN Web Docs</a>
+<a class="link-pill" href="https://www.runoob.com" target="_blank"><span class="link-dot bg-green-400"></span>菜鸟教程</a>
+</div>
+</section>
+
+<!-- 第四轮整理新增分类：在线效率工具 -->
+<section class="nav-card">
+<h3 class="text-lg font-semibold text-orange-400 mb-4 flex items-center"><i class="fas fa-tools mr-2.5"></i>在线效率工具</h3>
+<div class="links-container">
+<a class="link-pill" href="https://www.canva.com" target="_blank"><span class="link-dot bg-purple-400"></span>Canva</a>
+<a class="link-pill" href="https://www.ilovepdf.com" target="_blank"><span class="link-dot bg-red-400"></span>iLovePDF</a>
+<a class="link-pill" href="https://www.remove.bg" target="_blank"><span class="link-dot bg-green-400"></span>Remove.bg</a>
+</div>
+</section>
+
+<!-- AI工具分类 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-emerald-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><i class="fas fa-robot mr-2.5"></i> AI智能工具</h3>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://chat.openai.com" target="_blank"><span class="link-dot bg-emerald-400"></span>ChatGPT</a>
+<a class="link-pill" href="https://claude.ai" target="_blank"><span class="link-dot bg-orange-400"></span>Claude</a>
+<a class="link-pill" href="https://gemini.google.com" target="_blank"><span class="link-dot bg-blue-400"></span>Gemini</a>
+<a class="link-pill" href="https://www.midjourney.com" target="_blank"><span class="link-dot bg-purple-400"></span>Midjourney</a>
+</div>
+</div>
+<!-- 设计素材分类 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-pink-400 mb-4 flex items-center"><i class="fas fa-palette mr-2.5"></i> 设计素材</h3>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.canva.com" target="_blank"><span class="link-dot bg-blue-400"></span>Canva</a>
+<a class="link-pill" href="https://www.figma.com" target="_blank"><span class="link-dot bg-purple-400"></span>Figma</a>
+<a class="link-pill" href="https://unsplash.com" target="_blank"><span class="link-dot bg-slate-400"></span>Unsplash</a>
+<a class="link-pill" href="https://www.iconfont.cn" target="_blank"><span class="link-dot bg-orange-400"></span>Iconfont</a>
+</div>
 </div>
 
-<!-- ===== TOAST ===== -->
-<div class="toast" id="toast"></div>
-
-<!-- ============================================================ -->
-<!-- JAVASCRIPT                                                   -->
-<!-- ============================================================ -->
+<!-- ============ 新增分类卡片（开始） ============ -->
+<!-- 常用入口 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-indigo-400 mb-4 flex items-center"><i class="fas fa-compass mr-2.5"></i> 常用入口</h3>
+<div class="subcat-title text-indigo-400/50">搜索引擎</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.baidu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>百度</a>
+<a class="link-pill" href="https://www.google.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>Google</a>
+<a class="link-pill" href="https://www.bing.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-teal-400"></span>Bing</a>
+<a class="link-pill" href="https://www.sogou.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>搜狗搜索</a>
+</div>
+<div class="subcat-title text-indigo-400/50">邮箱</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://mail.qq.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>QQ邮箱</a>
+<a class="link-pill" href="https://mail.163.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>163邮箱</a>
+<a class="link-pill" href="https://mail.google.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-rose-400"></span>Gmail</a>
+<a class="link-pill" href="https://outlook.live.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>Outlook</a>
+</div>
+<div class="subcat-title text-indigo-400/50">常用生活</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.weather.com.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>天气查询</a>
+<a class="link-pill" href="https://www.kuaidi100.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>快递100</a>
+<a class="link-pill" href="https://fanyi.baidu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>百度翻译</a>
+<a class="link-pill" href="https://www.deepl.com/translator" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-indigo-400"></span>DeepL翻译</a>
+</div>
+</div>
+<!-- 工作办公 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-blue-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><i class="fas fa-briefcase mr-2.5"></i> 工作办公</h3>
+<div class="subcat-title text-blue-400/50">协作文档</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://docs.qq.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>腾讯文档</a>
+<a class="link-pill" href="https://shimo.im" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>石墨文档</a>
+<a class="link-pill" href="https://www.notion.so" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-500"></span>Notion</a>
+<a class="link-pill" href="https://www.yuque.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>语雀</a>
+</div>
+<div class="subcat-title text-blue-400/50">视频会议</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://meeting.tencent.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>腾讯会议</a>
+<a class="link-pill" href="https://zoom.us" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>Zoom</a>
+<a class="link-pill" href="https://teams.microsoft.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Teams</a>
+</div>
+<div class="subcat-title text-blue-400/50">云存储</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://pan.baidu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>百度网盘</a>
+<a class="link-pill" href="https://www.aliyundrive.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>阿里云盘</a>
+<a class="link-pill" href="https://drive.google.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-yellow-400"></span>Google Drive</a>
+<a class="link-pill" href="https://pan.quark.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-violet-400"></span>夸克网盘</a>
+</div>
+<div class="subcat-title text-blue-400/50">求职招聘</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.zhipin.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>Boss直聘</a>
+<a class="link-pill" href="https://www.liepin.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>猎聘</a>
+<a class="link-pill" href="https://www.linkedin.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>LinkedIn</a>
+<a class="link-pill" href="https://www.lagou.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-green-400"></span>拉勾</a>
+</div>
+</div>
+<!-- 开发技术 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-purple-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><i class="fas fa-code mr-2.5"></i> 开发技术</h3>
+<div class="subcat-title text-purple-400/50">代码托管</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://github.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>GitHub</a>
+<a class="link-pill" href="https://gitlab.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>GitLab</a>
+<a class="link-pill" href="https://gitee.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>Gitee</a>
+</div>
+<div class="subcat-title text-purple-400/50">技术社区</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://stackoverflow.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Stack Overflow</a>
+<a class="link-pill" href="https://juejin.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>掘金</a>
+<a class="link-pill" href="https://segmentfault.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>SegmentFault</a>
+<a class="link-pill" href="https://www.v2ex.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>V2EX</a>
+</div>
+<div class="subcat-title text-purple-400/50">前端开发</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://developer.mozilla.org" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>MDN</a>
+<a class="link-pill" href="https://caniuse.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>Can I Use</a>
+<a class="link-pill" href="https://cn.vuejs.org" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>Vue.js</a>
+<a class="link-pill" href="https://react.dev" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>React</a>
+</div>
+<div class="subcat-title text-purple-400/50">在线工具</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.json.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>JSON格式化</a>
+<a class="link-pill" href="https://regex101.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>正则测试</a>
+<a class="link-pill" href="https://codesandbox.io" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>CodeSandbox</a>
+<a class="link-pill" href="https://stackblitz.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>StackBlitz</a>
+</div>
+</div>
+<!-- AI 工具 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-emerald-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><i class="fas fa-robot mr-2.5"></i> AI 工具</h3>
+<div class="subcat-title text-emerald-400/50">对话助手</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://chatgpt.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>ChatGPT</a>
+<a class="link-pill" href="https://claude.ai" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Claude</a>
+<a class="link-pill" href="https://kimi.moonshot.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Kimi</a>
+<a class="link-pill" href="https://tongyi.aliyun.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>通义千问</a>
+<a class="link-pill" href="https://www.doubao.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>豆包</a>
+<a class="link-pill" href="https://chat.deepseek.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>DeepSeek</a>
+</div>
+<div class="subcat-title text-emerald-400/50">AI 绘画</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.midjourney.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-indigo-400"></span>Midjourney</a>
+<a class="link-pill" href="https://www.liblib.art" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-pink-400"></span>LiblibAI</a>
+</div>
+<div class="subcat-title text-emerald-400/50">AI 编程</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://cursor.sh" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Cursor</a>
+<a class="link-pill" href="https://github.com/features/copilot" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>GitHub Copilot</a>
+<a class="link-pill" href="https://v0.dev" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>v0.dev</a>
+</div>
+<div class="subcat-title text-emerald-400/50">AI 搜索</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.perplexity.ai" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>Perplexity</a>
+<a class="link-pill" href="https://metaso.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-violet-400"></span>秘塔AI</a>
+<a class="link-pill" href="https://devv.ai" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>Devv</a>
+</div>
+</div>
+<!-- 设计创意 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-pink-400 mb-4 flex items-center"><i class="fas fa-palette mr-2.5"></i> 设计创意</h3>
+<div class="subcat-title text-pink-400/50">灵感采集</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://dribbble.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-pink-400"></span>Dribbble</a>
+<a class="link-pill" href="https://www.behance.net" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>Behance</a>
+<a class="link-pill" href="https://www.zcool.com.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-yellow-400"></span>站酷</a>
+<a class="link-pill" href="https://www.pinterest.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>Pinterest</a>
+</div>
+<div class="subcat-title text-pink-400/50">UI/UX 资源</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.figma.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Figma</a>
+<a class="link-pill" href="https://ant.design" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>Ant Design</a>
+<a class="link-pill" href="https://arco.design" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>Arco Design</a>
+<a class="link-pill" href="https://tdesign.tencent.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>TDesign</a>
+</div>
+<div class="subcat-title text-pink-400/50">素材资源</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://unsplash.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>Unsplash</a>
+<a class="link-pill" href="https://www.pexels.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>Pexels</a>
+<a class="link-pill" href="https://www.iconfont.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>IconFont</a>
+<a class="link-pill" href="https://fonts.google.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>Google Fonts</a>
+</div>
+<div class="subcat-title text-pink-400/50">色彩工具</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://coolors.co" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-violet-400"></span>Coolors</a>
+<a class="link-pill" href="https://color.adobe.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>Adobe Color</a>
+</div>
+</div>
+<!-- 学习进修 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-sky-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-sky-400 mb-4 flex items-center"><i class="fas fa-graduation-cap mr-2.5"></i> 学习进修</h3>
+<div class="subcat-title text-sky-400/50">在线课程</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.bilibili.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-pink-400"></span>B站</a>
+<a class="link-pill" href="https://www.imooc.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>慕课网</a>
+<a class="link-pill" href="https://www.coursera.org" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>Coursera</a>
+<a class="link-pill" href="https://time.geekbang.org" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>极客时间</a>
+<a class="link-pill" href="https://www.icourse163.org" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>中国大学MOOC</a>
+</div>
+<div class="subcat-title text-sky-400/50">电子书与论文</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.cnki.net" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>中国知网</a>
+<a class="link-pill" href="https://scholar.google.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>Google Scholar</a>
+</div>
+<div class="subcat-title text-sky-400/50">算法刷题</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://leetcode.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>LeetCode</a>
+<a class="link-pill" href="https://www.nowcoder.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>牛客网</a>
+<a class="link-pill" href="https://codeforces.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>Codeforces</a>
+</div>
+</div>
+<!-- 资讯阅读 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-amber-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-amber-400 mb-4 flex items-center"><i class="fas fa-newspaper mr-2.5"></i> 资讯阅读</h3>
+<div class="subcat-title text-amber-400/50">综合新闻</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.xinhuanet.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>新华社</a>
+<a class="link-pill" href="https://www.thepaper.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>澎湃新闻</a>
+<a class="link-pill" href="https://news.cctv.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-500"></span>央视新闻</a>
+</div>
+<div class="subcat-title text-amber-400/50">科技资讯</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://36kr.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>36氪</a>
+<a class="link-pill" href="https://sspai.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>少数派</a>
+<a class="link-pill" href="https://www.pingwest.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>品玩</a>
+<a class="link-pill" href="https://techcrunch.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>TechCrunch</a>
+<a class="link-pill" href="https://news.ycombinator.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Hacker News</a>
+</div>
+<div class="subcat-title text-amber-400/50">RSS 阅读</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://feedly.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>Feedly</a>
+<a class="link-pill" href="https://www.inoreader.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>Inoreader</a>
+</div>
+</div>
+<!-- 实用工具 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-teal-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-teal-400 mb-4 flex items-center"><i class="fas fa-toolbox mr-2.5"></i> 实用工具</h3>
+<div class="subcat-title text-teal-400/50">图片处理</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.remove.bg" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>在线抠图</a>
+<a class="link-pill" href="https://tinypng.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-pink-400"></span>TinyPNG</a>
+<a class="link-pill" href="https://ezgif.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>GIF制作</a>
+</div>
+<div class="subcat-title text-teal-400/50">PDF 工具</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.ilovepdf.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>iLovePDF</a>
+<a class="link-pill" href="https://smallpdf.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>SmallPDF</a>
+</div>
+<div class="subcat-title text-teal-400/50">文件传输</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://cowtransfer.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>奶牛快传</a>
+<a class="link-pill" href="https://airportal.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>AirPortal</a>
+</div>
+<div class="subcat-title text-teal-400/50">笔记与思维</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://flomoapp.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-indigo-400"></span>Flomo</a>
+<a class="link-pill" href="https://note.youdao.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>有道云笔记</a>
+<a class="link-pill" href="https://www.processon.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>ProcessOn</a>
+<a class="link-pill" href="https://app.diagrams.net" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Draw.io</a>
+</div>
+</div>
+<!-- 金融理财 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-green-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-green-400 mb-4 flex items-center"><i class="fas fa-chart-line mr-2.5"></i> 金融理财</h3>
+<div class="subcat-title text-green-400/50">网上银行</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.icbc.com.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>工商银行</a>
+<a class="link-pill" href="https://www.cmbchina.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-500"></span>招商银行</a>
+<a class="link-pill" href="https://www.ccb.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>建设银行</a>
+<a class="link-pill" href="https://www.boc.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>中国银行</a>
+</div>
+<div class="subcat-title text-green-400/50">证券与基金</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.eastmoney.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>东方财富</a>
+<a class="link-pill" href="https://xueqiu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>雪球</a>
+<a class="link-pill" href="https://fund.eastmoney.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>天天基金</a>
+</div>
+<div class="subcat-title text-green-400/50">支付与税务</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.alipay.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>支付宝</a>
+<a class="link-pill" href="https://etax.chinatax.gov.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>个税查询</a>
+</div>
+</div>
+<!-- 购物消费 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-orange-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-orange-400 mb-4 flex items-center"><i class="fas fa-shopping-cart mr-2.5"></i> 购物消费</h3>
+<div class="subcat-title text-orange-400/50">综合电商</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.taobao.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>淘宝</a>
+<a class="link-pill" href="https://www.jd.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>京东</a>
+<a class="link-pill" href="https://www.pinduoduo.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-500"></span>拼多多</a>
+<a class="link-pill" href="https://www.tmall.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>天猫</a>
+</div>
+<div class="subcat-title text-orange-400/50">比价与二手</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.smzdm.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>什么值得买</a>
+<a class="link-pill" href="https://www.goofish.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>闲鱼</a>
+<a class="link-pill" href="https://www.zhuanzhuan.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>转转</a>
+</div>
+<div class="subcat-title text-orange-400/50">出行票务</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.12306.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>铁路12306</a>
+<a class="link-pill" href="https://www.ctrip.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>携程旅行</a>
+<a class="link-pill" href="https://www.fliggy.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>飞猪</a>
+<a class="link-pill" href="https://www.umetrip.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>航旅纵横</a>
+</div>
+</div>
+<!-- 社交媒体 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-violet-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-violet-400 mb-4 flex items-center"><i class="fas fa-users mr-2.5"></i> 社交媒体</h3>
+<div class="subcat-title text-violet-400/50">社区平台</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://weibo.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>微博</a>
+<a class="link-pill" href="https://www.xiaohongshu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-500"></span>小红书</a>
+<a class="link-pill" href="https://www.zhihu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>知乎</a>
+</div>
+<div class="subcat-title text-violet-400/50">论坛</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.v2ex.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>V2EX</a>
+<a class="link-pill" href="https://www.hupu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>虎扑</a>
+<a class="link-pill" href="https://tieba.baidu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>贴吧</a>
+</div>
+<div class="subcat-title text-violet-400/50">国际社交</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://x.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>Twitter / X</a>
+<a class="link-pill" href="https://www.reddit.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Reddit</a>
+<a class="link-pill" href="https://discord.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-indigo-400"></span>Discord</a>
+</div>
+</div>
+<!-- 视频与流媒体 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-red-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-red-400 mb-4 flex items-center"><i class="fas fa-play mr-2.5"></i> 视频与流媒体</h3>
+<div class="subcat-title text-red-400/50">长视频</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://v.qq.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>腾讯视频</a>
+<a class="link-pill" href="https://www.iqiyi.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>爱奇艺</a>
+<a class="link-pill" href="https://www.youku.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>优酷</a>
+<a class="link-pill" href="https://www.bilibili.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-pink-400"></span>B站</a>
+<a class="link-pill" href="https://www.youtube.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>YouTube</a>
+<a class="link-pill" href="https://www.netflix.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-500"></span>Netflix</a>
+</div>
+<div class="subcat-title text-red-400/50">直播</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.douyu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>斗鱼</a>
+<a class="link-pill" href="https://www.huya.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>虎牙</a>
+<a class="link-pill" href="https://www.twitch.tv" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Twitch</a>
+</div>
+</div>
+<!-- 音乐与播客 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-fuchsia-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-fuchsia-400 mb-4 flex items-center"><i class="fas fa-headphones mr-2.5"></i> 音乐与播客</h3>
+<div class="subcat-title text-fuchsia-400/50">音乐平台</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://music.163.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>网易云音乐</a>
+<a class="link-pill" href="https://y.qq.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>QQ音乐</a>
+<a class="link-pill" href="https://open.spotify.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>Spotify</a>
+<a class="link-pill" href="https://www.kugou.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>酷狗音乐</a>
+</div>
+<div class="subcat-title text-fuchsia-400/50">播客</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.xiaoyuzhoufm.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>小宇宙</a>
+<a class="link-pill" href="https://www.ximalaya.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>喜马拉雅</a>
+</div>
+</div>
+<!-- 游戏相关 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-lime-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-lime-400 mb-4 flex items-center"><i class="fas fa-gamepad mr-2.5"></i> 游戏相关</h3>
+<div class="subcat-title text-lime-400/50">游戏平台</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://store.steampowered.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>Steam</a>
+<a class="link-pill" href="https://store.epicgames.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>Epic Games</a>
+</div>
+<div class="subcat-title text-lime-400/50">游戏社区</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.taptap.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>TapTap</a>
+<a class="link-pill" href="https://www.gamersky.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>游民星空</a>
+</div>
+</div>
+<!-- 运动健康 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-rose-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-rose-400 mb-4 flex items-center"><i class="fas fa-heart-pulse mr-2.5"></i> 运动健康</h3>
+<div class="subcat-title text-rose-400/50">运动健身</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.gotokeep.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Keep</a>
+<a class="link-pill" href="https://www.strava.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Strava</a>
+</div>
+<div class="subcat-title text-rose-400/50">医疗健康</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://dxy.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>丁香医生</a>
+<a class="link-pill" href="https://www.haodf.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>好大夫在线</a>
+<a class="link-pill" href="https://www.guahao.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>微医</a>
+</div>
+</div>
+<!-- 生活出行 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-cyan-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-cyan-400 mb-4 flex items-center"><i class="fas fa-car mr-2.5"></i> 生活出行</h3>
+<div class="subcat-title text-cyan-400/50">地图导航</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.amap.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>高德地图</a>
+<a class="link-pill" href="https://map.baidu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>百度地图</a>
+</div>
+<div class="subcat-title text-cyan-400/50">租房购房</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.ke.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>贝壳找房</a>
+<a class="link-pill" href="https://www.ziroom.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>自如</a>
+<a class="link-pill" href="https://www.lianjia.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>链家</a>
+</div>
+<div class="subcat-title text-cyan-400/50">汽车与政务</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.autohome.com.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>汽车之家</a>
+<a class="link-pill" href="https://gab.122.gov.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>交管12123</a>
+<a class="link-pill" href="https://gjzwfw.www.gov.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>政务服务平台</a>
+</div>
+</div>
+<!-- 个人收藏 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-yellow-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-yellow-400 mb-4 flex items-center"><i class="fas fa-bookmark mr-2.5"></i> 个人收藏</h3>
+<div class="subcat-title text-yellow-400/50">我的项目</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="#"><span class="link-dot bg-slate-400"></span>项目A</a>
+<a class="link-pill" href="#"><span class="link-dot bg-slate-400"></span>项目B</a>
+</div>
+<div class="subcat-title text-yellow-400/50">我的主页</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="#"><span class="link-dot bg-blue-400"></span>个人博客</a>
+<a class="link-pill" href="#"><span class="link-dot bg-slate-400"></span>GitHub主页</a>
+</div>
+<div class="subcat-title text-yellow-400/50">待整理</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="#"><span class="link-dot bg-amber-400"></span>稍后阅读</a>
+<a class="link-pill" href="#"><span class="link-dot bg-slate-400"></span>临时暂存</a>
+</div>
+</div>
+<!-- ============ 新增分类卡片（结束） ============ -->
+<!-- 添加动态分类按钮 (管理员可见) -->
+<div class="admin-only glass-card rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer hover:border-indigo-500/50 transition-all border-dashed border-2 border-slate-500/30 xl:col-span-1" id="add-section-card" onclick="addCustomSection()" style="min-height: 180px;">
+<i class="fas fa-plus text-3xl text-slate-400 mb-2"></i>
+<span class="text-sm font-medium text-slate-400 mt-1" data-i18n="addSectionBtn">添加自定义区域</span>
+</div>
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-cyan-500/30 transition-all duration-300 cat-card" id="card-resource-extra"><h3 class="text-lg font-semibold text-cyan-400 mb-4 flex items-center"><i class="fas fa-layer-group mr-2.5"></i> 精品资源</h3>
+<div class="subcat-title text-cyan-400/50">综合资源</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://github.com/trending" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>GitHub趋势</a>
+<a class="link-pill" href="https://www.producthunt.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Product Hunt</a>
+<a class="link-pill" href="https://alternativeto.net" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>软件替代</a>
+<a class="link-pill" href="https://www.appinn.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-green-400"></span>小众软件</a>
+</div></div></div>
+<!-- 友情链接 -->
+<div class="w-full relative z-10 mb-12">
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-emerald-500/20 transition-all duration-300">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-base font-semibold text-emerald-400 flex items-center"><i class="fas fa-handshake mr-2.5"></i> <span data-i18n="cardFriend">友情链接</span></h3>
+<button class="admin-only text-xs px-2.5 py-1 bg-emerald-600/20 text-emerald-400 border border-emerald-500/20 rounded-lg hover:bg-emerald-600/40 transition-colors cursor-pointer z-[50]" data-i18n="addLocal" onclick="openLinkModal('friend')" type="button">添加 (本地)</button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3" id="friend-links-container"></div>
+</div>
+</div>
+<footer class="text-slate-500 text-xs mt-4 cursor-pointer select-none tracking-wide hover:text-indigo-400/70 transition-colors" id="admin-trigger" title="后台入口已移至右上角">
+<span data-i18n="footerText">© 2026 chefdon-智能生态导航 · Powered by Cloudflare</span> <span class="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-400 font-bold hidden" data-i18n="adminBadge" id="admin-badge">已登入</span>
+</footer>
+</div>
+<!-- 弹窗模态框 -->
+<div class="fixed inset-0 bg-slate-950/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-[300]" id="modal" onclick="closeModalOnBlank(event)">
+<div class="bg-slate-900 border border-slate-700/80 p-6 rounded-2xl w-full max-w-sm shadow-2xl text-slate-100" onclick="event.stopPropagation()">
+<h4 class="text-md font-semibold text-slate-200 mb-4 flex items-center" id="modal-title"><i class="fas fa-link mr-2 text-indigo-400"></i><span id="modal-title-text">添加网址</span></h4>
+<div class="space-y-4 mb-6">
+<div>
+<label class="text-xs text-slate-400 block mb-1.5 font-medium" data-i18n="siteName">网站名称</label>
+<input class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition-all" data-i18n-placeholder="siteNamePlace" id="site-name" placeholder="例如：百度" type="text"/>
+</div>
+<div>
+<label class="text-xs text-slate-400 block mb-1.5 font-medium" data-i18n="siteUrl">网站网址 (URL)</label>
+<input class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition-all" id="site-url" placeholder="www.baidu.com" type="text"/>
+</div>
+</div>
+<div class="flex justify-end space-x-3">
+<button class="px-4 py-2 bg-slate-800 text-slate-400 text-xs font-medium rounded-xl hover:bg-slate-700 transition-colors cursor-pointer" data-i18n="btnCancel" onclick="toggleModal(false)" type="button">取消</button>
+<button class="px-4 py-2 bg-indigo-600 text-white text-xs font-medium rounded-xl hover:bg-indigo-500 transition-colors cursor-pointer shadow-lg shadow-indigo-600/20" data-i18n="btnSave" onclick="saveActiveLink()" type="button">保存站点</button>
+</div>
+</div>
+</div>
 <script>
-// ================================================================
-// DATA STORE - All navigation links organized by category
-// ================================================================
-const NAV_DATA = {
-  'zhanzhang': {
-    title: '站长推荐',
-    links: [
-      {name:'GitHub', url:'https://github.com'},
-      {name:'YouTube', url:'https://www.youtube.com'},
-      {name:'科技共享博客', url:'https://kjgx668.blogspot.com'},
-      {name:'哔哩哔哩', url:'https://x.com/kejigongxiang'},
-      {name:'知乎', url:'https://www.zhihu.com'},
-      {name:'微博', url:'https://weibo.com'}
-    ]
-  },
-  'changyong': {
-    title: '常用',
-    links: [
-      {name:'GitHub', url:'https://github.com'},
-      {name:'YouTube', url:'https://www.youtube.com'},
-      {name:'科技共享博客', url:'https://kjgx668.blogspot.com'},
-      {name:'哔哩哔哩', url:'https://x.com/kejigongxiang'},
-      {name:'知乎', url:'https://www.zhihu.com'},
-      {name:'微博', url:'https://weibo.com'}
-    ]
-  },
-  'xiaolv': {
-    title: '效率与开发',
-    links: [
-      {name:'Cloudflare', url:'https://dash.cloudflare.com'},
-      {name:'ChatGPT', url:'https://chatgpt.com'},
-      {name:'稀土掘金', url:'https://juejin.cn'},
-      {name:'Vercel', url:'https://vercel.com'},
-      {name:'StackOverflow', url:'https://stackoverflow.com'},
-      {name:'CanIUse', url:'https://caniuse.com'}
-    ]
-  },
-  'kaifa-ziyuan': {
-    title: '开发与学习资源',
-    links: [
-      {name:'GitHub', url:'https://github.com'},
-      {name:'MDN Web Docs', url:'https://developer.mozilla.org'},
-      {name:'菜鸟教程', url:'https://www.runoob.com'}
-    ]
-  },
-  'gongju': {
-    title: '在线效率工具',
-    links: [
-      {name:'Canva', url:'https://www.canva.com'},
-      {name:'iLovePDF', url:'https://www.ilovepdf.com'},
-      {name:'Remove.bg', url:'https://www.remove.bg'}
-    ]
-  },
-  'ai': {
-    title: 'AI智能工具',
-    links: [
-      {name:'ChatGPT', url:'https://chat.openai.com'},
-      {name:'Claude', url:'https://claude.ai'},
-      {name:'Gemini', url:'https://gemini.google.com'},
-      {name:'Midjourney', url:'https://www.midjourney.com'}
-    ]
-  },
-  'sheji': {
-    title: '设计素材',
-    links: [
-      {name:'Canva', url:'https://www.canva.com'},
-      {name:'Figma', url:'https://www.figma.com'},
-      {name:'Unsplash', url:'https://unsplash.com'},
-      {name:'Iconfont', url:'https://www.iconfont.cn'}
-    ]
-  },
-  'sousuo': {
-    title: '搜索引擎',
-    links: [
-      {name:'百度', url:'https://www.baidu.com'},
-      {name:'Google', url:'https://www.google.com'},
-      {name:'Bing', url:'https://www.bing.com'},
-      {name:'搜狗搜索', url:'https://www.sogou.com'}
-    ]
-  },
-  'youxiang': {
-    title: '邮箱',
-    links: [
-      {name:'QQ邮箱', url:'https://mail.qq.com'},
-      {name:'163邮箱', url:'https://mail.163.com'},
-      {name:'Gmail', url:'https://mail.google.com'},
-      {name:'Outlook', url:'https://outlook.live.com'}
-    ]
-  },
-  'shenghuo': {
-    title: '常用生活',
-    links: [
-      {name:'天气查询', url:'https://www.weather.com.cn'},
-      {name:'快递100', url:'https://www.kuaidi100.com'},
-      {name:'百度翻译', url:'https://fanyi.baidu.com'},
-      {name:'DeepL翻译', url:'https://www.deepl.com/translator'}
-    ]
-  },
-  'xiewendang': {
-    title: '协作文档',
-    links: [
-      {name:'腾讯文档', url:'https://docs.qq.com'},
-      {name:'石墨文档', url:'https://shimo.im'},
-      {name:'Notion', url:'https://www.notion.so'},
-      {name:'语雀', url:'https://www.yuque.com'}
-    ]
-  },
-  'huiyi': {
-    title: '视频会议',
-    links: [
-      {name:'腾讯会议', url:'https://meeting.tencent.com'},
-      {name:'Zoom', url:'https://zoom.us'},
-      {name:'Teams', url:'https://teams.microsoft.com'}
-    ]
-  },
-  'yun': {
-    title: '云存储',
-    links: [
-      {name:'百度网盘', url:'https://pan.baidu.com'},
-      {name:'阿里云盘', url:'https://www.aliyundrive.com'},
-      {name:'Google Drive', url:'https://drive.google.com'},
-      {name:'夸克网盘', url:'https://pan.quark.cn'}
-    ]
-  },
-  'zhipin': {
-    title: '求职招聘',
-    links: [
-      {name:'Boss直聘', url:'https://www.zhipin.com'},
-      {name:'猎聘', url:'https://www.liepin.com'},
-      {name:'LinkedIn', url:'https://www.linkedin.com'},
-      {name:'拉勾', url:'https://www.lagou.com'}
-    ]
-  },
-  'daima': {
-    title: '代码托管',
-    links: [
-      {name:'GitHub', url:'https://github.com'},
-      {name:'GitLab', url:'https://gitlab.com'},
-      {name:'Gitee', url:'https://gitee.com'}
-    ]
-  },
-  'shequ': {
-    title: '技术社区',
-    links: [
-      {name:'Stack Overflow', url:'https://stackoverflow.com'},
-      {name:'掘金', url:'https://juejin.cn'},
-      {name:'SegmentFault', url:'https://segmentfault.com'},
-      {name:'V2EX', url:'https://www.v2ex.com'}
-    ]
-  },
-  'qianduan': {
-    title: '前端开发',
-    links: [
-      {name:'MDN', url:'https://developer.mozilla.org'},
-      {name:'Can I Use', url:'https://caniuse.com'},
-      {name:'Vue.js', url:'https://cn.vuejs.org'},
-      {name:'React', url:'https://react.dev'}
-    ]
-  },
-  'zaixian-tool': {
-    title: '在线工具',
-    links: [
-      {name:'JSON格式化', url:'https://www.json.cn'},
-      {name:'正则测试', url:'https://regex101.com'},
-      {name:'CodeSandbox', url:'https://codesandbox.io'},
-      {name:'StackBlitz', url:'https://stackblitz.com'}
-    ]
-  },
-  'ai-chat': {
-    title: '对话助手',
-    links: [
-      {name:'ChatGPT', url:'https://chatgpt.com'},
-      {name:'Claude', url:'https://claude.ai'},
-      {name:'Kimi', url:'https://kimi.moonshot.cn'},
-      {name:'通义千问', url:'https://tongyi.aliyun.com'},
-      {name:'豆包', url:'https://www.doubao.com'},
-      {name:'DeepSeek', url:'https://chat.deepseek.com'}
-    ]
-  },
-  'ai-art': {
-    title: 'AI 绘画',
-    links: [
-      {name:'Midjourney', url:'https://www.midjourney.com'},
-      {name:'LiblibAI', url:'https://www.liblib.art'}
-    ]
-  },
-  'ai-code': {
-    title: 'AI 编程',
-    links: [
-      {name:'Cursor', url:'https://cursor.sh'},
-      {name:'GitHub Copilot', url:'https://github.com/features/copilot'},
-      {name:'v0.dev', url:'https://v0.dev'}
-    ]
-  },
-  'ai-search': {
-    title: 'AI 搜索',
-    links: [
-      {name:'Perplexity', url:'https://www.perplexity.ai'},
-      {name:'秘塔AI', url:'https://metaso.cn'},
-      {name:'Devv', url:'https://devv.ai'}
-    ]
-  },
-  'inspire': {
-    title: '灵感采集',
-    links: [
-      {name:'Dribbble', url:'https://dribbble.com'},
-      {name:'Behance', url:'https://www.behance.net'},
-      {name:'站酷', url:'https://www.zcool.com.cn'},
-      {name:'Pinterest', url:'https://www.pinterest.com'}
-    ]
-  },
-  'uiux': {
-    title: 'UI/UX 资源',
-    links: [
-      {name:'Figma', url:'https://www.figma.com'},
-      {name:'Ant Design', url:'https://ant.design'},
-      {name:'Arco Design', url:'https://arco.design'},
-      {name:'TDesign', url:'https://tdesign.tencent.com'}
-    ]
-  },
-  'sucai': {
-    title: '素材资源',
-    links: [
-      {name:'Unsplash', url:'https://unsplash.com'},
-      {name:'Pexels', url:'https://www.pexels.com'},
-      {name:'IconFont', url:'https://www.iconfont.cn'},
-      {name:'Google Fonts', url:'https://fonts.google.com'}
-    ]
-  },
-  'color': {
-    title: '色彩工具',
-    links: [
-      {name:'Coolors', url:'https://coolors.co'},
-      {name:'Adobe Color', url:'https://color.adobe.com'}
-    ]
-  },
-  'course': {
-    title: '在线课程',
-    links: [
-      {name:'B站', url:'https://www.bilibili.com'},
-      {name:'慕课网', url:'https://www.imooc.com'},
-      {name:'Coursera', url:'https://www.coursera.org'},
-      {name:'极客时间', url:'https://time.geekbang.org'},
-      {name:'中国大学MOOC', url:'https://www.icourse163.org'}
-    ]
-  },
-  'book': {
-    title: '电子书与论文',
-    links: [
-      {name:'中国知网', url:'https://www.cnki.net'},
-      {name:'Google Scholar', url:'https://scholar.google.com'}
-    ]
-  },
-  'algo': {
-    title: '算法刷题',
-    links: [
-      {name:'LeetCode', url:'https://leetcode.cn'},
-      {name:'牛客网', url:'https://www.nowcoder.com'},
-      {name:'Codeforces', url:'https://codeforces.com'}
-    ]
-  },
-  'news': {
-    title: '综合新闻',
-    links: [
-      {name:'新华社', url:'https://www.xinhuanet.com'},
-      {name:'澎湃新闻', url:'https://www.thepaper.cn'},
-      {name:'央视新闻', url:'https://news.cctv.com'}
-    ]
-  },
-  'tech-news': {
-    title: '科技资讯',
-    links: [
-      {name:'36氪', url:'https://36kr.com'},
-      {name:'少数派', url:'https://sspai.com'},
-      {name:'品玩', url:'https://www.pingwest.com'},
-      {name:'TechCrunch', url:'https://techcrunch.com'},
-      {name:'Hacker News', url:'https://news.ycombinator.com'}
-    ]
-  },
-  'rss': {
-    title: 'RSS 阅读',
-    links: [
-      {name:'Feedly', url:'https://feedly.com'},
-      {name:'Inoreader', url:'https://www.inoreader.com'}
-    ]
-  },
-  'img': {
-    title: '图片处理',
-    links: [
-      {name:'在线抠图', url:'https://www.remove.bg'},
-      {name:'TinyPNG', url:'https://tinypng.com'},
-      {name:'GIF制作', url:'https://ezgif.com'}
-    ]
-  },
-  'pdf': {
-    title: 'PDF 工具',
-    links: [
-      {name:'iLovePDF', url:'https://www.ilovepdf.com'},
-      {name:'SmallPDF', url:'https://smallpdf.com'}
-    ]
-  },
-  'transfer': {
-    title: '文件传输',
-    links: [
-      {name:'奶牛快传', url:'https://cowtransfer.com'},
-      {name:'AirPortal', url:'https://airportal.cn'}
-    ]
-  },
-  'note': {
-    title: '笔记与思维',
-    links: [
-      {name:'Flomo', url:'https://flomoapp.com'},
-      {name:'有道云笔记', url:'https://note.youdao.com'},
-      {name:'ProcessOn', url:'https://www.processon.com'},
-      {name:'Draw.io', url:'https://app.diagrams.net'}
-    ]
-  },
-  'bank': {
-    title: '网上银行',
-    links: [
-      {name:'工商银行', url:'https://www.icbc.com.cn'},
-      {name:'招商银行', url:'https://www.cmbchina.com'},
-      {name:'建设银行', url:'https://www.ccb.com'},
-      {name:'中国银行', url:'https://www.boc.cn'}
-    ]
-  },
-  'stock': {
-    title: '证券与基金',
-    links: [
-      {name:'东方财富', url:'https://www.eastmoney.com'},
-      {name:'雪球', url:'https://xueqiu.com'},
-      {name:'天天基金', url:'https://fund.eastmoney.com'}
-    ]
-  },
-  'pay': {
-    title: '支付与税务',
-    links: [
-      {name:'支付宝', url:'https://www.alipay.com'},
-      {name:'个税查询', url:'https://etax.chinatax.gov.cn'}
-    ]
-  },
-  'shop': {
-    title: '综合电商',
-    links: [
-      {name:'淘宝', url:'https://www.taobao.com'},
-      {name:'京东', url:'https://www.jd.com'},
-      {name:'拼多多', url:'https://www.pinduoduo.com'},
-      {name:'天猫', url:'https://www.tmall.com'}
-    ]
-  },
-  'deal': {
-    title: '比价与二手',
-    links: [
-      {name:'什么值得买', url:'https://www.smzdm.com'},
-      {name:'闲鱼', url:'https://www.goofish.com'},
-      {name:'转转', url:'https://www.zhuanzhuan.com'}
-    ]
-  },
-  'travel': {
-    title: '出行票务',
-    links: [
-      {name:'铁路12306', url:'https://www.12306.cn'},
-      {name:'携程旅行', url:'https://www.ctrip.com'},
-      {name:'飞猪', url:'https://www.fliggy.com'},
-      {name:'航旅纵横', url:'https://www.umetrip.com'}
-    ]
-  },
-  'social': {
-    title: '社区平台',
-    links: [
-      {name:'微博', url:'https://weibo.com'},
-      {name:'小红书', url:'https://www.xiaohongshu.com'},
-      {name:'知乎', url:'https://www.zhihu.com'}
-    ]
-  },
-  'forum': {
-    title: '论坛',
-    links: [
-      {name:'V2EX', url:'https://www.v2ex.com'},
-      {name:'虎扑', url:'https://www.hupu.com'},
-      {name:'贴吧', url:'https://tieba.baidu.com'}
-    ]
-  },
-  'intl-social': {
-    title: '国际社交',
-    links: [
-      {name:'Twitter / X', url:'https://x.com'},
-      {name:'Reddit', url:'https://www.reddit.com'},
-      {name:'Discord', url:'https://discord.com'}
-    ]
-  },
-  'video': {
-    title: '长视频',
-    links: [
-      {name:'腾讯视频', url:'https://v.qq.com'},
-      {name:'爱奇艺', url:'https://www.iqiyi.com'},
-      {name:'优酷', url:'https://www.youku.com'},
-      {name:'B站', url:'https://www.bilibili.com'},
-      {name:'YouTube', url:'https://www.youtube.com'},
-      {name:'Netflix', url:'https://www.netflix.com'}
-    ]
-  },
-  'live': {
-    title: '直播',
-    links: [
-      {name:'斗鱼', url:'https://www.douyu.com'},
-      {name:'虎牙', url:'https://www.huya.com'},
-      {name:'Twitch', url:'https://www.twitch.tv'}
-    ]
-  },
-  'music': {
-    title: '音乐平台',
-    links: [
-      {name:'网易云音乐', url:'https://music.163.com'},
-      {name:'QQ音乐', url:'https://y.qq.com'},
-      {name:'Spotify', url:'https://open.spotify.com'},
-      {name:'酷狗音乐', url:'https://www.kugou.com'}
-    ]
-  },
-  'podcast': {
-    title: '播客',
-    links: [
-      {name:'小宇宙', url:'https://www.xiaoyuzhoufm.com'},
-      {name:'喜马拉雅', url:'https://www.ximalaya.com'}
-    ]
-  },
-  'game-platform': {
-    title: '游戏平台',
-    links: [
-      {name:'Steam', url:'https://store.steampowered.com'},
-      {name:'Epic Games', url:'https://store.epicgames.com'}
-    ]
-  },
-  'game-community': {
-    title: '游戏社区',
-    links: [
-      {name:'TapTap', url:'https://www.taptap.cn'},
-      {name:'游民星空', url:'https://www.gamersky.com'}
-    ]
-  },
-  'sport': {
-    title: '运动健身',
-    links: [
-      {name:'Keep', url:'https://www.gotokeep.com'},
-      {name:'Strava', url:'https://www.strava.com'}
-    ]
-  },
-  'health': {
-    title: '医疗健康',
-    links: [
-      {name:'丁香医生', url:'https://dxy.com'},
-      {name:'好大夫在线', url:'https://www.haodf.com'},
-      {name:'微医', url:'https://www.guahao.com'}
-    ]
-  },
-  'map': {
-    title: '地图导航',
-    links: [
-      {name:'高德地图', url:'https://www.amap.com'},
-      {name:'百度地图', url:'https://map.baidu.com'}
-    ]
-  },
-  'house': {
-    title: '租房购房',
-    links: [
-      {name:'贝壳找房', url:'https://www.ke.com'},
-      {name:'自如', url:'https://www.ziroom.com'},
-      {name:'链家', url:'https://www.lianjia.com'}
-    ]
-  },
-  'car-gov': {
-    title: '汽车与政务',
-    links: [
-      {name:'汽车之家', url:'https://www.autohome.com.cn'},
-      {name:'交管12123', url:'https://gab.122.gov.cn'},
-      {name:'政务服务平台', url:'https://gjzwfw.www.gov.cn'}
-    ]
-  },
-  'jingpin': {
-    title: '精品资源',
-    links: [
-      {name:'GitHub趋势', url:'https://github.com/trending'},
-      {name:'Product Hunt', url:'https://www.producthunt.com'},
-      {name:'软件替代', url:'https://alternativeto.net'},
-      {name:'小众软件', url:'https://www.appinn.com'}
-    ]
-  }
-};
+        let currentLang = localStorage.getItem('nav_lang') || 'zh';
+        let isCustomLinksExpanded = false;
+        let expandedDynamicSections = {};
+        let currentModalTarget = 'custom';
+        let currentEngineKey = 'google';
+        let cloudConfig = { wallpaper: "", dynamicSections: [], adminPwd: "" };
+        let dragType = null;
+        let dragSecId = null;
+        let dragLinkIdx = null;
 
-// ================================================================
-// STATE
-// ================================================================
-let currentEngine = 'site';
+        const i18n = {
+            zh: {
+                pageTitle: "chefdon-智能多功能响应式导航", langTitle: "语言 / Language", themeTitle: "基础色彩模式 (本地偏好)",
+                themeLight: "日间", themeDark: "夜间", bgTitle: "自定义背景 (全站同步)", bgInputPlace: "输入图片网址 https://...",
+                applyBtn: "应用", clearBg: "清除壁纸", logoutBtn: "退出后台管理", adminModeHint: "后台管理模式 · 30分钟无操作自动退出", logoutConfirm: "确定要退出后台管理吗？退出后将立即恢复普通模式。", weatherLoading: "正在定位测算天气...",
+                enGoogle: "谷歌 Google", enBing: "必应 Bing", enBaidu: "百度 Baidu", searchGoogle: "在 Google 中搜索...", searchBing: "在 必应 Bing 中搜索...", searchBaidu: "在 百度 Baidu 中搜索...", searchGithub: "在 GitHub 中搜索仓库...", enSite: "站内搜索", searchSite: "搜索本站导航链接...",
+                cardRec: "常用", cardDev: "效率与开发", cardCustom: "站长推荐", cardFriend: "友情链接",
+                linkBlog: "科技共享博客", linkBili: "哔哩哔哩", linkZhihu: "知乎", linkWeibo: "微博", linkJuejin: "稀土掘金",
+                addCloud: "添加 (云端)", addLocal: "添加 (本地)", expandMore: "展开显示更多", collapseMore: "收起部分站点",
+                footerText: "&copy; 2026 chefdon-智能生态导航 · Powered by Cloudflare", adminBadge: "已登入",
+                modalAddCloud: "添加云端站长推荐", modalAddFriend: "添加友情链接", siteName: "网站名称", siteNamePlace: "例如：百度", siteUrl: "网站网址 (URL)",
+                btnCancel: "取消", btnSave: "保存站点", noCloudLinks: "暂无自定义链接", loadingCloud: "正在从云端加载...",
+                delConfirm: "确定要删除这个链接吗？", pwdPrompt: "🔐 请输入后台管理员安全密码：", pwdSuccess: "🎉 认证成功！管理功能已全部解锁。", pwdFail: "❌ 密码错误，鉴权失败！", logoutMsg: "🔒 已安全退出管理后台，页面回归只读状态。",
+                weatherCloudy: "多云", weatherClear: "晴朗", weatherRain: "阵雨", weatherSnow: "降雪", weatherThunder: "雷阵雨", weatherDefault: "风调雨顺 · 晴", validUrlMsg: "提示：请输入有效的网址！",
+                addSectionBtn: "添加自定义区域", promptSectionName: "请输入新区域的名称 (例如：AI工具)：", delSectionConfirm: "确定要删除整个区域及其所有链接吗？", modalAddSection: "添加到自定义区域",
+                renameSectionPrompt: "请输入新的区域名称：",
+                pwdTitle: "修改管理员密码 (全站同步)", pwdInputPlace: "输入新密码", saveBtn: "保存", pwdUpdateSuccess: "管理员密码修改成功！下次登录生效。"
+            },
+            en: {
+                pageTitle: "chefdon - Smart Responsive Nav", langTitle: "Language / 语言", themeTitle: "Color Theme (Local Pref)",
+                themeLight: "Light", themeDark: "Dark", bgTitle: "Custom Wallpaper (Cloud Sync)", bgInputPlace: "Image URL https://...",
+                applyBtn: "Apply", clearBg: "Clear Wallpaper", logoutBtn: "Logout Admin", adminModeHint: "Admin mode · Auto logout after 30 minutes of inactivity", logoutConfirm: "Are you sure you want to exit admin mode? Read-only mode will be restored immediately.", weatherLoading: "Fetching weather...",
+                enGoogle: "Google", enBing: "Bing", enBaidu: "Baidu", searchGoogle: "Search in Google...", searchBing: "Search in Bing...", searchBaidu: "Search in Baidu...", searchGithub: "Search in GitHub...", enSite: "Site Search", searchSite: "Search site links...",
+                cardRec: "Recommended", cardDev: "Dev & Tools", cardCustom: "Webmaster Picks", cardFriend: "Friend Links",
+                linkBlog: "TechShare Blog", linkBili: "Bilibili", linkZhihu: "Zhihu", linkWeibo: "Weibo", linkJuejin: "Juejin",
+                addCloud: "Add (Cloud)", addLocal: "Add (Local)", expandMore: "Show More", collapseMore: "Collapse",
+                footerText: "&copy; 2026 chefdon Smart Nav · Powered by Cloudflare", adminBadge: "Logged In",
+                modalAddCloud: "Add Cloud Link", modalAddFriend: "Add Friend Link", siteName: "Site Name", siteNamePlace: "e.g., Google", siteUrl: "Site URL",
+                btnCancel: "Cancel", btnSave: "Save Site", noCloudLinks: "No custom links yet", loadingCloud: "Loading from cloud...",
+                delConfirm: "Are you sure you want to delete this link?", pwdPrompt: "🔐 Enter Admin Password:", pwdSuccess: "🎉 Authenticated! Admin features unlocked.", pwdFail: "❌ Incorrect password!", logoutMsg: "🔒 Logged out safely. Read-only mode activated.",
+                weatherCloudy: "Cloudy", weatherClear: "Clear", weatherRain: "Rain", weatherSnow: "Snow", weatherThunder: "Thunder", weatherDefault: "Good Weather · Clear", validUrlMsg: "Please enter a valid URL!",
+                addSectionBtn: "Add Custom Section", promptSectionName: "Enter new section name (e.g., AI Tools):", delSectionConfirm: "Are you sure you want to delete this entire section?", modalAddSection: "Add to Custom Section",
+                renameSectionPrompt: "Enter new section name:",
+                pwdTitle: "Change Admin Password (Cloud Sync)", pwdInputPlace: "Enter new password", saveBtn: "Save", pwdUpdateSuccess: "Admin password updated successfully! Valid on next login."
+            }
+        };
 
-let detectionResults = {};
-let deferredPrompt = null;
+        const dynamicLinkDict = {
+            "https://kjgx668.blogspot.com": { zh: "科技共享", en: "TechShare Blog" },
+            "https://kjgx.168668520.xyz": { zh: "科技共享导航", en: "TechShare Nav" },
+            "https://it-toutiao.blogspot.com": { zh: "IT头条博客", en: "IT Toutiao Blog" }
+        };
 
-// ================================================================
-// INITIALIZATION
-// ================================================================
-document.addEventListener('DOMContentLoaded', function() {
-  renderAllLinks();
-  renderFavorites();
-  initTheme();
-  initPWA();
-});
+        function getLocalizedLinkName(originalName, url) { if (url && dynamicLinkDict[url]) return dynamicLinkDict[url][currentLang]; return originalName; }
+        function t(key) { return i18n[currentLang][key] || key; }
+        function setLanguage(lang) { currentLang = lang; localStorage.setItem('nav_lang', lang); document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'; applyLanguage(); updateClockAndGreeting(); renderWeather(); selectEngine(currentEngineKey); document.getElementById('theme-panel').classList.add('hidden'); }
+        function applyLanguage() { document.getElementById('page-title').innerText = t('pageTitle'); document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n')); }); document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.getAttribute('data-i18n-placeholder')); }); loadCustomLinks(); loadFriendLinks(); renderDynamicSections(); }
 
-function renderAllLinks() {
-  for (const [catId, catData] of Object.entries(NAV_DATA)) {
-    const container = document.getElementById('cat-' + catId);
-    if (!container) continue;
-    container.innerHTML = '';
-    catData.links.forEach((link, idx) => {
-      container.appendChild(createLinkCard(link, catId, idx));
-    });
-  }
-}
+        const ADMIN_AUTH_KEY = 'nav_admin_auth';
+        const ADMIN_LAST_ACTIVITY_KEY = 'nav_admin_last_activity';
+        const ADMIN_TIMEOUT_MS = 30 * 60 * 1000;
+        let adminActivityTimer = null;
 
-function createLinkCard(link, catId, idx) {
-  const div = document.createElement('div');
-  div.className = 'link-card';
-  const initial = (link.name.charAt(0) || '#').toUpperCase();
+        function isAdminAuthenticated() {
+            return localStorage.getItem(ADMIN_AUTH_KEY) === 'true';
+        }
 
-  // Get first char of name for icon bg color (simple hash)
-  const colors = ['#58a6ff','#a37cff','#3fb950','#d29922','#f85149','#db61a2','#79c0ff','#7ee787'];
-  const colorIdx = link.name.charCodeAt(0) % colors.length;
+        function getAdminLastActivity() {
+            const value = Number(localStorage.getItem(ADMIN_LAST_ACTIVITY_KEY) || 0);
+            return Number.isFinite(value) ? value : 0;
+        }
 
-  div.innerHTML =
-    '<div class="link-icon" style="background:'+colors[colorIdx]+'">'+initial+'</div>' +
-    '<div class="link-text">' +
-      '<div class="link-name">'+link.name+'</div>' +
-      '<div class="link-url-text">'+link.url+'</div>' +
-    '</div>' +
-    '<div class="status-dot" id="status-'+catId+'-'+idx+'" title="未检测"></div>' +;
+        function markAdminActivity() {
+            if (!isAdminAuthenticated()) return;
+            localStorage.setItem(ADMIN_LAST_ACTIVITY_KEY, String(Date.now()));
+            scheduleAdminTimeout();
+        }
 
-  div.addEventListener('click', function(e) {
-    window.open(link.url, '_blank');
-  });
+        function scheduleAdminTimeout() {
+            if (adminActivityTimer) {
+                clearTimeout(adminActivityTimer);
+                adminActivityTimer = null;
+            }
+            if (!isAdminAuthenticated()) return;
+            const last = getAdminLastActivity();
+            const remaining = ADMIN_TIMEOUT_MS - (Date.now() - last);
+            if (remaining <= 0) {
+                expireAdminSession();
+                return;
+            }
+            adminActivityTimer = setTimeout(() => {
+                if (isAdminAuthenticated() && Date.now() - getAdminLastActivity() >= ADMIN_TIMEOUT_MS) {
+                    expireAdminSession();
+                } else {
+                    scheduleAdminTimeout();
+                }
+            }, Math.max(1000, remaining + 50));
+        }
 
-  return div;
-}
+        function expireAdminSession() {
+            localStorage.removeItem(ADMIN_AUTH_KEY);
+            localStorage.removeItem(ADMIN_LAST_ACTIVITY_KEY);
+            isCustomLinksExpanded = false;
+            expandedDynamicSections = {};
+            if (adminActivityTimer) clearTimeout(adminActivityTimer);
+            adminActivityTimer = null;
+            checkAdminSession();
+            document.getElementById('theme-panel').classList.add('hidden');
+        }
 
-// ================================================================
-// FAVORITES SYSTEM
-// ================================================================
-function handleSiteSearch(query) {
-  const panel = document.getElementById('searchResultsPanel');
-  const list = document.getElementById('searchResultsList');
-  const countEl = document.getElementById('srCount');
+        function checkAdminSession() {
+            const last = getAdminLastActivity();
+            if (isAdminAuthenticated() && (!last || Date.now() - last >= ADMIN_TIMEOUT_MS)) {
+                expireAdminSession();
+                return;
+            }
+            const isAdmin = isAdminAuthenticated();
+            const loginBtn = document.getElementById('admin-login-btn');
+            const logoutBtn = document.getElementById('admin-logout-btn');
+            const badge = document.getElementById('admin-badge');
+            const hint = document.getElementById('admin-status-hint');
+            if (isAdmin) {
+                document.body.classList.add('is-admin');
+                if (badge) badge.classList.remove('hidden');
+                if (hint) hint.classList.remove('hidden');
+                if (loginBtn) loginBtn.classList.add('hidden');
+                if (logoutBtn) logoutBtn.classList.remove('hidden');
+                scheduleAdminTimeout();
+            } else {
+                document.body.classList.remove('is-admin');
+                if (badge) badge.classList.add('hidden');
+                if (hint) hint.classList.add('hidden');
+                if (loginBtn) loginBtn.classList.remove('hidden');
+                if (logoutBtn) logoutBtn.classList.add('hidden');
+                if (adminActivityTimer) clearTimeout(adminActivityTimer);
+                adminActivityTimer = null;
+            }
+        }
 
-  if (!query.trim()) {
-    panel.classList.remove('show');
-    return;
-  }
+        function triggerAdminLogin() {
+            if (isAdminAuthenticated()) {
+                markAdminActivity();
+                alert(currentLang === 'zh' ? "提示：您已处于后台管理模式。" : "Notice: You are already in admin mode.");
+                return;
+            }
+            const pwd = prompt(t('pwdPrompt'));
+            if (pwd === null) return;
+            const currentValidPwd = cloudConfig.adminPwd || "admin888";
+            if (pwd === currentValidPwd) {
+                localStorage.setItem(ADMIN_AUTH_KEY, 'true');
+                localStorage.setItem(ADMIN_LAST_ACTIVITY_KEY, String(Date.now()));
+                alert(t('pwdSuccess'));
+                checkAdminSession();
+            } else {
+                alert(t('pwdFail'));
+            }
+        }
 
-  const q = query.toLowerCase().trim();
-  const results = [];
+        function logoutAdmin() {
+            if (!isAdminAuthenticated()) {
+                checkAdminSession();
+                return;
+            }
+            if (!confirm(t('logoutConfirm'))) return;
+            expireAdminSession();
+            alert(t('logoutMsg'));
+        }
 
-  for (const [catId, catData] of Object.entries(NAV_DATA)) {
-    catData.links.forEach(function(link) {
-      const nameMatch = link.name.toLowerCase().includes(q);
-      const urlMatch = link.url.toLowerCase().includes(q);
-      if (nameMatch || urlMatch) {
-        results.push({
-          name: link.name,
-          url: link.url,
-          category: catData.title,
-          catId: catId,
-          matchType: nameMatch ? 'name' : 'url'
+        function updateAdminActivityFromEvent() {
+            if (isAdminAuthenticated()) markAdminActivity();
+        }
+
+        ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(evt => {
+            document.addEventListener(evt, updateAdminActivityFromEvent, { passive: true });
         });
-      }
-    });
-  }
-
-  countEl.textContent = '找到 ' + results.length + ' 个结果';
-
-  if (results.length === 0) {
-    list.innerHTML = '<div class="sr-empty">没有找到匹配的网址<br><br>试试其他关键词，如："邮箱"、"AI"、"设计"</div>';
-  } else {
-    let html = '';
-    results.forEach(function(r) {
-      html += '<div class="sr-item" onclick="window.open(\''+r.url+'\',\'_blank\');closeSearchResults();">' +        'onclick="event.stopPropagation();toggleFavorite(\''+
-        encodeURIComponent(r.name)+'\',\''+encodeURIComponent(r.url)+'\',this)">☆</button>' +
-        '<div class="sr-info">' +
-          '<div class="sr-name">'+highlightMatch(r.name, q)+'</div>' +
-          '<div class="sr-url">'+r.url+'</div>' +
-        '</div>' +
-        '<span class="sr-cat-tag">'+r.category+'</span>' +
-        '</div>';
-    });
-    list.innerHTML = html;
-  }
-
-  panel.classList.add('show');
-}
-
-function highlightMatch(text, query) {
-  const idx = text.toLowerCase().indexOf(query);
-  if (idx === -1) return text;
-  return text.substring(0, idx) +
-    '<mark style="background:rgba(88,166,255,.3);color:inherit;padding:0 2px;border-radius:2px;">' +
-    text.substring(idx, idx + query.length) + '</mark>' +
-    text.substring(idx + query.length);
-}
-
-function clearSearch() {
-  document.getElementById('siteSearchInput').value = '';
-  closeSearchResults();
-}
-
-function closeSearchResults() {
-  document.getElementById('searchResultsPanel').classList.remove('show');
-}
-
-// Close search panel when clicking outside
-document.addEventListener('click', function(e) {
-  const panel = document.getElementById('searchResultsPanel');
-  const input = document.getElementById('siteSearchInput');
-  if (!panel.contains(e.target) && !input.contains(e.target)) {
-    closeSearchResults();
-  }
-});
-
-// ================================================================
-// THEME
-// ================================================================
-function initTheme() {
-  const saved = localStorage.getItem('chefdon_theme') || 'dark';
-  if (saved === 'light') document.body.setAttribute('data-theme', 'light');
-}
-
-function toggleTheme() {
-  const current = document.body.getAttribute('data-theme');
-  if (current === 'light') {
-    document.body.removeAttribute('data-theme');
-    localStorage.setItem('chefdon_theme', 'dark');
-  } else {
-    document.body.setAttribute('data-theme', 'light');
-    localStorage.setItem('chefdon_theme', 'light');
-  }
-}
-
-function toggleLang() {
-  // Placeholder for language switching
-  showToast('语言切换功能开发中...', 'success');
-}
-
-// ================================================================
-// MODAL SYSTEM
-// ================================================================
-function showModal(title, bodyHtml) {
-  document.getElementById('modalTitle').textContent = title;
-  document.getElementById('modalBody').innerHTML = bodyHtml;
-  document.getElementById('modalOverlay').classList.add('show');
-}
-
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('show');
-}
-
-// Close modal on overlay click
-document.getElementById('modalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
-
-// ================================================================
-// ADMIN / MANAGEMENT PANELS
-// ================================================================
-function openAdminPanel() {
-  if(!isAdminLogged()){ handleAdminEntry(); return; }
-  touchAdmin();
-  let html = '<p style="color:var(--text-secondary);margin-bottom:16px;font-size:.9rem;">' +
-    '选择要管理的功能模块：</p>';
-  html += '<div class="btn-group">' +
-    '<button class="btn-primary" onclick="openManageCategories()">📂 管理分类</button>' +
-    '<button class="btn-primary" onclick="openManageLinks()">🔗 管理网址</button>' +
-    '<button class="btn-secondary" onclick="startUrlDetection()">🔍 网址检测</button>' +
-    '</div>';
-  showModal('⚙️ 管理面板', html);
-}
-
-function openManageCategories() {
-  let html = '<div class="form-group">' +
-    '<label class="form-label">添加新分类</label>' +
-    '<div class="form-row"><input type="text" class="form-input" id="newCatName" placeholder="分类名称">' +
-    '<input type="text" class="form-input" id="newCatId" placeholder="英文ID（如 my-category）">' +
-    '<button class="btn-primary" onclick="addCategory()">添加</button></div></div>';
-
-  html += '<h3 style="margin:20px 0 12px;font-size:.95rem;color:var(--text-secondary);">现有分类列表</h3>';
-  for (const [catId, catData] of Object.entries(NAV_DATA)) {
-    html += '<div class="cat-list-item">' +
-      '<span class="cat-name">'+catData.title+' <small style="color:var(--text-muted)">('+catId+')</small></span>' +
-      '<div class="cat-actions">' +
-        '<button class="btn-xs" onclick="editCategory(\''+catId+'\')">编辑</button>' +
-        '<button class="btn-xs danger" onclick="deleteCategory(\''+catId+'\')">删除</button>' +
-      '</div></div>';
-  }
-
-  showModal('📂 分类管理', html);
-}
-
-function addCategory() {
-  const name = document.getElementById('newCatName').value.trim();
-  const id = document.getElementById('newCatId').value.trim().toLowerCase().replace(/\s+/g,'-');
-  if (!name || !id) { showToast('请填写完整信息', 'error'); return; }
-  if (NAV_DATA[id]) { showToast('该ID已存在', 'error'); return; }
-  NAV_DATA[id] = {title: name, links: []};
-  saveNavDataToStorage();
-  showToast('分类已添加: ' + name, 'success');
-  openManageCategories();
-}
-
-function editCategory(catId) {
-  const newName = prompt('修改分类名称:', NAV_DATA[catId].title);
-  if (newName && newName.trim()) {
-    NAV_DATA[catId].title = newName.trim();
-    saveNavDataToStorage();
-    showToast('分类已更新', 'success');
-    openManageCategories();
-  }
-}
-
-function deleteCategory(catId) {
-  if (!confirm('确定删除分类 "'+NAV_DATA[catId].title+'" 及其所有网址？')) return;
-  delete NAV_DATA[catId];
-  saveNavDataToStorage();
-  showToast('分类已删除', 'success');
-  openManageCategories();
-}
-
-function openManageLinks() {
-  // Show categories dropdown then links
-  let html = '<div class="form-group">' +
-    '<label class="form-label">选择分类</label>' +
-    '<select class="form-input" id="mgmtCatSelect" onchange="renderMgmtLinks(this.value)">';
-  for (const [catId, catData] of Object.entries(NAV_DATA)) {
-    html += '<option value="'+catId+'">'+catData.title+'</option>';
-  }
-  html += '</select></div>';
-
-  html += '<div class="form-group">' +
-    '<label class="form-label">添加新网址</label>' +
-    '<div class="form-row"><input type="text" class="form-input" id="newLinkName" placeholder="网站名称">' +
-    '<input type="url" class="form-input" id="newLinkUrl" placeholder="https://...">' +
-    '<button class="btn-primary" onclick="addMgmtLink()">添加</button></div></div>';
-
-  html += '<div id="mgmtLinksList"></div>';
-
-  showModal('🔗 网址管理', html);
-
-  // Render first category's links
-  const firstCat = Object.keys(NAV_DATA)[0];
-  if (firstCat) renderMgmtLinks(firstCat);
-}
-
-function renderMgmtLinks(catId) {
-  const list = document.getElementById('mgmtLinksList');
-  if (!list || !NAV_DATA[catId]) return;
-  const links = NAV_DATA[catId].links;
-
-  let html = '<h4 style="margin:16px 0 10px;font-size:.88rem;color:var(--text-secondary);">' +
-    NAV_DATA[catId].title + ' (' + links.length + '个网址)</h4>';
-
-  links.forEach(function(link, idx) {
-    html += '<div class="mgmt-link-item">' +
-      '<span class="mgmt-link-name">'+link.name+'</span>' +
-      '<span class="mgmt-link-url">'+link.url+'</span>' +
-      '<button class="btn-xs" onclick="editMgmtLink(\''+catId+'\','+idx+')">编辑</button>' +
-      '<button class="btn-xs danger" onclick="deleteMgmtLink(\''+catId+'\','+idx+')">删除</button>' +
-      '</div>';
-  });
-
-  list.innerHTML = html;
-}
-
-function addMgmtLink() {
-  const catId = document.getElementById('mgmtCatSelect').value;
-  const name = document.getElementById('newLinkName').value.trim();
-  const url = document.getElementById('newLinkUrl').value.trim();
-  if (!name || !url) { showToast('请填写完整信息', 'error'); return; }
-  if (!NAV_DATA[catId]) return;
-  NAV_DATA[catId].links.push({name, url});
-  saveNavDataToStorage();
-  renderAllLinks();
-  renderMgmtLinks(catId);
-  showToast('网址已添加: ' + name, 'success');
-  document.getElementById('newLinkName').value = '';
-  document.getElementById('newLinkUrl').value = '';
-}
-
-function editMgmtLink(catId, idx) {
-  const link = NAV_DATA[catId].links[idx];
-  const newName = prompt('修改名称:', link.name);
-  if (newName !== null && newName.trim()) {
-    const newUrl = prompt('修改URL:', link.url);
-    if (newUrl !== null && newUrl.trim()) {
-      NAV_DATA[catId].links[idx] = {name: newName.trim(), url: newUrl.trim()};
-      saveNavDataToStorage();
-      renderAllLinks();
-      renderMgmtLinks(catId);
-      showToast('网址已更新', 'success');
-    }
-  }
-}
-
-function deleteMgmtLink(catId, idx) {
-  const link = NAV_DATA[catId].links[idx];
-  if (!confirm('确定删除 "'+link.name+'"？')) return;
-  NAV_DATA[catId].links.splice(idx, 1);
-  saveNavDataToStorage();
-  renderAllLinks();
-  renderMgmtLinks(catId);
-  showToast('网址已删除', 'success');
-}
-
-function saveNavDataToStorage() {
-  try {
-    localStorage.setItem('chefdon_nav_data', JSON.stringify(NAV_DATA));
-  } catch(e) {
-    console.warn('Save nav data failed:', e);
-  }
-}
-
-function loadNavDataFromStorage() {
-  try {
-    const saved = localStorage.getItem('chefdon_nav_data');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      Object.assign(NAV_DATA, parsed);
-    }
-  } catch(e) {
-    console.warn('Load nav data failed:', e);
-  }
-}
-// Load custom nav data on init
-loadNavDataFromStorage();
-
-// ================================================================
-// URL HEALTH DETECTION
-// ================================================================
-function startUrlDetection() {
-  showModal('🔍 网址检测', '<p style="color:var(--text-secondary);margin-bottom:16px;">正在准备检测...</p>' +
-    '<div id="detectProgress" style="font-size:.88rem;"></div>');
-
-  const allUrls = [];
-  for (const [catId, catData] of Object.entries(NAV_DATA)) {
-    catData.links.forEach(function(link, idx) {
-      allUrls.push({catId, idx, name: link.name, url: link.url});
-    });
-  }
-
-  const progress = document.getElementById('detectProgress');
-  progress.innerHTML = '共 ' + allUrls.length + ' 个网址待检测，开始检测...<br><br>';
-  progress.innerHTML += '<div style="max-height:300px;overflow-y:auto;">';
-
-  let checked = 0;
-  detectionResults = {};
-
-  // Use image/fetch approach for availability check (CORS-friendly)
-  allUrls.forEach(function(item, i) {
-    setTimeout(function() {
-      checkUrlAvailability(item, function(status) {
-        checked++;
-        detectionResults[item.catId + '-' + item.idx] = status;
-        const dot = document.getElementById('status-'+item.catId+'-'+item.idx);
-        if (dot) {
-          dot.className = 'status-dot ' + (status === 'ok' ? 'ok' : status === 'fail' ? 'fail' : '');
-          dot.title = status === 'ok' ? '正常' : status === 'fail' ? '不可达' : '未知';
-        }
-
-        progress.innerHTML += '<div style="padding:4px 0;border-bottom:1px solid var(--border-color);">' +
-          '<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:' +
-          (status==='ok'?'var(--success)':status==='fail'?'var(--danger)':'var(--warning)') +
-          ';margin-right:8px;"></span>' +
-          item.name + ' — ' + (status==='ok'?'✅ 正常':status==='fail'?'❌ 异常':'⚠️ 超时') +
-          '</div>';
-
-        if (checked >= allUrls.length) {
-          progress.innerHTML += '</div><br><p>检测完成！共检测 ' + checked + ' 个网址。</p>';
-        }
-      });
-    }, i * 150); // Stagger requests
-  });
-}
-
-function checkUrlAvailability(item, callback) {
-  // Use fetch with no-cors mode to check reachability
-  // Note: due to CORS, we can only detect network-level errors
-  const timeout = setTimeout(function() {
-    callback('unknown'); // Timeout treated as unknown
-  }, 8000);
-
-  fetch(item.url, {mode: 'no-cors', cache: 'no-cache'})
-    .then(function() {
-      clearTimeout(timeout);
-      callback('ok');
-    })
-    .catch(function(err) {
-      clearTimeout(timeout);
-      callback('fail');
-    });
-}
-
-function showDetectionResults() {
-  let html = '<table class="detect-table"><thead><tr>' +
-    '<th>状态</th><th>名称</th><th>URL</th><th>分类</th></tr></thead><tbody>';
-
-  let okCount = 0, failCount = 0, unkCount = 0;
-
-  for (const [catId, catData] of Object.entries(NAV_DATA)) {
-    catData.links.forEach(function(link, idx) {
-      const key = catId + '-' + idx;
-      const status = detectionResults[key] || '—';
-      if (status === 'ok') okCount++;
-      else if (status === 'fail') failCount++;
-      else unkCount++;
-
-      html += '<tr><td>' +
-        '<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:' +
-        (status==='ok'?'var(--success)':status==='fail'?'var(--danger)':'var(--text-muted)') +
-        ';"></span></td>' +
-        '<td>'+link.name+'</td><td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;">'+link.url+'</td>' +
-        '<td>'+catData.title+'</td></tr>';
-    });
-  }
-
-  html += '</tbody></table>';
-  html += '<p style="margin-top:14px;font-size:.85rem;color:var(--text-secondary);">' +
-    '统计: ✅正常 ' + okCount + ' | ❌异常 ' + failCount + ' | ⚪未知 ' + unkCount + '</p>';
-
-  showModal('🔍 网址检测结果', html);
-}
-
-
-
-
-function formatDate(d) {
-  return d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0');
-}
-
-// ================================================================
-// PWA SUPPORT
-// ================================================================
-function initPWA() {
-  // Register Service Worker (inline via Blob URL for single-file)
-  if ('serviceWorker' in navigator) {
-    const swCode = `
-      const CACHE_NAME = 'chefdon-nav-v13';
-      self.addEventListener('install', e => self.skipWaiting());
-      self.addEventListener('activate', e => e.waitUntil(clients.claim()));
-      self.addEventListener('fetch', e => {
-        e.respondWith(
-          caches.match(e.request).then(r => r || fetch(e.request).then(resp => {
-            const clone = resp.clone();
-            caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
-            return resp;
-          }))
-        );
-      });
-    `;
-    const blob = new Blob([swCode], {type: 'application/javascript'});
-    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(function(){});
-  }
-
-  // Listen for install prompt
-  window.addEventListener('beforeinstallprompt', function(e) {
-    e.preventDefault();
-    deferredPrompt = e;
-  });
-}
-
-function installPWA() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(function(choiceResult) {
-      deferredPrompt = null;
-      if (choiceResult.outcome === 'accepted') {
-        showToast('已添加到主屏幕！', 'success');
-      }
-    });
-  } else {
-    // Fallback instructions
-    showModal('📱 安装到桌面',
-      '<p style="color:var(--text-secondary);line-height:1.8;">' +
-      '<strong>Android Chrome:</strong> 点击右上角 ⋮ → "添加到主屏幕"<br><br>' +
-      '<strong>iOS Safari:</strong> 点击分享按钮 → "添加到主屏幕"<br><br>' +
-      '<strong>Desktop Chrome/Edge:</strong> 地址栏右侧点击安装图标<br><br>' +
-      '<strong>Desktop Firefox:</strong> 不支持，请使用Chrome/Edge</p>');
-  }
-}
-
-// ================================================================
-// ADD LINK MODAL (友情链接)
-// ================================================================
-function openAddLinkModal() {
-  const html = '<div class="form-group"><label class="form-label">网站名称</label>' +
-    '<input type="text" class="form-input" id="addLinkName" placeholder="如：我的博客"></div>' +
-    '<div class="form-group"><label class="form-label">网站网址 (URL)</label>' +
-    '<input type="url" class="form-input" id="addLinkUrl" placeholder="https://..."></div>' +
-    '<div class="btn-group"><button class="btn-primary" onclick="saveNewLink()">保存站点</button>' +
-    '<button class="btn-secondary" onclick="closeModal()">取消</button></div>';
-  showModal('➕ 添加网址', html);
-}
-
-function saveNewLink() {
-  const name = document.getElementById('addLinkName').value.trim();
-  const url = document.getElementById('addLinkUrl').value.trim();
-  if (!name || !url) { showToast('请填写完整信息', 'error'); return; }
-  // Add to a default category or create one
-  if (!NAV_DATA['custom-links']) {
-    NAV_DATA['custom-links'] = {title: '自定义链接', links: []};
-  }
-  NAV_DATA['custom-links'].links.push({name, url});
-  saveNavDataToStorage();
-  renderAllLinks();
-  showToast('网址已添加: ' + name, 'success');
-  closeModal();
-}
-
-
-// ================================================================
-// V14 ADMIN AUTH / SESSION
-// ================================================================
-const V14_ADMIN_KEY = 'chefdon_admin_session';
-const V14_TIMEOUT = 30 * 60 * 1000;
-let v14Timer = null;
-
-function isAdminLogged(){
-  const s = JSON.parse(localStorage.getItem(V14_ADMIN_KEY) || 'null');
-  if(!s) return false;
-  if(Date.now()-s.time > V14_TIMEOUT){ adminLogout(false); return false; }
-  return true;
-}
-function refreshAdminUI(){
-  const ok=isAdminLogged();
-  const st=document.getElementById('adminStatus');
-  const btn=document.getElementById('adminBtn');
-  if(st) st.classList.toggle('show',ok);
-  if(btn) btn.textContent=ok?'⚙️ 后台管理':'🔐 后台登录';
-}
-function touchAdmin(){
-  if(isAdminLogged()){
-    localStorage.setItem(V14_ADMIN_KEY,JSON.stringify({time:Date.now()}));
-  }
-}
-function startAdminTimer(){
-  clearInterval(v14Timer);
-  v14Timer=setInterval(function(){
-    if(isAdminLogged()) refreshAdminUI();
-  },60000);
-}
-function handleAdminEntry(){
-  if(isAdminLogged()) openAdminPanel();
-  else document.getElementById('loginMask').classList.add('show');
-}
-function closeLogin(){
-  document.getElementById('loginMask').classList.remove('show');
-}
-function adminLogin(){
-  const pwd=document.getElementById('adminPassword').value;
-  // v14 本地后台验证
-  if(pwd === 'admin'){
-    localStorage.setItem(V14_ADMIN_KEY,JSON.stringify({time:Date.now()}));
-    closeLogin(); refreshAdminUI();
-    showToast('后台登录成功','success');
-  }else{
-    showToast('密码错误','error');
-  }
-}
-function adminLogout(confirmBox=true){
-  if(confirmBox && !confirm('确定退出后台管理模式吗？')) return;
-  localStorage.removeItem(V14_ADMIN_KEY);
-  refreshAdminUI();
-  showToast('已退出后台，恢复普通模式','success');
-}
-// 自动退出并清理
-['click','keydown','touchstart'].forEach(e=>document.addEventListener(e,touchAdmin));
-window.addEventListener('load',function(){
-  refreshAdminUI();
-  startAdminTimer();
-});
-
-// ================================================================
-// TOAST NOTIFICATION
-// ================================================================
-function showToast(msg, type) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.className = 'toast ' + (type || '') + ' show';
-  clearTimeout(toast._timer);
-  toast._timer = setTimeout(function() { toast.classList.remove('show'); }, 2800);
-}
-
-// ================================================================
-// EXPAND/COLLAPSE (站长推荐 more)
-// ================================================================
-function toggleExpand(section) {
-  // Placeholder - could implement expand/collapse logic
-  showToast('展开功能：当前已展示所有推荐内容', 'success');
-}
-
-// ================================================================
-// KEYBOARD SHORTCUTS
-// ================================================================
-document.addEventListener('keydown', function(e) {
-  // Ctrl+K or / to focus search
-  if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && !e.target.matches('input,textarea'))) {
-    e.preventDefault();
-    document.getElementById('siteSearchInput').focus();
-  }
-  // Escape to close modals/search
-  if (e.key === 'Escape') {
-    closeModal();
-    closeSearchResults();
-  }
-});
-
-// ================================================================
-// SERVICE WORKER REGISTRATION (on load)
-// ================================================================
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    // Already handled in initPWA()
-  });
-}
-</script>
+        window.addEventListener('storage', (event) => {
+            if (event.key === ADMIN_AUTH_KEY || event.key === ADMIN_LAST_ACTIVITY_KEY) checkAdminSession();
+        });
+        setInterval(checkAdminSession, 15000);
+
+        async function updateAdminPwd() { const newPwd = document.getElementById('custom-pwd-input').value.trim(); if (!newPwd) return; cloudConfig.adminPwd = newPwd; document.getElementById('custom-pwd-input').value = ''; document.getElementById('theme-panel').classList.add('hidden'); try { await fetch('/api/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cloudConfig) }); alert(t('pwdUpdateSuccess')); } catch (e) { console.error("云端密码同步失败", e); } }
+
+        function handleDragStart(e, type, secId, linkIdx = null) { e.stopPropagation(); if (!isAdminAuthenticated()) { e.preventDefault(); return; } markAdminActivity(); dragType = type; dragSecId = secId; dragLinkIdx = linkIdx; e.dataTransfer.effectAllowed = 'move'; const target = e.currentTarget; setTimeout(() => target.classList.add('dragging'), 0); }
+        function handleDragEnd(e) { e.stopPropagation(); e.currentTarget.classList.remove('dragging'); document.querySelectorAll('.dynamic-section-card, .group').forEach(el => el.style.border = ''); }
+        function handleDragOver(e, type) { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'move'; return false; }
+        function handleDrop(e, type, targetSecId, targetLinkIdx = null) { e.stopPropagation(); e.preventDefault(); if (!isAdminAuthenticated()) return; markAdminActivity(); let secs = cloudConfig.dynamicSections || []; if (dragType === 'section' && type === 'section') { if (dragSecId === targetSecId) return; const fromIdx = secs.findIndex(s => s.id === dragSecId); const toIdx = secs.findIndex(s => s.id === targetSecId); if(fromIdx > -1 && toIdx > -1) { const [moved] = secs.splice(fromIdx, 1); secs.splice(toIdx, 0, moved); } } else if (dragType === 'link' && type === 'link') { if (dragSecId === targetSecId && dragLinkIdx === targetLinkIdx) return; const fromSec = secs.find(s => s.id === dragSecId); const toSec = secs.find(s => s.id === targetSecId); if (fromSec && toSec) { const [movedLink] = fromSec.links.splice(dragLinkIdx, 1); toSec.links.splice(targetLinkIdx, 0, movedLink); } } else if (dragType === 'link' && type === 'section') { const fromSec = secs.find(s => s.id === dragSecId); const toSec = secs.find(s => s.id === targetSecId); if (fromSec && toSec) { if (fromSec === toSec) return; const [movedLink] = fromSec.links.splice(dragLinkIdx, 1); toSec.links.push(movedLink); } } saveDynamicSections(secs); }
+
+        async function initCloudData() { const savedTheme = localStorage.getItem('nav_theme_mode') || 'theme-dark'; document.body.classList.remove('theme-light', 'theme-dark'); document.body.classList.add(savedTheme); const globalDefaultBg = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"; let savedBg = localStorage.getItem('nav_custom_wallpaper'); cloudConfig.dynamicSections = JSON.parse(localStorage.getItem('nav_dynamic_sections') || '[]'); try { const res = await fetch('/api/config'); if (res.ok) { const configData = await res.json(); if (configData) { if (configData.wallpaper !== undefined) { if (configData.wallpaper === "") { savedBg = null; localStorage.removeItem('nav_custom_wallpaper'); document.body.classList.add('bg-cleared'); } else { savedBg = configData.wallpaper; localStorage.setItem('nav_custom_wallpaper', savedBg); document.body.classList.remove('bg-cleared'); } } if (configData.dynamicSections) { cloudConfig.dynamicSections = configData.dynamicSections; localStorage.setItem('nav_dynamic_sections', JSON.stringify(cloudConfig.dynamicSections)); } if (configData.adminPwd) { cloudConfig.adminPwd = configData.adminPwd; } } } } catch (e) {} if (!savedBg && !document.body.classList.contains('bg-cleared')) savedBg = globalDefaultBg; if (savedBg) { applyWallpaperStyles(savedBg); document.getElementById('custom-bg-input').value = savedBg; document.getElementById('clear-bg-btn').classList.remove('hidden'); } renderDynamicSections(); }
+
+        async function updateCloudConfig(key, value) { cloudConfig[key] = value; try { await fetch('/api/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cloudConfig) }); } catch (e) {} }
+
+        function toggleThemeMenu(e) { e.stopPropagation(); document.getElementById('theme-panel').classList.toggle('hidden'); }
+        function setBaseTheme(themeName) { document.body.classList.remove('theme-light', 'theme-dark'); document.body.classList.add(themeName); localStorage.setItem('nav_theme_mode', themeName); document.getElementById('theme-panel').classList.add('hidden'); }
+        function applyWallpaperStyles(url) { document.body.style.backgroundImage = `url('${url}')`; document.body.style.backgroundPosition = 'center'; document.body.style.backgroundSize = 'cover'; document.body.style.backgroundRepeat = 'no-repeat'; document.body.style.backgroundAttachment = 'fixed'; document.body.classList.add('has-custom-bg'); }
+
+        async function applyCustomBg() { const url = document.getElementById('custom-bg-input').value.trim(); if (!url) return alert(t('validUrlMsg')); applyWallpaperStyles(url); localStorage.setItem('nav_custom_wallpaper', url); document.body.classList.remove('bg-cleared'); document.getElementById('clear-bg-btn').classList.remove('hidden'); document.getElementById('theme-panel').classList.add('hidden'); updateCloudConfig('wallpaper', url); }
+        async function clearCustomBg() { document.body.style.backgroundImage = ''; document.body.classList.remove('has-custom-bg'); localStorage.removeItem('nav_custom_wallpaper'); document.body.classList.add('bg-cleared'); document.getElementById('custom-bg-input').value = ''; document.getElementById('clear-bg-btn').classList.add('hidden'); document.getElementById('theme-panel').classList.add('hidden'); updateCloudConfig('wallpaper', ""); }
+
+        function saveDynamicSections(sections) { localStorage.setItem('nav_dynamic_sections', JSON.stringify(sections)); updateCloudConfig('dynamicSections', sections); renderDynamicSections(); }
+        function addCustomSection() { const title = prompt(t('promptSectionName')); if (!title || title.trim() === '') return; let secs = cloudConfig.dynamicSections || []; secs.push({ id: Date.now().toString(), title: title.trim(), links: [] }); saveDynamicSections(secs); }
+        function renameCustomSection(id) { let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === id); if (!sec) return; const newTitle = prompt(t('renameSectionPrompt'), sec.title); if (!newTitle || newTitle.trim() === '' || newTitle === sec.title) return; sec.title = newTitle.trim(); saveDynamicSections(secs); }
+        function deleteCustomSection(id) { if (!confirm(t('delSectionConfirm'))) return; let secs = cloudConfig.dynamicSections || []; secs = secs.filter(s => s.id !== id); saveDynamicSections(secs); }
+        function toggleDynamicSectionExpand(secId) { expandedDynamicSections[secId] = !expandedDynamicSections[secId]; renderDynamicSections(); }
+
+        function renderDynamicSections() { document.querySelectorAll('.dynamic-section-card').forEach(el => el.remove()); const grid = document.getElementById('main-nav-grid'); const addBtnCard = document.getElementById('add-section-card'); let secs = cloudConfig.dynamicSections || []; secs.forEach((sec) => { const isExpanded = !!expandedDynamicSections[sec.id]; const linkCount = sec.links.length; const isCompact = linkCount > 6; let gridCols = isCompact ? 'grid-cols-3 gap-2' : 'grid-cols-2 gap-3'; let visibleLinks = sec.links; let showExpandBtn = false; if (linkCount > 9) { showExpandBtn = true; if (!isExpanded) visibleLinks = sec.links.slice(0, 9); } const card = document.createElement('div'); card.className = "dynamic-section-card glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 relative xl:col-span-1"; card.id = `section-${sec.id}`; card.draggable = true; card.ondragstart = (e) => handleDragStart(e, 'section', sec.id); card.ondragend = handleDragEnd; card.ondragover = (e) => handleDragOver(e, 'section'); card.ondrop = (e) => handleDrop(e, 'section', sec.id); let linksHtml = ''; if (linkCount === 0) { linksHtml = `<div class="col-span-full text-center text-xs text-slate-400/60 py-4">${t('noCloudLinks')}</div>`; } else { const pClass = isCompact ? 'p-2' : 'p-3'; const spaceXClass = isCompact ? 'space-x-1.5' : 'space-x-2.5'; const iconSizeClass = isCompact ? 'w-4 h-4 text-[9px]' : 'w-5 h-5 text-[10px]'; const imgSizeClass = isCompact ? 'w-4 h-4' : 'w-5 h-5'; const textSizeClass = isCompact ? 'text-[11px]' : 'text-sm'; const prClass = isCompact ? 'pr-4' : 'pr-5'; visibleLinks.forEach((link, idx) => { const displayName = getLocalizedLinkName(link.name, link.url); let displayIcon = `<div class="${iconSizeClass} rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">${displayName.charAt(0).toUpperCase()}</div>`; try { if (link.url) displayIcon = `<img src="https://unavatar.io/duckduckgo/${new URL(link.url).hostname}" draggable="false" onerror="this.style.display='none'" class="${imgSizeClass} rounded object-contain shrink-0" alt="icon" />`; } catch (e) {} linksHtml += `<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all" draggable="true" ondragstart="handleDragStart(event, 'link', '${sec.id}', ${idx})" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event, 'link')" ondrop="handleDrop(event, 'link', '${sec.id}', ${idx})"><div class="flex items-center w-full overflow-hidden"><i class="fas fa-grip-vertical text-slate-500 opacity-0 group-hover:opacity-50 transition-opacity mr-2.5 cursor-move admin-only text-[10px] shrink-0"></i><a href="${link.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="flex items-center ${spaceXClass} truncate w-full ${prClass}">${displayIcon} <span class="${textSizeClass} font-medium truncate">${displayName}</span></a></div><button type="button" onclick="deleteSectionLink(event, '${sec.id}', ${idx})" class="admin-only absolute right-2 text-xs p-1 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/20 rounded cursor-pointer shrink-0"><i class="fas fa-trash-alt"></i></button></div>`; }); } let expandHtml = ''; if (showExpandBtn) { expandHtml = `<div class="mt-4 pt-2 border-t border-slate-500/10 text-center"><button type="button" onclick="toggleDynamicSectionExpand('${sec.id}')" class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer inline-flex items-center gap-1">${isExpanded ? `<span data-i18n="collapseMore">${t('collapseMore')}</span> <i class="fas fa-chevron-up text-[10px]"></i>` : `<span data-i18n="expandMore">${t('expandMore')}</span> (${linkCount - 9}) <i class="fas fa-chevron-down text-[10px]"></i>`}</button></div>`; } card.innerHTML = `<div class="flex justify-between items-center mb-4"><h3 class="text-lg font-semibold text-indigo-400 flex items-center cursor-move" style="cursor: grab;"><i class="fas fa-grip-vertical mr-2 text-slate-500 opacity-60 admin-only text-sm"></i><i class="fas fa-layer-group mr-2.5"></i> <span>${sec.title}</span></h3><div class="flex gap-1.5 shrink-0 ml-2"><button type="button" onclick="openLinkModal('section_${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-indigo-600/20 text-indigo-400 border border-indigo-500/20 rounded-md hover:bg-indigo-600/40 transition-colors cursor-pointer z-[50]">${t('addCloud')}</button><button type="button" onclick="renameCustomSection('${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-sky-600/20 text-sky-400 border border-sky-500/20 rounded-md hover:bg-sky-600/40 transition-colors cursor-pointer z-[50]"><i class="fas fa-pen"></i></button><button type="button" onclick="deleteCustomSection('${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-red-600/20 text-red-400 border border-red-500/20 rounded-md hover:bg-red-600/40 transition-colors cursor-pointer z-[50]"><i class="fas fa-trash"></i></button></div></div><div class="grid ${gridCols}" style="min-height: 40px;" ondragover="handleDragOver(event, 'section')" ondrop="handleDrop(event, 'section', '${sec.id}')">${linksHtml}</div>${expandHtml}`; grid.insertBefore(card, addBtnCard); }); checkAdminSession(); }
+
+        function deleteSectionLink(e, secId, linkIdx) { e.preventDefault(); e.stopPropagation(); let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === secId); if (sec) { sec.links.splice(linkIdx, 1); saveDynamicSections(secs); } }
+
+        const sTermNames = ["小寒","大寒","立春","雨水","惊蛰","春分","清明","谷雨","立夏","小满","芒种","夏至","小暑","大暑","立秋","处暑","白露","秋分","寒露","霜降","立冬","小雪","大雪","冬至"];
+        const sTermInfo = [0,21208,42467,63836,85337,107014,128867,150921,173149,195551,218072,240693,263343,285989,308563,331033,353350,375494,397447,419210,440795,462224,483532,504758];
+        function getSolarTerm(y,m,d){ const b=new Date(1900,0,6,2,5,0); const t1=new Date((31556925974.7*(y-1900)+sTermInfo[(m*2)])+b.getTime()); if(t1.getMonth()==m&&t1.getDate()==d)return sTermNames[m*2]; const t2=new Date((31556925974.7*(y-1900)+sTermInfo[(m*2+1)])+b.getTime()); if(t2.getMonth()==m&&t2.getDate()==d)return sTermNames[m*2+1]; return null; }
+        function updateClockAndGreeting(){ const n=new Date(); const y=n.getFullYear(),m=n.getMonth(),d=n.getDate(),h=n.getHours(); document.getElementById('clock').innerText=`${String(h).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}:${String(n.getSeconds()).padStart(2,'0')}`; let g=""; if(currentLang==='zh'){ const t=getSolarTerm(y,m,d); const md=`${String(m+1).padStart(2,'0')}${String(d).padStart(2,'0')}`; const fs={"0101":"元旦快乐","0308":"妇女节快乐","0501":"五一劳动节","0601":"儿童节快乐","1001":"国庆节快乐","1225":"圣诞节"}; const f=fs[md]||null; if(f)g=`🎉 今天是 ${f}，祝你开心！`; else if(t)g=`🍃 今日节气 · 【${t}】，顺应四时，平安喜乐。`; else{ if(h>=0&&h<5)g="🌙 夜深了，静谧的星空在守护你，早点休息哦"; else if(h>=5&&h<8)g="🌅 清晨的朝阳刚刚升起，新的一天充满希望"; else if(h>=8&&h<11.5)g="☀️ 早上好，专注当下，今天也要元气满满"; else if(h>=11.5&&h<13.5)g="🍲 中午好，记得按时吃饭，歇息一下双眼"; else if(h>=13.5&&h<17.5)g="☕ 下午好，来杯清茶或咖啡，继续保持高效"; else if(h>=17.5&&h<19.5)g="🌇 傍晚好，落日余晖很美，放下疲惫准备享受夜晚吧"; else g="✨ 晚上好，属于自己的惬意时光，好好犒劳一下自己"; } } else{ if(h>=0&&h<5)g="🌙 Late night, the stars are watching over you. Sleep early."; else if(h>=5&&h<8)g="🌅 The morning sun is rising, a new day full of hope."; else if(h>=8&&h<11.5)g="☀️ Good morning! Stay focused and full of energy."; else if(h>=11.5&&h<13.5)g="🍲 Good noon! Remember to eat on time and rest your eyes."; else if(h>=13.5&&h<17.5)g="☕ Good afternoon! Grab a tea or coffee and keep it up."; else if(h>=17.5&&h<19.5)g="🌇 Good evening! The sunset is beautiful. Relax and enjoy."; else g="✨ Good night! Enjoy your cozy time and treat yourself well."; } document.getElementById('greeting').innerText=g; }
+        setInterval(updateClockAndGreeting, 1000);
+
+        let weatherState = { city: "Earth", temp: 26, code: 0, fetched: false };
+        async function fetchWeather(){ try{ const ipRes=await fetch('https://ipapi.co/json/'); if(!ipRes.ok)throw new Error(); const ipData=await ipRes.json(); const {latitude,longitude,city}=ipData; if(!latitude||longitude)throw new Error(); const wRes=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`); const wData=await wRes.json(); weatherState={city:city||"Earth",temp:Math.round(wData.current_weather.temperature),code:wData.current_weather.weathercode,fetched:true}; }catch(e){weatherState.fetched=false;} renderWeather(); }
+        function renderWeather(){ const el=document.getElementById('weather-info'); if(!weatherState.fetched){el.innerHTML=`<i class="fas fa-cloud text-slate-400"></i> <span>${t('weatherDefault')}</span>`;return;} let dc=weatherState.city; if(currentLang==='zh'){ const cm={"Singapore":"新加坡","Santa Clara":"圣克拉拉","San Jose":"圣何塞","Beijing":"北京","Shanghai":"上海","Shenzhen":"深圳","Guangzhou":"广州","Hangzhou":"杭州","Chengdu":"成都","Hong Kong":"香港"}; dc=cm[dc]||dc; dc=dc.replace(/Province|City/gi,"").trim(); } const code=weatherState.code; let icon='fa-cloud'; let dk='weatherCloudy'; if(code===0){icon='fa-sun text-amber-500';dk='weatherClear';}else if([1,2,3].includes(code)){icon='fa-cloud-sun text-indigo-300';dk='weatherCloudy';}else if([51,53,55,61,63,65,80,81,82].includes(code)){icon='fa-cloud-showers-heavy text-sky-400';dk='weatherRain';}else if([71,73,75,77,85,86].includes(code)){icon='fa-snowflake text-blue-200';dk='weatherSnow';}else if([95,96,99].includes(code)){icon='fa-bolt text-yellow-500';dk='weatherThunder';} el.innerHTML=`<i class="fas ${icon}"></i> <span>${dc} · ${t(dk)} ${weatherState.temp}°C</span>`; }
+
+        const engines = { google: { action: 'https://www.google.com/search', name: 'q', placeholderKey: 'searchGoogle', icon: 'fab fa-google text-blue-400' }, bing: { action: 'https://cn.bing.com/search', name: 'q', placeholderKey: 'searchBing', icon: 'fab fa-microsoft text-teal-400' }, baidu: { action: 'https://www.baidu.com/s', name: 'wd', placeholderKey: 'searchBaidu', icon: 'fas fa-paw text-red-400' }, github: { action: 'https://github.com/search', name: 'q', placeholderKey: 'searchGithub', icon: 'fab fa-github text-slate-400' }, site: { action: '#', name: 'q', placeholderKey: 'searchSite', icon: 'fas fa-search text-indigo-400' } };
+        function toggleEngineMenu(e) { e.stopPropagation(); document.getElementById('engine-menu').classList.toggle('hidden'); }
+        function selectEngine(key) { currentEngineKey = key; const form = document.getElementById('search-form'); const input = document.getElementById('search-input'); const icon = document.getElementById('engine-icon'); form.action = engines[key].action; input.name = engines[key].name; input.setAttribute('data-i18n-placeholder', engines[key].placeholderKey); input.placeholder = t(engines[key].placeholderKey); icon.className = engines[key].icon; document.getElementById('engine-menu').classList.add('hidden'); clearSiteSearchHighlights(); if (key === 'site') { form.setAttribute('target', '_self'); form.setAttribute('rel', ''); } else { form.setAttribute('target', '_blank'); form.setAttribute('rel', 'noopener noreferrer'); } }
+
+        function openLinkModal(target) { currentModalTarget = target; const textEl = document.getElementById('modal-title-text'); if (target === 'friend') textEl.innerText = t('modalAddFriend'); else if (target === 'custom') textEl.innerText = t('modalAddCloud'); else textEl.innerText = t('modalAddSection'); toggleModal(true); }
+        function toggleModal(show) { const modal = document.getElementById('modal'); if (show) { document.getElementById('site-name').value = ''; document.getElementById('site-url').value = ''; modal.classList.remove('hidden'); } else { modal.classList.add('hidden'); } }
+        function closeModalOnBlank(e) { if (e.target.id === 'modal') toggleModal(false); }
+
+        async function saveActiveLink() { const name = document.getElementById('site-name').value.trim(); let url = document.getElementById('site-url').value.trim(); if (!name || !url) return alert(currentLang === 'zh' ? '请完整填写名称和网址！' : 'Please fill in both name and URL!'); if (!/^https?:\/\//i.test(url)) url = 'https://' + url; if (currentModalTarget.startsWith('section_')) { const secId = currentModalTarget.replace('section_', ''); let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === secId); if (sec) { sec.links.push({ name, url }); saveDynamicSections(secs); } } else if (currentModalTarget === 'friend') { let links = JSON.parse(localStorage.getItem('nav_friend_links') || '[]'); links.push({ name, url }); localStorage.setItem('nav_friend_links', JSON.stringify(links)); loadFriendLinks(); } else { try { const res = await fetch('/api/links'); let links = res.ok ? await res.json() : JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.push({ name, url }); await fetch('/api/links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(links) }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); loadCustomLinks(); } catch (error) { const links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.push({ name, url }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); loadCustomLinks(); } } toggleModal(false); }
+
+        async function loadCustomLinks() { const container = document.getElementById('custom-links-container'); const actionWrapper = document.getElementById('expand-action-wrapper'); container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-400/60 py-10"><i class="fas fa-spinner fa-spin"></i> ${t('loadingCloud')}</div>`; let links = []; try { const res = await fetch('/api/links'); if (res.ok) links = await res.json(); else throw new Error(); } catch (e) { links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); } container.innerHTML = ''; if (links.length === 0) { container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-400/60 py-10">${t('noCloudLinks')}</div>`; actionWrapper.classList.add('hidden'); container.className = 'grid grid-cols-2 gap-3'; return; } const isCompact = links.length > 6; container.className = isCompact ? 'grid grid-cols-3 gap-2' : 'grid grid-cols-2 gap-3'; let visibleLinks = links; let showExpandBtn = false; if (links.length > 9) { showExpandBtn = true; if (!isCustomLinksExpanded) visibleLinks = links.slice(0, 9); } const pClass = isCompact ? 'p-2' : 'p-3'; const spaceXClass = isCompact ? 'space-x-1.5' : 'space-x-2.5'; const iconSizeClass = isCompact ? 'w-4 h-4 text-[9px]' : 'w-5 h-5 text-[10px]'; const imgSizeClass = isCompact ? 'w-4 h-4' : 'w-5 h-5'; const textSizeClass = isCompact ? 'text-[11px]' : 'text-sm'; const prClass = isCompact ? 'pr-4' : 'pr-5'; visibleLinks.forEach((item, index) => { const displayName = getLocalizedLinkName(item.name, item.url); let displayIcon = `<div class="${iconSizeClass} rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">${displayName.charAt(0).toUpperCase()}</div>`; try { if (item.url) displayIcon = `<img src="https://unavatar.io/duckduckgo/${new URL(item.url).hostname}" draggable="false" onerror="this.style.display='none'" class="${imgSizeClass} rounded object-contain shrink-0" alt="icon" />`; } catch (err) {} container.innerHTML += `<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all"><div class="flex items-center w-full overflow-hidden"><a href="${item.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="flex items-center ${spaceXClass} truncate w-full ${prClass}">${displayIcon} <span class="${textSizeClass} font-medium truncate">${displayName}</span></a></div><button type="button" onclick="deleteCustomLink(event, ${index})" class="admin-only absolute right-2 text-xs p-1 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/20 rounded cursor-pointer shrink-0"><i class="fas fa-trash-alt"></i></button></div>`; }); if (showExpandBtn) { actionWrapper.classList.remove('hidden'); const btn = document.getElementById('expand-btn'); btn.innerHTML = isCustomLinksExpanded ? `<span data-i18n="collapseMore">${t('collapseMore')}</span> <i class="fas fa-chevron-up text-[10px]"></i>` : `<span data-i18n="expandMore">${t('expandMore')}</span> (${links.length - 9}) <i class="fas fa-chevron-down text-[10px]"></i>`; } else { actionWrapper.classList.add('hidden'); } }
+        function toggleExpandCustomLinks() { isCustomLinksExpanded = !isCustomLinksExpanded; loadCustomLinks(); }
+        async function deleteCustomLink(e, index) { e.preventDefault(); e.stopPropagation(); if (!confirm(t('delConfirm'))) return; try { const res = await fetch('/api/links'); let links = res.ok ? await res.json() : JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.splice(index, 1); await fetch('/api/links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(links) }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); if (links.length <= 9) isCustomLinksExpanded = false; loadCustomLinks(); } catch (error) { const links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.splice(index, 1); localStorage.setItem('nav_custom_links', JSON.stringify(links)); if (links.length <= 9) isCustomLinksExpanded = false; loadCustomLinks(); } }
+
+        function loadFriendLinks() { const container = document.getElementById('friend-links-container'); let linksStr = localStorage.getItem('nav_friend_links'); let links = linksStr ? JSON.parse(linksStr) : []; container.innerHTML = ''; if (links.length === 0) { links = [{ name: "IT头条博客", url: "https://it-toutiao.blogspot.com" }, { name: "科技共享导航", url: "https://kjgx.168668520.xyz" }]; } links.forEach((item, index) => { const displayName = getLocalizedLinkName(item.name, item.url); container.innerHTML += `<div class="group relative flex items-center justify-between p-2.5 bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-emerald-600/10 transition-all text-center"><a href="${item.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="w-full text-xs font-medium text-slate-400 hover:text-emerald-400 transition-colors truncate px-2">${displayName}</a><button type="button" onclick="deleteFriendLink(event, ${index})" class="admin-only absolute right-1 text-[10px] text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/10 px-1 rounded cursor-pointer"><i class="fas fa-times"></i></button></div>`; }); }
+        function deleteFriendLink(e, index) { e.preventDefault(); e.stopPropagation(); let linksStr = localStorage.getItem('nav_friend_links'); let links = linksStr ? JSON.parse(linksStr) : []; if (links.length === 0) { links = [{ name: "IT头条博客", url: "https://it-toutiao.blogspot.com" }, { name: "科技共享导航", url: "https://kjgx.168668520.xyz" }]; } links.splice(index, 1); localStorage.setItem('nav_friend_links', JSON.stringify(links)); loadFriendLinks(); }
+
+        function clearSiteSearchHighlights() { document.querySelectorAll('.site-search-highlight').forEach(el => { el.classList.remove('site-search-highlight'); el.style.outline = ''; el.style.outlineOffset = ''; el.style.backgroundColor = ''; el.style.borderRadius = ''; }); } document.getElementById('search-form').addEventListener('submit', function(e) { 
+            if (currentEngineKey === 'site') { 
+                e.preventDefault(); 
+                const query = document.getElementById('search-input').value.trim().toLowerCase();
+                const box = document.getElementById('site-search-results');
+                box.innerHTML = '';
+                if (!query) { box.classList.add('hidden'); return; }
+                const allLinks = [...document.querySelectorAll('a[href]:not([href="#"]):not([href=""]):not([href^="javascript"])')];
+                const found = allLinks.filter(link => {
+                    const text = link.textContent.trim().toLowerCase();
+                    const href = (link.getAttribute('href') || '').toLowerCase();
+                    return text.includes(query) || href.includes(query);
+                });
+                if (!found.length) {
+                    box.innerHTML = '<div class="text-sm text-slate-400">未找到匹配的网址。</div>';
+                } else {
+                    box.innerHTML = '<div class="text-sm font-bold mb-3 text-indigo-400">找到 '+found.length+' 个结果</div>' +
+                    found.map(link => `<a target="_blank" href="${link.href}" class="block p-2 rounded-lg hover:bg-indigo-500/20 text-sm"><span class="font-medium">${link.textContent.trim()}</span><span class="block text-xs text-slate-400 truncate">${link.href}</span></a>`).join('');
+                }
+                box.classList.remove('hidden');
+            } 
+        }); 
+        document.addEventListener('click', () => { document.getElementById('engine-menu').classList.add('hidden'); document.getElementById('theme-panel').classList.add('hidden'); });
+        checkAdminSession(); document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en'; applyLanguage(); updateClockAndGreeting(); fetchWeather(); initCloudData();
+    </script>
 </body>
 </html>
