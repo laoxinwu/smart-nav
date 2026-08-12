@@ -24,6 +24,16 @@
         body.theme-dark .glass-input { background: rgba(255,255,255,0.07); }
         body.has-custom-bg::before { content: ''; position: fixed; inset: 0; background: rgba(15,23,42,0.55); backdrop-filter: blur(2px); z-index: -1; }
         body, .glass-card, .glass-input, #custom-links-container { transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+        #admin-status-hint { position: fixed; top: 4.25rem; right: 1rem; z-index: 149; }
+        @media (max-width: 640px) {
+            #admin-top-entry { right: 4rem; top: 0.75rem; }
+            #admin-top-entry button { min-height: 40px; }
+            #theme-panel { width: min(15rem, calc(100vw - 1rem)); }
+            #search-form { margin-top: 0.25rem; }
+            #search-input { min-width: 0; }
+            #admin-status-hint { top: 3.9rem; right: 0.75rem; font-size: 10px; max-width: calc(100vw - 1.5rem); }
+        }
+
         .dragging { opacity: 0.4; transform: scale(0.98); border: 2px dashed #6366f1 !important; }
         body:not(.is-admin) .admin-only { display: none !important; }
         .cat-card .subcat-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid rgba(148,163,184,0.15); }
@@ -32,6 +42,11 @@
         .cat-card .link-pill .link-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
     </style>
 
+<!-- v14最终执行版
+后台入口：右上角；登录状态持久化；30分钟后台无操作自动退出；退出确认；
+移动端顶部布局适配；后台状态提示；退出立即恢复普通模式。
+保持原有分类/网址/搜索引擎排序、拖拽、站内多结果搜索及数据结构。
+-->
 <!-- v5第五轮整理 -->
 <!--
 第五轮优化：
@@ -112,6 +127,16 @@ v12升级：
 
 </head>
 <body class="theme-dark font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+<!-- 后台入口（右上角） -->
+<div id="admin-status-hint" class="hidden glass-card px-2.5 py-1.5 rounded-lg text-[10px] sm:text-[11px] text-indigo-300 border border-indigo-500/20">
+<i class="fas fa-shield-halved mr-1"></i><span data-i18n="adminModeHint">后台管理模式 · 30分钟无操作自动退出</span>
+</div>
+<div id="admin-top-entry" class="fixed top-4 right-16 sm:top-5 sm:right-20 z-[151]">
+<button id="admin-login-btn" onclick="triggerAdminLogin()" class="glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-slate-300 hover:text-indigo-400 transition-colors cursor-pointer whitespace-nowrap">后台登录</button>
+<button id="admin-logout-btn" onclick="logoutAdmin()" class="hidden glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-red-400 hover:text-red-300 transition-colors cursor-pointer whitespace-nowrap">退出后台</button>
+</div>
+
 <!-- 个性化设置浮窗 -->
 <div class="fixed top-5 right-5 z-[150] relative">
 <button aria-label="个性化设置" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-indigo-500 hover:scale-105 active:scale-95 transition-all shadow-lg cursor-pointer" onclick="toggleThemeMenu(event)" title="个性化设置">
@@ -684,7 +709,7 @@ v12升级：
 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3" id="friend-links-container"></div>
 </div>
 </div>
-<footer class="text-slate-500 text-xs mt-4 cursor-pointer select-none tracking-wide hover:text-indigo-400/70 transition-colors" id="admin-trigger" ondblclick="triggerAdminLogin()" title="后台入口 (双击 / Double Click)">
+<footer class="text-slate-500 text-xs mt-4 cursor-pointer select-none tracking-wide hover:text-indigo-400/70 transition-colors" id="admin-trigger" title="后台入口已移至右上角">
 <span data-i18n="footerText">© 2026 chefdon-智能生态导航 · Powered by Cloudflare</span> <span class="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-400 font-bold hidden" data-i18n="adminBadge" id="admin-badge">已登入</span>
 </footer>
 </div>
@@ -723,7 +748,7 @@ v12升级：
             zh: {
                 pageTitle: "chefdon-智能多功能响应式导航", langTitle: "语言 / Language", themeTitle: "基础色彩模式 (本地偏好)",
                 themeLight: "日间", themeDark: "夜间", bgTitle: "自定义背景 (全站同步)", bgInputPlace: "输入图片网址 https://...",
-                applyBtn: "应用", clearBg: "清除壁纸", logoutBtn: "退出后台管理", weatherLoading: "正在定位测算天气...",
+                applyBtn: "应用", clearBg: "清除壁纸", logoutBtn: "退出后台管理", adminModeHint: "后台管理模式 · 30分钟无操作自动退出", logoutConfirm: "确定要退出后台管理吗？退出后将立即恢复普通模式。", weatherLoading: "正在定位测算天气...",
                 enGoogle: "谷歌 Google", enBing: "必应 Bing", enBaidu: "百度 Baidu", searchGoogle: "在 Google 中搜索...", searchBing: "在 必应 Bing 中搜索...", searchBaidu: "在 百度 Baidu 中搜索...", searchGithub: "在 GitHub 中搜索仓库...", enSite: "站内搜索", searchSite: "搜索本站导航链接...",
                 cardRec: "常用", cardDev: "效率与开发", cardCustom: "站长推荐", cardFriend: "友情链接",
                 linkBlog: "科技共享博客", linkBili: "哔哩哔哩", linkZhihu: "知乎", linkWeibo: "微博", linkJuejin: "稀土掘金",
@@ -740,7 +765,7 @@ v12升级：
             en: {
                 pageTitle: "chefdon - Smart Responsive Nav", langTitle: "Language / 语言", themeTitle: "Color Theme (Local Pref)",
                 themeLight: "Light", themeDark: "Dark", bgTitle: "Custom Wallpaper (Cloud Sync)", bgInputPlace: "Image URL https://...",
-                applyBtn: "Apply", clearBg: "Clear Wallpaper", logoutBtn: "Logout Admin", weatherLoading: "Fetching weather...",
+                applyBtn: "Apply", clearBg: "Clear Wallpaper", logoutBtn: "Logout Admin", adminModeHint: "Admin mode · Auto logout after 30 minutes of inactivity", logoutConfirm: "Are you sure you want to exit admin mode? Read-only mode will be restored immediately.", weatherLoading: "Fetching weather...",
                 enGoogle: "Google", enBing: "Bing", enBaidu: "Baidu", searchGoogle: "Search in Google...", searchBing: "Search in Bing...", searchBaidu: "Search in Baidu...", searchGithub: "Search in GitHub...", enSite: "Site Search", searchSite: "Search site links...",
                 cardRec: "Recommended", cardDev: "Dev & Tools", cardCustom: "Webmaster Picks", cardFriend: "Friend Links",
                 linkBlog: "TechShare Blog", linkBili: "Bilibili", linkZhihu: "Zhihu", linkWeibo: "Weibo", linkJuejin: "Juejin",
@@ -767,16 +792,134 @@ v12升级：
         function setLanguage(lang) { currentLang = lang; localStorage.setItem('nav_lang', lang); document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'; applyLanguage(); updateClockAndGreeting(); renderWeather(); selectEngine(currentEngineKey); document.getElementById('theme-panel').classList.add('hidden'); }
         function applyLanguage() { document.getElementById('page-title').innerText = t('pageTitle'); document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n')); }); document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.getAttribute('data-i18n-placeholder')); }); loadCustomLinks(); loadFriendLinks(); renderDynamicSections(); }
 
-        function checkAdminSession() { const isAdmin = localStorage.getItem('nav_admin_auth') === 'true'; if (isAdmin) { document.body.classList.add('is-admin'); document.getElementById('admin-badge').classList.remove('hidden'); } else { document.body.classList.remove('is-admin'); document.getElementById('admin-badge').classList.add('hidden'); } }
-        function triggerAdminLogin() { if (localStorage.getItem('nav_admin_auth') === 'true') { alert(currentLang === 'zh' ? "提示：您已处于后台管理模式。" : "Notice: You are already in admin mode."); return; } const pwd = prompt(t('pwdPrompt')); if (pwd === null) return; const currentValidPwd = cloudConfig.adminPwd || "admin888"; if (pwd === currentValidPwd) { localStorage.setItem('nav_admin_auth', 'true'); alert(t('pwdSuccess')); checkAdminSession(); } else { alert(t('pwdFail')); } }
-        function logoutAdmin() { localStorage.removeItem('nav_admin_auth'); alert(t('logoutMsg')); isCustomLinksExpanded = false; expandedDynamicSections = {}; checkAdminSession(); document.getElementById('theme-panel').classList.add('hidden'); }
+        const ADMIN_AUTH_KEY = 'nav_admin_auth';
+        const ADMIN_LAST_ACTIVITY_KEY = 'nav_admin_last_activity';
+        const ADMIN_TIMEOUT_MS = 30 * 60 * 1000;
+        let adminActivityTimer = null;
+
+        function isAdminAuthenticated() {
+            return localStorage.getItem(ADMIN_AUTH_KEY) === 'true';
+        }
+
+        function getAdminLastActivity() {
+            const value = Number(localStorage.getItem(ADMIN_LAST_ACTIVITY_KEY) || 0);
+            return Number.isFinite(value) ? value : 0;
+        }
+
+        function markAdminActivity() {
+            if (!isAdminAuthenticated()) return;
+            localStorage.setItem(ADMIN_LAST_ACTIVITY_KEY, String(Date.now()));
+            scheduleAdminTimeout();
+        }
+
+        function scheduleAdminTimeout() {
+            if (adminActivityTimer) {
+                clearTimeout(adminActivityTimer);
+                adminActivityTimer = null;
+            }
+            if (!isAdminAuthenticated()) return;
+            const last = getAdminLastActivity();
+            const remaining = ADMIN_TIMEOUT_MS - (Date.now() - last);
+            if (remaining <= 0) {
+                expireAdminSession();
+                return;
+            }
+            adminActivityTimer = setTimeout(() => {
+                if (isAdminAuthenticated() && Date.now() - getAdminLastActivity() >= ADMIN_TIMEOUT_MS) {
+                    expireAdminSession();
+                } else {
+                    scheduleAdminTimeout();
+                }
+            }, Math.max(1000, remaining + 50));
+        }
+
+        function expireAdminSession() {
+            localStorage.removeItem(ADMIN_AUTH_KEY);
+            localStorage.removeItem(ADMIN_LAST_ACTIVITY_KEY);
+            isCustomLinksExpanded = false;
+            expandedDynamicSections = {};
+            if (adminActivityTimer) clearTimeout(adminActivityTimer);
+            adminActivityTimer = null;
+            checkAdminSession();
+            document.getElementById('theme-panel').classList.add('hidden');
+        }
+
+        function checkAdminSession() {
+            const last = getAdminLastActivity();
+            if (isAdminAuthenticated() && (!last || Date.now() - last >= ADMIN_TIMEOUT_MS)) {
+                expireAdminSession();
+                return;
+            }
+            const isAdmin = isAdminAuthenticated();
+            const loginBtn = document.getElementById('admin-login-btn');
+            const logoutBtn = document.getElementById('admin-logout-btn');
+            const badge = document.getElementById('admin-badge');
+            const hint = document.getElementById('admin-status-hint');
+            if (isAdmin) {
+                document.body.classList.add('is-admin');
+                if (badge) badge.classList.remove('hidden');
+                if (hint) hint.classList.remove('hidden');
+                if (loginBtn) loginBtn.classList.add('hidden');
+                if (logoutBtn) logoutBtn.classList.remove('hidden');
+                scheduleAdminTimeout();
+            } else {
+                document.body.classList.remove('is-admin');
+                if (badge) badge.classList.add('hidden');
+                if (hint) hint.classList.add('hidden');
+                if (loginBtn) loginBtn.classList.remove('hidden');
+                if (logoutBtn) logoutBtn.classList.add('hidden');
+                if (adminActivityTimer) clearTimeout(adminActivityTimer);
+                adminActivityTimer = null;
+            }
+        }
+
+        function triggerAdminLogin() {
+            if (isAdminAuthenticated()) {
+                markAdminActivity();
+                alert(currentLang === 'zh' ? "提示：您已处于后台管理模式。" : "Notice: You are already in admin mode.");
+                return;
+            }
+            const pwd = prompt(t('pwdPrompt'));
+            if (pwd === null) return;
+            const currentValidPwd = cloudConfig.adminPwd || "admin888";
+            if (pwd === currentValidPwd) {
+                localStorage.setItem(ADMIN_AUTH_KEY, 'true');
+                localStorage.setItem(ADMIN_LAST_ACTIVITY_KEY, String(Date.now()));
+                alert(t('pwdSuccess'));
+                checkAdminSession();
+            } else {
+                alert(t('pwdFail'));
+            }
+        }
+
+        function logoutAdmin() {
+            if (!isAdminAuthenticated()) {
+                checkAdminSession();
+                return;
+            }
+            if (!confirm(t('logoutConfirm'))) return;
+            expireAdminSession();
+            alert(t('logoutMsg'));
+        }
+
+        function updateAdminActivityFromEvent() {
+            if (isAdminAuthenticated()) markAdminActivity();
+        }
+
+        ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(evt => {
+            document.addEventListener(evt, updateAdminActivityFromEvent, { passive: true });
+        });
+        window.addEventListener('storage', (event) => {
+            if (event.key === ADMIN_AUTH_KEY || event.key === ADMIN_LAST_ACTIVITY_KEY) checkAdminSession();
+        });
+        setInterval(checkAdminSession, 15000);
 
         async function updateAdminPwd() { const newPwd = document.getElementById('custom-pwd-input').value.trim(); if (!newPwd) return; cloudConfig.adminPwd = newPwd; document.getElementById('custom-pwd-input').value = ''; document.getElementById('theme-panel').classList.add('hidden'); try { await fetch('/api/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cloudConfig) }); alert(t('pwdUpdateSuccess')); } catch (e) { console.error("云端密码同步失败", e); } }
 
-        function handleDragStart(e, type, secId, linkIdx = null) { e.stopPropagation(); if (localStorage.getItem('nav_admin_auth') !== 'true') { e.preventDefault(); return; } dragType = type; dragSecId = secId; dragLinkIdx = linkIdx; e.dataTransfer.effectAllowed = 'move'; const target = e.currentTarget; setTimeout(() => target.classList.add('dragging'), 0); }
+        function handleDragStart(e, type, secId, linkIdx = null) { e.stopPropagation(); if (!isAdminAuthenticated()) { e.preventDefault(); return; } markAdminActivity(); dragType = type; dragSecId = secId; dragLinkIdx = linkIdx; e.dataTransfer.effectAllowed = 'move'; const target = e.currentTarget; setTimeout(() => target.classList.add('dragging'), 0); }
         function handleDragEnd(e) { e.stopPropagation(); e.currentTarget.classList.remove('dragging'); document.querySelectorAll('.dynamic-section-card, .group').forEach(el => el.style.border = ''); }
         function handleDragOver(e, type) { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'move'; return false; }
-        function handleDrop(e, type, targetSecId, targetLinkIdx = null) { e.stopPropagation(); e.preventDefault(); if (localStorage.getItem('nav_admin_auth') !== 'true') return; let secs = cloudConfig.dynamicSections || []; if (dragType === 'section' && type === 'section') { if (dragSecId === targetSecId) return; const fromIdx = secs.findIndex(s => s.id === dragSecId); const toIdx = secs.findIndex(s => s.id === targetSecId); if(fromIdx > -1 && toIdx > -1) { const [moved] = secs.splice(fromIdx, 1); secs.splice(toIdx, 0, moved); } } else if (dragType === 'link' && type === 'link') { if (dragSecId === targetSecId && dragLinkIdx === targetLinkIdx) return; const fromSec = secs.find(s => s.id === dragSecId); const toSec = secs.find(s => s.id === targetSecId); if (fromSec && toSec) { const [movedLink] = fromSec.links.splice(dragLinkIdx, 1); toSec.links.splice(targetLinkIdx, 0, movedLink); } } else if (dragType === 'link' && type === 'section') { const fromSec = secs.find(s => s.id === dragSecId); const toSec = secs.find(s => s.id === targetSecId); if (fromSec && toSec) { if (fromSec === toSec) return; const [movedLink] = fromSec.links.splice(dragLinkIdx, 1); toSec.links.push(movedLink); } } saveDynamicSections(secs); }
+        function handleDrop(e, type, targetSecId, targetLinkIdx = null) { e.stopPropagation(); e.preventDefault(); if (!isAdminAuthenticated()) return; markAdminActivity(); let secs = cloudConfig.dynamicSections || []; if (dragType === 'section' && type === 'section') { if (dragSecId === targetSecId) return; const fromIdx = secs.findIndex(s => s.id === dragSecId); const toIdx = secs.findIndex(s => s.id === targetSecId); if(fromIdx > -1 && toIdx > -1) { const [moved] = secs.splice(fromIdx, 1); secs.splice(toIdx, 0, moved); } } else if (dragType === 'link' && type === 'link') { if (dragSecId === targetSecId && dragLinkIdx === targetLinkIdx) return; const fromSec = secs.find(s => s.id === dragSecId); const toSec = secs.find(s => s.id === targetSecId); if (fromSec && toSec) { const [movedLink] = fromSec.links.splice(dragLinkIdx, 1); toSec.links.splice(targetLinkIdx, 0, movedLink); } } else if (dragType === 'link' && type === 'section') { const fromSec = secs.find(s => s.id === dragSecId); const toSec = secs.find(s => s.id === targetSecId); if (fromSec && toSec) { if (fromSec === toSec) return; const [movedLink] = fromSec.links.splice(dragLinkIdx, 1); toSec.links.push(movedLink); } } saveDynamicSections(secs); }
 
         async function initCloudData() { const savedTheme = localStorage.getItem('nav_theme_mode') || 'theme-dark'; document.body.classList.remove('theme-light', 'theme-dark'); document.body.classList.add(savedTheme); const globalDefaultBg = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"; let savedBg = localStorage.getItem('nav_custom_wallpaper'); cloudConfig.dynamicSections = JSON.parse(localStorage.getItem('nav_dynamic_sections') || '[]'); try { const res = await fetch('/api/config'); if (res.ok) { const configData = await res.json(); if (configData) { if (configData.wallpaper !== undefined) { if (configData.wallpaper === "") { savedBg = null; localStorage.removeItem('nav_custom_wallpaper'); document.body.classList.add('bg-cleared'); } else { savedBg = configData.wallpaper; localStorage.setItem('nav_custom_wallpaper', savedBg); document.body.classList.remove('bg-cleared'); } } if (configData.dynamicSections) { cloudConfig.dynamicSections = configData.dynamicSections; localStorage.setItem('nav_dynamic_sections', JSON.stringify(cloudConfig.dynamicSections)); } if (configData.adminPwd) { cloudConfig.adminPwd = configData.adminPwd; } } } } catch (e) {} if (!savedBg && !document.body.classList.contains('bg-cleared')) savedBg = globalDefaultBg; if (savedBg) { applyWallpaperStyles(savedBg); document.getElementById('custom-bg-input').value = savedBg; document.getElementById('clear-bg-btn').classList.remove('hidden'); } renderDynamicSections(); }
 
