@@ -171,6 +171,7 @@ v12升级：
 6. 不增加网址搜索权重。
 -->
 
+<!-- v14 第六轮：最终无障碍验收版（仅无障碍相关增强） -->
 </head>
 <body class="theme-dark font-sans antialiased selection:bg-indigo-500 selection:text-white" id="top">
 
@@ -179,8 +180,8 @@ v12升级：
 <i class="fas fa-shield-halved mr-1"></i><span data-i18n="adminModeHint">后台管理模式 · 30分钟无操作自动退出</span>
 </div>
 <div id="admin-top-entry" class="fixed top-4 right-16 sm:top-5 sm:right-20 z-[151]">
-<button id="admin-login-btn" onclick="triggerAdminLogin()" class="glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-slate-300 hover:text-indigo-400 transition-colors cursor-pointer whitespace-nowrap">后台登录</button>
-<button id="admin-logout-btn" onclick="logoutAdmin()" class="hidden glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-red-400 hover:text-red-300 transition-colors cursor-pointer whitespace-nowrap">退出后台</button>
+<button aria-label="后台登录" id="admin-login-btn" onclick="triggerAdminLogin()" class="glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-slate-300 hover:text-indigo-400 transition-colors cursor-pointer whitespace-nowrap">后台登录</button>
+<button aria-label="退出后台" id="admin-logout-btn" onclick="logoutAdmin()" class="hidden glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-red-400 hover:text-red-300 transition-colors cursor-pointer whitespace-nowrap">退出后台</button>
 </div>
 
 <!-- 个性化设置浮窗 -->
@@ -202,26 +203,26 @@ v12升级：
 <div class="admin-only space-y-1.5 px-1 border-t border-slate-800 pt-3 mt-1">
 <div class="flex justify-between items-center">
 <label class="text-[11px] text-slate-400 font-bold" data-i18n="bgTitle">自定义背景 (全站同步)</label>
-<button class="text-[10px] text-red-400 hover:underline hidden" data-i18n="clearBg" id="clear-bg-btn" onclick="clearCustomBg()">清除壁纸</button>
+<button class="text-[10px] text-red-400 hover:underline hidden" data-i18n="clearBg" id="clear-bg-btn" aria-label="清除自定义壁纸" onclick="clearCustomBg()">清除壁纸</button>
 </div>
 <div class="flex gap-1.5">
 <input class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-xs text-slate-100 focus:outline-none focus:border-indigo-500" data-i18n-placeholder="bgInputPlace" id="custom-bg-input" placeholder="输入图片网址 https://..." type="text"/>
-<button class="bg-indigo-600 text-white px-2 py-1 rounded-lg text-xs hover:bg-indigo-500 cursor-pointer shrink-0" data-i18n="applyBtn" onclick="applyCustomBg()">应用</button>
+<button class="bg-indigo-600 text-white px-2 py-1 rounded-lg text-xs hover:bg-indigo-500 cursor-pointer shrink-0" data-i18n="applyBtn" aria-label="应用自定义壁纸" onclick="applyCustomBg()">应用</button>
 </div>
 </div>
 <div class="admin-only space-y-1.5 px-1 border-t border-slate-800 pt-3 mt-1">
 <label class="text-[11px] text-slate-400 font-bold" data-i18n="pwdTitle">修改管理员密码 (全站同步)</label>
 <div class="flex gap-1.5">
 <input class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-xs text-slate-100 focus:outline-none focus:border-emerald-500" data-i18n-placeholder="pwdInputPlace" id="custom-pwd-input" placeholder="输入新密码" type="password"/>
-<button class="bg-emerald-600 text-white px-2 py-1 rounded-lg text-xs hover:bg-emerald-500 cursor-pointer shrink-0" data-i18n="saveBtn" onclick="updateAdminPwd()">保存</button>
+<button class="bg-emerald-600 text-white px-2 py-1 rounded-lg text-xs hover:bg-emerald-500 cursor-pointer shrink-0" data-i18n="saveBtn" aria-label="保存管理员密码" onclick="updateAdminPwd()">保存</button>
 </div>
 </div>
 <div class="admin-only border-t border-slate-800 pt-2 mt-2">
-<button class="w-full py-1.5 rounded-lg bg-red-950/40 border border-red-900/40 text-red-400 text-[11px] text-center hover:bg-red-900/40 transition-colors cursor-pointer" data-i18n="logoutBtn" onclick="logoutAdmin()">退出后台管理</button>
+<button class="w-full py-1.5 rounded-lg bg-red-950/40 border border-red-900/40 text-red-400 text-[11px] text-center hover:bg-red-900/40 transition-colors cursor-pointer" data-i18n="logoutBtn" aria-label="退出后台管理" onclick="logoutAdmin()">退出后台管理</button>
 </div>
 </div>
 </div>
-<a href="#main-content" class="sr-only focus:not-sr-only">跳转到主要内容</a><div class="max-w-7xl mx-auto px-4 py-12 lg:py-20 flex flex-col items-center">
+<a href="#main-content" class="sr-only focus:not-sr-only" aria-label="跳转到主要内容">跳转到主要内容</a><div class="max-w-7xl mx-auto px-4 py-12 lg:py-20 flex flex-col items-center">
 <!-- 时间与问候语 -->
 <div class="text-center mb-10 animate-fade-in">
 <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 mb-2" id="clock">00:00:00</h1>
@@ -235,7 +236,7 @@ v12升级：
 </div>
 <!-- 搜索引擎 -->
 <div class="w-full max-w-2xl mb-16 relative z-[100]">
-<form role="search" aria-label="网站搜索" action="https://www.google.com/search" class="relative" id="search-form" method="get" role="search" aria-label="网站搜索" rel="noopener noreferrer" target="_blank">
+<form role="search" aria-label="网站搜索" action="https://www.google.com/search" class="relative" id="search-form" method="get" rel="noopener noreferrer" target="_blank">
 <div class="flex items-center glass-input rounded-2xl border border-slate-700/40 shadow-2xl focus-within:border-indigo-500/80 transition-all duration-300">
 <div class="relative pl-4">
 <button aria-label="切换搜索引擎" class="flex items-center space-x-2 text-slate-400 hover:text-indigo-400 transition-colors py-4 pr-2 cursor-pointer" id="engine-btn" aria-controls="engine-menu" aria-expanded="false" onclick="toggleEngineMenu(event)" type="button">
@@ -251,14 +252,14 @@ v12升级：
 <button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('youtube')" type="button"><i class="fab fa-youtube text-red-500"></i> <span>YouTube</span></button>
 </div>
 </div>
-<label class="sr-only" for="search-input">搜索内容</label><input aria-label="搜索内容" autocomplete="off" class="w-full bg-transparent border-none py-4 px-3 focus:outline-none focus:ring-0 text-base" data-i18n-placeholder="searchGoogle" id="search-input" name="q" aria-label="搜索关键词输入框" autocomplete="off" placeholder="在 Google 中搜索..." type="text"/>
+<label class="sr-only" for="search-input">搜索内容</label><input class="w-full bg-transparent border-none py-4 px-3 focus:outline-none focus:ring-0 text-base" data-i18n-placeholder="searchGoogle" id="search-input" name="q" aria-label="搜索关键词输入框" autocomplete="off" placeholder="在 Google 中搜索..." type="text"/>
 <button aria-label="搜索" class="mr-3 p-2.5 text-slate-400 hover:text-indigo-400 transition-colors" type="submit"><i class="fas fa-search text-lg" aria-hidden="true"></i></button>
 </div>
 </form>
 <div id="site-search-results" class="hidden mt-4 glass-card rounded-2xl p-4 shadow-xl"></div>
 </div>
 <!-- ============ 导航卡片网格 ============ -->
-    <section aria-label="网站导航">
+    <section aria-label="网站导航" role="navigation">
 <div class="w-full grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 relative z-10 items-start" id="main-content" role="main" aria-label="网站导航主要内容"><div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 xl:col-span-1" id="card-custom">
 <div class="flex justify-between items-center mb-4">
 <h3 class="text-lg font-semibold text-pink-400 flex items-center"><i class="fas fa-folder-plus mr-2.5"></i> <span data-i18n="cardCustom">站长推荐</span></h3>
@@ -1145,6 +1146,53 @@ window.checkAdminSession=function(){
    document.getElementById('theme-panel')?.classList.add('hidden');
   }
  });
+})();
+</script>
+
+<!-- v14 第六轮无障碍最终验收增强：动态状态播报与键盘菜单支持 -->
+<div id="accessibility-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+<script>
+(function(){
+  const status = document.getElementById('accessibility-status');
+  const announce = (text) => { if(!status) return; status.textContent=''; requestAnimationFrame(()=>{ status.textContent=text; }); };
+  const engineBtn = document.getElementById('engine-btn');
+  const engineMenu = document.getElementById('engine-menu');
+  if(engineBtn && engineMenu){
+    const items = Array.from(engineMenu.querySelectorAll('button[role="menuitem"]'));
+    items.forEach((item, i) => {
+      item.setAttribute('tabindex','-1');
+      item.addEventListener('keydown', function(e){
+        let next=-1;
+        if(e.key==='ArrowDown') next=(i+1)%items.length;
+        else if(e.key==='ArrowUp') next=(i-1+items.length)%items.length;
+        else if(e.key==='Home') next=0;
+        else if(e.key==='End') next=items.length-1;
+        else if(e.key==='Escape'){ engineMenu.classList.add('hidden'); engineBtn.setAttribute('aria-expanded','false'); engineBtn.focus(); return; }
+        if(next>=0){ e.preventDefault(); items[next].focus(); }
+      });
+      item.addEventListener('click', function(){
+        items.forEach(x=>x.setAttribute('aria-current','false'));
+        item.setAttribute('aria-current','true');
+        announce('已切换搜索引擎：'+item.textContent.trim());
+        engineBtn.setAttribute('aria-expanded','false');
+      });
+    });
+    engineBtn.addEventListener('keydown', function(e){
+      if(e.key==='ArrowDown' || e.key==='Enter' || e.key===' '){
+        e.preventDefault();
+        engineMenu.classList.remove('hidden');
+        engineBtn.setAttribute('aria-expanded','true');
+        if(items.length) items[0].focus();
+      }
+      if(e.key==='Escape'){ engineMenu.classList.add('hidden'); engineBtn.setAttribute('aria-expanded','false'); }
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape' && engineMenu && !engineMenu.classList.contains('hidden')){
+      engineMenu.classList.add('hidden');
+      if(engineBtn){ engineBtn.setAttribute('aria-expanded','false'); engineBtn.focus(); }
+    }
+  });
 })();
 </script>
 
