@@ -994,5 +994,53 @@ v12升级：
         document.addEventListener('click', () => { document.getElementById('engine-menu').classList.add('hidden'); document.getElementById('theme-panel').classList.add('hidden'); });
         checkAdminSession(); document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en'; applyLanguage(); updateClockAndGreeting(); fetchWeather(); initCloudData();
     </script>
+
+<!-- v14 后台管理面板升级 -->
+<style>
+#v14-admin-panel{display:none;position:fixed;inset:5rem 1rem 1rem;z-index:200;background:rgba(15,23,42,.96);backdrop-filter:blur(16px);border:1px solid rgba(99,102,241,.25);border-radius:20px;overflow:auto;padding:20px;color:#fff}
+body.is-admin #v14-admin-panel{display:block}
+.v14-admin-row{display:flex;justify-content:space-between;gap:10px;padding:10px;border-bottom:1px solid rgba(148,163,184,.15);font-size:13px}
+.v14-bad{color:#fb7185}.v14-good{color:#34d399}
+</style>
+<div id="v14-admin-panel">
+<h2 class="text-xl font-bold mb-4">后台管理中心</h2>
+<div class="flex gap-2 mb-4 flex-wrap">
+<button onclick="v14ScanSites()" class="px-3 py-2 rounded-lg bg-indigo-600">检测全部网站</button>
+<button onclick="v14RenderAdmin()" class="px-3 py-2 rounded-lg bg-slate-700">刷新列表</button>
+</div>
+<div id="v14-admin-summary" class="mb-3 text-sm"></div>
+<div id="v14-admin-sites"></div>
+</div>
+<script>
+function v14GetSites(){
+ const map=new Map();
+ document.querySelectorAll('a[href^="http"]').forEach(a=>{if(!map.has(a.href))map.set(a.href,{name:a.textContent.trim()||a.href,url:a.href});});
+ return [...map.values()];
+}
+function v14RenderAdmin(){
+ const box=document.getElementById('v14-admin-sites'); if(!box)return;
+ let sites=JSON.parse(localStorage.getItem('v14_site_status')||'[]');
+ if(!sites.length) sites=v14GetSites();
+ sites.sort((a,b)=>(a.status==='bad'?0:1)-(b.status==='bad'?0:1));
+ box.innerHTML=sites.map(s=>`<div class="v14-admin-row"><span>${s.name}<br><small>${s.url}</small></span><span class="${s.status==='bad'?'v14-bad':'v14-good'}">${s.status==='bad'?'异常':'正常'}</span></div>`).join('');
+ document.getElementById('v14-admin-summary').innerText='网站数量：'+sites.length+'  异常优先排序';
+}
+async function v14ScanSites(){
+ let sites=v14GetSites();
+ for(const s of sites){
+  s.status='checking';
+  try{
+   await fetch(s.url,{mode:'no-cors',cache:'no-store'});s.status='good';
+  }catch(e){s.status='bad';}
+ }
+ localStorage.setItem('v14_site_status',JSON.stringify(sites));
+ v14RenderAdmin();
+}
+const oldCheckAdminSession=window.checkAdminSession;
+window.checkAdminSession=function(){
+ if(oldCheckAdminSession) oldCheckAdminSession();
+ setTimeout(v14RenderAdmin,500);
+}
+</script>
 </body>
 </html>
