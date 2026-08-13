@@ -34,13 +34,53 @@
             #admin-status-hint { top: 3.9rem; right: 0.75rem; font-size: 10px; max-width: calc(100vw - 1.5rem); }
         }
 
+        /* Accessibility enhancements */
+        :focus-visible { outline: 3px solid #818cf8; outline-offset: 3px; }
+        button, a, input, select, textarea { min-height: 40px; }
+        @media (max-width:640px) { button, a { min-height: 44px; } }
+        .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
         .dragging { opacity: 0.4; transform: scale(0.98); border: 2px dashed #6366f1 !important; }
         body:not(.is-admin) .admin-only { display: none !important; }
         .cat-card .subcat-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid rgba(148,163,184,0.15); }
         .cat-card .link-pill { display: flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(148,163,184,0.06); border: 1px solid rgba(148,163,184,0.08); border-radius: 10px; font-size: 12px; transition: all 0.15s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .cat-card .link-pill:hover { background: rgba(99,102,241,0.15); border-color: rgba(99,102,241,0.25); }
         .cat-card .link-pill .link-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-    </style>
+    
+/* v14 无障碍第二轮优化 */
+*:focus-visible {
+    outline: 3px solid #60a5fa !important;
+    outline-offset: 3px;
+}
+button, a, input, select, textarea {
+    scroll-margin-top: 80px;
+}
+button, a {
+    min-height: 44px;
+}
+[aria-hidden="true"] {
+    pointer-events: none;
+}
+.sr-only-accessibility {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+@media (max-width:640px){
+    button, a {
+        min-height: 44px;
+    }
+    input {
+        font-size: 16px !important;
+    }
+}
+
+</style>
 
 <!-- v14最终执行版
 后台入口：右上角；登录状态持久化；30分钟后台无操作自动退出；退出确认；
@@ -126,7 +166,7 @@ v12升级：
 -->
 
 </head>
-<body class="theme-dark font-sans antialiased selection:bg-indigo-500 selection:text-white">
+<body class="theme-dark font-sans antialiased selection:bg-indigo-500 selection:text-white" id="top">
 
 <!-- 后台入口（右上角） -->
 <div id="admin-status-hint" class="hidden glass-card px-2.5 py-1.5 rounded-lg text-[10px] sm:text-[11px] text-indigo-300 border border-indigo-500/20">
@@ -189,7 +229,7 @@ v12升级：
 </div>
 <!-- 搜索引擎 -->
 <div class="w-full max-w-2xl mb-16 relative z-[100]">
-<form action="https://www.google.com/search" class="relative" id="search-form" method="get" rel="noopener noreferrer" target="_blank">
+<form role="search" aria-label="网站搜索" action="https://www.google.com/search" class="relative" id="search-form" method="get" rel="noopener noreferrer" target="_blank">
 <div class="flex items-center glass-input rounded-2xl border border-slate-700/40 shadow-2xl focus-within:border-indigo-500/80 transition-all duration-300">
 <div class="relative pl-4">
 <button aria-label="切换搜索引擎" class="flex items-center space-x-2 text-slate-400 hover:text-indigo-400 transition-colors py-4 pr-2 cursor-pointer" id="engine-btn" onclick="toggleEngineMenu(event)" type="button">
@@ -205,13 +245,14 @@ v12升级：
 <button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('youtube')" type="button"><i class="fab fa-youtube text-red-500"></i> <span>YouTube</span></button>
 </div>
 </div>
-<input autocomplete="off" class="w-full bg-transparent border-none py-4 px-3 focus:outline-none focus:ring-0 text-base" data-i18n-placeholder="searchGoogle" id="search-input" name="q" placeholder="在 Google 中搜索..." type="text"/>
-<button aria-label="搜索" class="mr-3 p-2.5 text-slate-400 hover:text-indigo-400 transition-colors" type="submit"><i class="fas fa-search text-lg"></i></button>
+<label class="sr-only" for="search-input">搜索内容</label><input aria-label="搜索内容" autocomplete="off" class="w-full bg-transparent border-none py-4 px-3 focus:outline-none focus:ring-0 text-base" data-i18n-placeholder="searchGoogle" id="search-input" name="q" placeholder="在 Google 中搜索..." type="text"/>
+<button aria-label="搜索" class="mr-3 p-2.5 text-slate-400 hover:text-indigo-400 transition-colors" type="submit"><i class="fas fa-search text-lg" aria-hidden="true"></i></button>
 </div>
 </form>
 <div id="site-search-results" class="hidden mt-4 glass-card rounded-2xl p-4 shadow-xl"></div>
 </div>
 <!-- ============ 导航卡片网格 ============ -->
+    <section aria-label="网站导航">
 <div class="w-full grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 relative z-10 items-start" id="main-nav-grid"><div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 xl:col-span-1" id="card-custom">
 <div class="flex justify-between items-center mb-4">
 <h3 class="text-lg font-semibold text-pink-400 flex items-center"><i class="fas fa-folder-plus mr-2.5"></i> <span data-i18n="cardCustom">站长推荐</span></h3>
@@ -710,7 +751,9 @@ v12升级：
 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3" id="friend-links-container"></div>
 </div>
 </div>
-<footer class="text-slate-500 text-xs mt-4 cursor-pointer select-none tracking-wide hover:text-indigo-400/70 transition-colors" id="admin-trigger" title="路虽远，行则将至；事虽难，做则可成。">
+</section>
+    </main>
+    <footer role="contentinfo" class="text-slate-500 text-xs mt-4 cursor-pointer select-none tracking-wide hover:text-indigo-400/70 transition-colors" id="admin-trigger" title="路虽远，行则将至；事虽难，做则可成。">
 <span data-i18n="footerText">© 2026 chefdon-智能生态导航 · Powered by Cloudflare</span> <span class="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-400 font-bold hidden" data-i18n="adminBadge" id="admin-badge">已登入</span>
 </footer>
 </div>
@@ -939,7 +982,7 @@ v12升级：
         function deleteCustomSection(id) { if (!confirm(t('delSectionConfirm'))) return; let secs = cloudConfig.dynamicSections || []; secs = secs.filter(s => s.id !== id); saveDynamicSections(secs); }
         function toggleDynamicSectionExpand(secId) { expandedDynamicSections[secId] = !expandedDynamicSections[secId]; renderDynamicSections(); }
 
-        function renderDynamicSections() { document.querySelectorAll('.dynamic-section-card').forEach(el => el.remove()); const grid = document.getElementById('main-nav-grid'); const addBtnCard = document.getElementById('add-section-card'); let secs = cloudConfig.dynamicSections || []; secs.forEach((sec) => { const isExpanded = !!expandedDynamicSections[sec.id]; const linkCount = sec.links.length; const isCompact = linkCount > 6; let gridCols = isCompact ? 'grid-cols-3 gap-2' : 'grid-cols-2 gap-3'; let visibleLinks = sec.links; let showExpandBtn = false; if (linkCount > 9) { showExpandBtn = true; if (!isExpanded) visibleLinks = sec.links.slice(0, 9); } const card = document.createElement('div'); card.className = "dynamic-section-card glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 relative xl:col-span-1"; card.id = `section-${sec.id}`; card.draggable = true; card.ondragstart = (e) => handleDragStart(e, 'section', sec.id); card.ondragend = handleDragEnd; card.ondragover = (e) => handleDragOver(e, 'section'); card.ondrop = (e) => handleDrop(e, 'section', sec.id); let linksHtml = ''; if (linkCount === 0) { linksHtml = `<div class="col-span-full text-center text-xs text-slate-400/60 py-4">${t('noCloudLinks')}</div>`; } else { const pClass = isCompact ? 'p-2' : 'p-3'; const spaceXClass = isCompact ? 'space-x-1.5' : 'space-x-2.5'; const iconSizeClass = isCompact ? 'w-4 h-4 text-[9px]' : 'w-5 h-5 text-[10px]'; const imgSizeClass = isCompact ? 'w-4 h-4' : 'w-5 h-5'; const textSizeClass = isCompact ? 'text-[11px]' : 'text-sm'; const prClass = isCompact ? 'pr-4' : 'pr-5'; visibleLinks.forEach((link, idx) => { const displayName = getLocalizedLinkName(link.name, link.url); let displayIcon = `<div class="${iconSizeClass} rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">${displayName.charAt(0).toUpperCase()}</div>`; try { if (link.url) displayIcon = `<img src="https://unavatar.io/duckduckgo/${new URL(link.url).hostname}" draggable="false" onerror="this.style.display='none'" class="${imgSizeClass} rounded object-contain shrink-0" alt="icon" />`; } catch (e) {} linksHtml += `<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all" draggable="true" ondragstart="handleDragStart(event, 'link', '${sec.id}', ${idx})" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event, 'link')" ondrop="handleDrop(event, 'link', '${sec.id}', ${idx})"><div class="flex items-center w-full overflow-hidden"><i class="fas fa-grip-vertical text-slate-500 opacity-0 group-hover:opacity-50 transition-opacity mr-2.5 cursor-move admin-only text-[10px] shrink-0"></i><a href="${link.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="flex items-center ${spaceXClass} truncate w-full ${prClass}">${displayIcon} <span class="${textSizeClass} font-medium truncate">${displayName}</span></a></div><button type="button" onclick="deleteSectionLink(event, '${sec.id}', ${idx})" class="admin-only absolute right-2 text-xs p-1 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/20 rounded cursor-pointer shrink-0"><i class="fas fa-trash-alt"></i></button></div>`; }); } let expandHtml = ''; if (showExpandBtn) { expandHtml = `<div class="mt-4 pt-2 border-t border-slate-500/10 text-center"><button type="button" onclick="toggleDynamicSectionExpand('${sec.id}')" class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer inline-flex items-center gap-1">${isExpanded ? `<span data-i18n="collapseMore">${t('collapseMore')}</span> <i class="fas fa-chevron-up text-[10px]"></i>` : `<span data-i18n="expandMore">${t('expandMore')}</span> (${linkCount - 9}) <i class="fas fa-chevron-down text-[10px]"></i>`}</button></div>`; } card.innerHTML = `<div class="flex justify-between items-center mb-4"><h3 class="text-lg font-semibold text-indigo-400 flex items-center cursor-move" style="cursor: grab;"><i class="fas fa-grip-vertical mr-2 text-slate-500 opacity-60 admin-only text-sm"></i><i class="fas fa-layer-group mr-2.5"></i> <span>${sec.title}</span></h3><div class="flex gap-1.5 shrink-0 ml-2"><button type="button" onclick="openLinkModal('section_${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-indigo-600/20 text-indigo-400 border border-indigo-500/20 rounded-md hover:bg-indigo-600/40 transition-colors cursor-pointer z-[50]">${t('addCloud')}</button><button type="button" onclick="renameCustomSection('${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-sky-600/20 text-sky-400 border border-sky-500/20 rounded-md hover:bg-sky-600/40 transition-colors cursor-pointer z-[50]"><i class="fas fa-pen"></i></button><button type="button" onclick="deleteCustomSection('${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-red-600/20 text-red-400 border border-red-500/20 rounded-md hover:bg-red-600/40 transition-colors cursor-pointer z-[50]"><i class="fas fa-trash"></i></button></div></div><div class="grid ${gridCols}" style="min-height: 40px;" ondragover="handleDragOver(event, 'section')" ondrop="handleDrop(event, 'section', '${sec.id}')">${linksHtml}</div>${expandHtml}`; grid.insertBefore(card, addBtnCard); }); checkAdminSession(); }
+        function renderDynamicSections() { document.querySelectorAll('.dynamic-section-card').forEach(el => el.remove()); const grid = document.getElementById('main-nav-grid'); const addBtnCard = document.getElementById('add-section-card'); let secs = cloudConfig.dynamicSections || []; secs.forEach((sec) => { const isExpanded = !!expandedDynamicSections[sec.id]; const linkCount = sec.links.length; const isCompact = linkCount > 6; let gridCols = isCompact ? 'grid-cols-3 gap-2' : 'grid-cols-2 gap-3'; let visibleLinks = sec.links; let showExpandBtn = false; if (linkCount > 9) { showExpandBtn = true; if (!isExpanded) visibleLinks = sec.links.slice(0, 9); } const card = document.createElement('div'); card.className = "dynamic-section-card glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 relative xl:col-span-1"; card.id = `section-${sec.id}`; card.draggable = true; card.ondragstart = (e) => handleDragStart(e, 'section', sec.id); card.ondragend = handleDragEnd; card.ondragover = (e) => handleDragOver(e, 'section'); card.ondrop = (e) => handleDrop(e, 'section', sec.id); let linksHtml = ''; if (linkCount === 0) { linksHtml = `<div class="col-span-full text-center text-xs text-slate-400/60 py-4">${t('noCloudLinks')}</div>`; } else { const pClass = isCompact ? 'p-2' : 'p-3'; const spaceXClass = isCompact ? 'space-x-1.5' : 'space-x-2.5'; const iconSizeClass = isCompact ? 'w-4 h-4 text-[9px]' : 'w-5 h-5 text-[10px]'; const imgSizeClass = isCompact ? 'w-4 h-4' : 'w-5 h-5'; const textSizeClass = isCompact ? 'text-[11px]' : 'text-sm'; const prClass = isCompact ? 'pr-4' : 'pr-5'; visibleLinks.forEach((link, idx) => { const displayName = getLocalizedLinkName(link.name, link.url); let displayIcon = `<div class="${iconSizeClass} rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">${displayName.charAt(0).toUpperCase()}</div>`; try { if (link.url) displayIcon = `<img src="https://unavatar.io/duckduckgo/${new URL(link.url).hostname}" draggable="false" onerror="this.style.display='none'" class="${imgSizeClass} rounded object-contain shrink-0" alt="网站图标" />`; } catch (e) {} linksHtml += `<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all" draggable="true" ondragstart="handleDragStart(event, 'link', '${sec.id}', ${idx})" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event, 'link')" ondrop="handleDrop(event, 'link', '${sec.id}', ${idx})"><div class="flex items-center w-full overflow-hidden"><i class="fas fa-grip-vertical text-slate-500 opacity-0 group-hover:opacity-50 transition-opacity mr-2.5 cursor-move admin-only text-[10px] shrink-0"></i><a href="${link.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="flex items-center ${spaceXClass} truncate w-full ${prClass}">${displayIcon} <span class="${textSizeClass} font-medium truncate">${displayName}</span></a></div><button type="button" onclick="deleteSectionLink(event, '${sec.id}', ${idx})" class="admin-only absolute right-2 text-xs p-1 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/20 rounded cursor-pointer shrink-0"><i class="fas fa-trash-alt" aria-hidden="true"></i><span class="sr-only">删除</span></button></div>`; }); } let expandHtml = ''; if (showExpandBtn) { expandHtml = `<div class="mt-4 pt-2 border-t border-slate-500/10 text-center"><button type="button" onclick="toggleDynamicSectionExpand('${sec.id}')" class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer inline-flex items-center gap-1">${isExpanded ? `<span data-i18n="collapseMore">${t('collapseMore')}</span> <i class="fas fa-chevron-up text-[10px]"></i>` : `<span data-i18n="expandMore">${t('expandMore')}</span> (${linkCount - 9}) <i class="fas fa-chevron-down text-[10px]"></i>`}</button></div>`; } card.innerHTML = `<div class="flex justify-between items-center mb-4"><h3 class="text-lg font-semibold text-indigo-400 flex items-center cursor-move" style="cursor: grab;"><i class="fas fa-grip-vertical mr-2 text-slate-500 opacity-60 admin-only text-sm"></i><i class="fas fa-layer-group mr-2.5"></i> <span>${sec.title}</span></h3><div class="flex gap-1.5 shrink-0 ml-2"><button type="button" onclick="openLinkModal('section_${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-indigo-600/20 text-indigo-400 border border-indigo-500/20 rounded-md hover:bg-indigo-600/40 transition-colors cursor-pointer z-[50]">${t('addCloud')}</button><button type="button" onclick="renameCustomSection('${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-sky-600/20 text-sky-400 border border-sky-500/20 rounded-md hover:bg-sky-600/40 transition-colors cursor-pointer z-[50]"><i class="fas fa-pen"></i></button><button type="button" onclick="deleteCustomSection('${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-red-600/20 text-red-400 border border-red-500/20 rounded-md hover:bg-red-600/40 transition-colors cursor-pointer z-[50]"><i class="fas fa-trash"></i></button></div></div><div class="grid ${gridCols}" style="min-height: 40px;" ondragover="handleDragOver(event, 'section')" ondrop="handleDrop(event, 'section', '${sec.id}')">${linksHtml}</div>${expandHtml}`; grid.insertBefore(card, addBtnCard); }); checkAdminSession(); }
 
         function deleteSectionLink(e, secId, linkIdx) { e.preventDefault(); e.stopPropagation(); let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === secId); if (sec) { sec.links.splice(linkIdx, 1); saveDynamicSections(secs); } }
 
@@ -963,7 +1006,7 @@ v12升级：
 
         async function saveActiveLink() { const name = document.getElementById('site-name').value.trim(); let url = document.getElementById('site-url').value.trim(); if (!name || !url) return alert(currentLang === 'zh' ? '请完整填写名称和网址！' : 'Please fill in both name and URL!'); if (!/^https?:\/\//i.test(url)) url = 'https://' + url; if (currentModalTarget.startsWith('section_')) { const secId = currentModalTarget.replace('section_', ''); let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === secId); if (sec) { sec.links.push({ name, url }); saveDynamicSections(secs); } } else if (currentModalTarget === 'friend') { let links = JSON.parse(localStorage.getItem('nav_friend_links') || '[]'); links.push({ name, url }); localStorage.setItem('nav_friend_links', JSON.stringify(links)); loadFriendLinks(); } else { try { const res = await fetch('/api/links'); let links = res.ok ? await res.json() : JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.push({ name, url }); await fetch('/api/links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(links) }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); loadCustomLinks(); } catch (error) { const links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.push({ name, url }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); loadCustomLinks(); } } toggleModal(false); }
 
-        async function loadCustomLinks() { const container = document.getElementById('custom-links-container'); const actionWrapper = document.getElementById('expand-action-wrapper'); container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-400/60 py-10"><i class="fas fa-spinner fa-spin"></i> ${t('loadingCloud')}</div>`; let links = []; try { const res = await fetch('/api/links'); if (res.ok) links = await res.json(); else throw new Error(); } catch (e) { links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); } container.innerHTML = ''; if (links.length === 0) { container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-400/60 py-10">${t('noCloudLinks')}</div>`; actionWrapper.classList.add('hidden'); container.className = 'grid grid-cols-2 gap-3'; return; } const isCompact = links.length > 6; container.className = isCompact ? 'grid grid-cols-3 gap-2' : 'grid grid-cols-2 gap-3'; let visibleLinks = links; let showExpandBtn = false; if (links.length > 9) { showExpandBtn = true; if (!isCustomLinksExpanded) visibleLinks = links.slice(0, 9); } const pClass = isCompact ? 'p-2' : 'p-3'; const spaceXClass = isCompact ? 'space-x-1.5' : 'space-x-2.5'; const iconSizeClass = isCompact ? 'w-4 h-4 text-[9px]' : 'w-5 h-5 text-[10px]'; const imgSizeClass = isCompact ? 'w-4 h-4' : 'w-5 h-5'; const textSizeClass = isCompact ? 'text-[11px]' : 'text-sm'; const prClass = isCompact ? 'pr-4' : 'pr-5'; visibleLinks.forEach((item, index) => { const displayName = getLocalizedLinkName(item.name, item.url); let displayIcon = `<div class="${iconSizeClass} rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">${displayName.charAt(0).toUpperCase()}</div>`; try { if (item.url) displayIcon = `<img src="https://unavatar.io/duckduckgo/${new URL(item.url).hostname}" draggable="false" onerror="this.style.display='none'" class="${imgSizeClass} rounded object-contain shrink-0" alt="icon" />`; } catch (err) {} container.innerHTML += `<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all"><div class="flex items-center w-full overflow-hidden"><a href="${item.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="flex items-center ${spaceXClass} truncate w-full ${prClass}">${displayIcon} <span class="${textSizeClass} font-medium truncate">${displayName}</span></a></div><button type="button" onclick="deleteCustomLink(event, ${index})" class="admin-only absolute right-2 text-xs p-1 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/20 rounded cursor-pointer shrink-0"><i class="fas fa-trash-alt"></i></button></div>`; }); if (showExpandBtn) { actionWrapper.classList.remove('hidden'); const btn = document.getElementById('expand-btn'); btn.innerHTML = isCustomLinksExpanded ? `<span data-i18n="collapseMore">${t('collapseMore')}</span> <i class="fas fa-chevron-up text-[10px]"></i>` : `<span data-i18n="expandMore">${t('expandMore')}</span> (${links.length - 9}) <i class="fas fa-chevron-down text-[10px]"></i>`; } else { actionWrapper.classList.add('hidden'); } }
+        async function loadCustomLinks() { const container = document.getElementById('custom-links-container'); const actionWrapper = document.getElementById('expand-action-wrapper'); container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-400/60 py-10"><i class="fas fa-spinner fa-spin"></i> ${t('loadingCloud')}</div>`; let links = []; try { const res = await fetch('/api/links'); if (res.ok) links = await res.json(); else throw new Error(); } catch (e) { links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); } container.innerHTML = ''; if (links.length === 0) { container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-400/60 py-10">${t('noCloudLinks')}</div>`; actionWrapper.classList.add('hidden'); container.className = 'grid grid-cols-2 gap-3'; return; } const isCompact = links.length > 6; container.className = isCompact ? 'grid grid-cols-3 gap-2' : 'grid grid-cols-2 gap-3'; let visibleLinks = links; let showExpandBtn = false; if (links.length > 9) { showExpandBtn = true; if (!isCustomLinksExpanded) visibleLinks = links.slice(0, 9); } const pClass = isCompact ? 'p-2' : 'p-3'; const spaceXClass = isCompact ? 'space-x-1.5' : 'space-x-2.5'; const iconSizeClass = isCompact ? 'w-4 h-4 text-[9px]' : 'w-5 h-5 text-[10px]'; const imgSizeClass = isCompact ? 'w-4 h-4' : 'w-5 h-5'; const textSizeClass = isCompact ? 'text-[11px]' : 'text-sm'; const prClass = isCompact ? 'pr-4' : 'pr-5'; visibleLinks.forEach((item, index) => { const displayName = getLocalizedLinkName(item.name, item.url); let displayIcon = `<div class="${iconSizeClass} rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">${displayName.charAt(0).toUpperCase()}</div>`; try { if (item.url) displayIcon = `<img src="https://unavatar.io/duckduckgo/${new URL(item.url).hostname}" draggable="false" onerror="this.style.display='none'" class="${imgSizeClass} rounded object-contain shrink-0" alt="网站图标" />`; } catch (err) {} container.innerHTML += `<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all"><div class="flex items-center w-full overflow-hidden"><a href="${item.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="flex items-center ${spaceXClass} truncate w-full ${prClass}">${displayIcon} <span class="${textSizeClass} font-medium truncate">${displayName}</span></a></div><button type="button" onclick="deleteCustomLink(event, ${index})" class="admin-only absolute right-2 text-xs p-1 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/20 rounded cursor-pointer shrink-0"><i class="fas fa-trash-alt" aria-hidden="true"></i><span class="sr-only">删除</span></button></div>`; }); if (showExpandBtn) { actionWrapper.classList.remove('hidden'); const btn = document.getElementById('expand-btn'); btn.innerHTML = isCustomLinksExpanded ? `<span data-i18n="collapseMore">${t('collapseMore')}</span> <i class="fas fa-chevron-up text-[10px]"></i>` : `<span data-i18n="expandMore">${t('expandMore')}</span> (${links.length - 9}) <i class="fas fa-chevron-down text-[10px]"></i>`; } else { actionWrapper.classList.add('hidden'); } }
         function toggleExpandCustomLinks() { isCustomLinksExpanded = !isCustomLinksExpanded; loadCustomLinks(); }
         async function deleteCustomLink(e, index) { e.preventDefault(); e.stopPropagation(); if (!confirm(t('delConfirm'))) return; try { const res = await fetch('/api/links'); let links = res.ok ? await res.json() : JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.splice(index, 1); await fetch('/api/links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(links) }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); if (links.length <= 9) isCustomLinksExpanded = false; loadCustomLinks(); } catch (error) { const links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.splice(index, 1); localStorage.setItem('nav_custom_links', JSON.stringify(links)); if (links.length <= 9) isCustomLinksExpanded = false; loadCustomLinks(); } }
 
@@ -1043,5 +1086,41 @@ window.checkAdminSession=function(){
  setTimeout(v14RenderAdmin,500);
 }
 </script>
+
+<script>
+/* v14 无障碍第二轮优化：动态内容辅助识别 */
+(function(){
+    function enhanceAccessibility(){
+        document.querySelectorAll('img').forEach(function(img){
+            if(!img.getAttribute('alt')) img.setAttribute('alt','图片');
+        });
+        document.querySelectorAll('button').forEach(function(btn){
+            if(!btn.getAttribute('aria-label') && !btn.textContent.trim()){
+                btn.setAttribute('aria-label','操作按钮');
+            }
+        });
+        document.querySelectorAll('input').forEach(function(input){
+            if(!input.getAttribute('aria-label') && input.placeholder){
+                input.setAttribute('aria-label',input.placeholder);
+            }
+        });
+        var menu=document.getElementById('engine-menu');
+        if(menu){
+            menu.setAttribute('role','menu');
+            menu.querySelectorAll('button').forEach(function(item){
+                item.setAttribute('role','menuitem');
+            });
+        }
+        var main=document.querySelector('main');
+        if(main) main.setAttribute('role','main');
+    }
+    if(document.readyState==='loading'){
+        document.addEventListener('DOMContentLoaded',enhanceAccessibility);
+    }else{
+        enhanceAccessibility();
+    }
+})();
+</script>
+
 </body>
 </html>
