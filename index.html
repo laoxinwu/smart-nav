@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="zh-CN">
+<html lang="zh-CN" dir="ltr">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -80,6 +80,12 @@ button, a {
     }
 }
 
+
+/* v14 无障碍第三轮优化 */
+html { scroll-behavior: smooth; }
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline:3px solid #fbbf24 !important; outline-offset:3px; }
+@media (pointer:coarse){ button, a, input, select, textarea { min-height:44px; } }
 </style>
 
 <!-- v14最终执行版
@@ -182,7 +188,7 @@ v12升级：
 <button aria-label="个性化设置" class="w-10 h-10 rounded-xl glass-card flex items-center justify-center text-slate-400 hover:text-indigo-500 hover:scale-105 active:scale-95 transition-all shadow-lg cursor-pointer" onclick="toggleThemeMenu(event)" title="个性化设置">
 <i class="fas fa-palette text-sm" id="theme-icon"></i>
 </button>
-<div class="absolute right-0 top-full mt-2 w-60 bg-slate-900/95 border border-slate-700/80 rounded-2xl shadow-2xl hidden backdrop-blur-md p-4 space-y-3 z-[160]" id="theme-panel" onclick="event.stopPropagation()">
+<div class="absolute right-0 top-full mt-2 w-60 bg-slate-900/95 border border-slate-700/80 rounded-2xl shadow-2xl hidden backdrop-blur-md p-4 space-y-3 z-[160]" id="theme-panel" role="dialog" aria-label="个性化设置" aria-modal="false" onclick="event.stopPropagation()">
 <div class="text-[11px] font-bold text-slate-400 px-1 mb-1.5" data-i18n="langTitle">语言 / Language</div>
 <div class="flex gap-2 mb-3 border-b border-slate-800 pb-3">
 <button class="flex-1 py-1.5 rounded-lg bg-slate-800 text-slate-200 text-xs text-center hover:bg-slate-700 transition-colors cursor-pointer" onclick="setLanguage('zh')">中文</button>
@@ -215,7 +221,7 @@ v12升级：
 </div>
 </div>
 </div>
-<div class="max-w-7xl mx-auto px-4 py-12 lg:py-20 flex flex-col items-center">
+<a href="#main-content" class="sr-only focus:not-sr-only">跳转到主要内容</a><div class="max-w-7xl mx-auto px-4 py-12 lg:py-20 flex flex-col items-center">
 <!-- 时间与问候语 -->
 <div class="text-center mb-10 animate-fade-in">
 <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 mb-2" id="clock">00:00:00</h1>
@@ -229,14 +235,14 @@ v12升级：
 </div>
 <!-- 搜索引擎 -->
 <div class="w-full max-w-2xl mb-16 relative z-[100]">
-<form role="search" aria-label="网站搜索" action="https://www.google.com/search" class="relative" id="search-form" method="get" rel="noopener noreferrer" target="_blank">
+<form role="search" aria-label="网站搜索" action="https://www.google.com/search" class="relative" id="search-form" method="get" role="search" aria-label="网站搜索" rel="noopener noreferrer" target="_blank">
 <div class="flex items-center glass-input rounded-2xl border border-slate-700/40 shadow-2xl focus-within:border-indigo-500/80 transition-all duration-300">
 <div class="relative pl-4">
-<button aria-label="切换搜索引擎" class="flex items-center space-x-2 text-slate-400 hover:text-indigo-400 transition-colors py-4 pr-2 cursor-pointer" id="engine-btn" onclick="toggleEngineMenu(event)" type="button">
+<button aria-label="切换搜索引擎" class="flex items-center space-x-2 text-slate-400 hover:text-indigo-400 transition-colors py-4 pr-2 cursor-pointer" id="engine-btn" aria-controls="engine-menu" aria-expanded="false" onclick="toggleEngineMenu(event)" type="button">
 <i class="fab fa-google text-blue-400" id="engine-icon"></i>
 <i class="fas fa-chevron-down text-xs opacity-50"></i>
 </button>
-<div class="absolute left-2 top-full mt-2 w-36 bg-slate-950/95 border border-slate-800 rounded-xl shadow-2xl hidden backdrop-blur-md overflow-hidden z-[110]" id="engine-menu">
+<div class="absolute left-2 top-full mt-2 w-36 bg-slate-950/95 border border-slate-800 rounded-xl shadow-2xl hidden backdrop-blur-md overflow-hidden z-[110]" id="engine-menu" role="menu" aria-label="搜索引擎选择">
 <button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('site')" type="button"><i class="fas fa-search text-indigo-400"></i> <span data-i18n="enSite">站内搜索</span></button>
 <button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('google')" type="button"><i class="fab fa-google text-blue-400"></i> <span data-i18n="enGoogle">谷歌 Google</span></button>
 <button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('bing')" type="button"><i class="fab fa-microsoft text-teal-400"></i> <span data-i18n="enBing">必应 Bing</span></button>
@@ -245,7 +251,7 @@ v12升级：
 <button class="w-full text-left px-4 py-2.5 hover:bg-indigo-600/20 text-sm flex items-center space-x-2 cursor-pointer" onclick="selectEngine('youtube')" type="button"><i class="fab fa-youtube text-red-500"></i> <span>YouTube</span></button>
 </div>
 </div>
-<label class="sr-only" for="search-input">搜索内容</label><input aria-label="搜索内容" autocomplete="off" class="w-full bg-transparent border-none py-4 px-3 focus:outline-none focus:ring-0 text-base" data-i18n-placeholder="searchGoogle" id="search-input" name="q" placeholder="在 Google 中搜索..." type="text"/>
+<label class="sr-only" for="search-input">搜索内容</label><input aria-label="搜索内容" autocomplete="off" class="w-full bg-transparent border-none py-4 px-3 focus:outline-none focus:ring-0 text-base" data-i18n-placeholder="searchGoogle" id="search-input" name="q" aria-label="搜索关键词输入框" autocomplete="off" placeholder="在 Google 中搜索..." type="text"/>
 <button aria-label="搜索" class="mr-3 p-2.5 text-slate-400 hover:text-indigo-400 transition-colors" type="submit"><i class="fas fa-search text-lg" aria-hidden="true"></i></button>
 </div>
 </form>
@@ -253,7 +259,7 @@ v12升级：
 </div>
 <!-- ============ 导航卡片网格 ============ -->
     <section aria-label="网站导航">
-<div class="w-full grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 relative z-10 items-start" id="main-nav-grid"><div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 xl:col-span-1" id="card-custom">
+<div class="w-full grid grid-cols-1 xl:grid-cols-3 gap-8 mb-8 relative z-10 items-start" id="main-content" role="main" aria-label="网站导航主要内容"><div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 xl:col-span-1" id="card-custom">
 <div class="flex justify-between items-center mb-4">
 <h3 class="text-lg font-semibold text-pink-400 flex items-center"><i class="fas fa-folder-plus mr-2.5"></i> <span data-i18n="cardCustom">站长推荐</span></h3>
 <button class="admin-only text-xs px-2.5 py-1 bg-pink-600/20 text-pink-400 border border-pink-500/20 rounded-lg hover:bg-pink-600/40 transition-colors cursor-pointer z-[50]" data-i18n="addCloud" onclick="openLinkModal('custom')" type="button">添加 (云端)</button>
@@ -1119,6 +1125,26 @@ window.checkAdminSession=function(){
     }else{
         enhanceAccessibility();
     }
+})();
+
+// v14 无障碍第三轮增强
+(function(){
+ const engineBtn=document.getElementById('engine-btn');
+ const engineMenu=document.getElementById('engine-menu');
+ if(engineBtn&&engineMenu){
+  const oldToggle=window.toggleEngineMenu;
+  window.toggleEngineMenu=function(e){
+   if(oldToggle) oldToggle(e);
+   const expanded=!engineMenu.classList.contains('hidden');
+   engineBtn.setAttribute('aria-expanded',String(expanded));
+  };
+ }
+ document.addEventListener('keydown',function(e){
+  if(e.key==='Escape') {
+   document.getElementById('engine-menu')?.classList.add('hidden');
+   document.getElementById('theme-panel')?.classList.add('hidden');
+  }
+ });
 })();
 </script>
 
