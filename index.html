@@ -181,7 +181,6 @@ v12升级：
 </div>
 <div id="admin-top-entry" class="fixed top-4 right-16 sm:top-5 sm:right-20 z-[151]">
 <button aria-label="后台登录" id="admin-login-btn" onclick="triggerAdminLogin()" class="glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-slate-300 hover:text-indigo-400 transition-colors cursor-pointer whitespace-nowrap">后台登录</button>
-<button aria-label="打开后台管理面板" id="admin-panel-open-btn" onclick="document.getElementById('v14-admin-panel').classList.remove('hidden')" class="hidden glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-indigo-300 hover:text-indigo-200 transition-colors cursor-pointer whitespace-nowrap">后台管理</button>
 <button aria-label="退出后台" id="admin-logout-btn" onclick="logoutAdmin()" class="hidden glass-card px-2.5 py-2 sm:px-3 rounded-xl text-[11px] sm:text-xs text-red-400 hover:text-red-300 transition-colors cursor-pointer whitespace-nowrap">退出后台</button>
 </div>
 
@@ -272,18 +271,489 @@ v12升级：
 <span data-i18n="expandMore">展开显示更多</span> <i class="fas fa-chevron-down text-[10px]"></i>
 </button>
 </div>
-</div><div id="managed-categories-container" class="contents" aria-live="polite"></div>
-<!-- 动态分类入口：管理员登录后可用，普通用户保持隐藏 -->
+</div><div class="glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300" id="card-recommend">
+<h3 class="text-lg font-semibold text-indigo-400 mb-4 flex items-center"><i class="fas fa-star mr-2.5"></i> <span data-i18n="cardRec">常用</span></h3>
+<div class="grid grid-cols-2 gap-3">
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://github.com" rel="noopener noreferrer" target="_blank"><i class="fab fa-github text-xl text-slate-400"></i> <span class="text-sm font-medium">GitHub</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://www.youtube.com" rel="noopener noreferrer" target="_blank"><i class="fab fa-youtube text-xl text-red-500"></i> <span class="text-sm font-medium">YouTube</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://kjgx668.blogspot.com" rel="noopener noreferrer" target="_blank"><i class="fas fa-globe text-xl text-blue-400"></i> <span class="text-sm font-medium" data-i18n="linkBlog">科技共享博客</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://x.com/kejigongxiang" rel="noopener noreferrer" target="_blank"><i class="fas fa-tv text-xl text-pink-400"></i> <span class="text-sm font-medium" data-i18n="linkBili">哔哩哔哩</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://www.zhihu.com" rel="noopener noreferrer" target="_blank"><i class="fab fa-zhihu text-xl text-blue-500"></i> <span class="text-sm font-medium" data-i18n="linkZhihu">知乎</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="https://weibo.com" rel="noopener noreferrer" target="_blank"><i class="fab fa-weibo text-xl text-red-400"></i> <span class="text-sm font-medium" data-i18n="linkWeibo">微博</span></a>
+</div>
+</div>
+<!-- 原有：常用推荐 -->
+
+<!-- 原有：效率与开发 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-purple-500/30 transition-all duration-300" id="card-develop">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><i class="fas fa-code mr-2.5"></i> <span data-i18n="cardDev">效率与开发</span></h3>
+<div class="grid grid-cols-2 gap-3">
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://dash.cloudflare.com" rel="noopener noreferrer" target="_blank"><i class="fas fa-cloud text-xl text-orange-400"></i> <span class="text-sm font-medium">Cloudflare</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://chatgpt.com" rel="noopener noreferrer" target="_blank"><i class="fas fa-robot text-xl text-emerald-400"></i> <span class="text-sm font-medium">ChatGPT</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://juejin.cn" rel="noopener noreferrer" target="_blank"><i class="fas fa-book text-xl text-blue-500"></i> <span class="text-sm font-medium" data-i18n="linkJuejin">稀土掘金</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://vercel.com" rel="noopener noreferrer" target="_blank"><i class="fas fa-triangle-exclamation text-xl"></i> <span class="text-sm font-medium">Vercel</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://stackoverflow.com" rel="noopener noreferrer" target="_blank"><i class="fab fa-stack-overflow text-xl text-orange-500"></i> <span class="text-sm font-medium">StackOverflow</span></a>
+<a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-purple-600/20 transition-all" href="https://caniuse.com" rel="noopener noreferrer" target="_blank"><i class="fas fa-browser text-xl text-sky-400"></i> <span class="text-sm font-medium">CanIUse</span></a>
+</div>
+</div>
+<!-- 原有：站长推荐（动态云端） -->
+
+
+
+<!-- 第四轮整理新增分类：开发与学习资源 -->
+<section class="nav-card">
+<h3 class="text-lg font-semibold text-cyan-400 mb-4 flex items-center"><i class="fas fa-code mr-2.5"></i>开发与学习资源</h3>
+<div class="links-container">
+<a class="link-pill" href="https://github.com" target="_blank"><span class="link-dot bg-gray-400"></span>GitHub</a>
+<a class="link-pill" href="https://developer.mozilla.org" target="_blank"><span class="link-dot bg-blue-400"></span>MDN Web Docs</a>
+<a class="link-pill" href="https://www.runoob.com" target="_blank"><span class="link-dot bg-green-400"></span>菜鸟教程</a>
+</div>
+</section>
+
+<!-- 第四轮整理新增分类：在线效率工具 -->
+<section class="nav-card">
+<h3 class="text-lg font-semibold text-orange-400 mb-4 flex items-center"><i class="fas fa-tools mr-2.5"></i>在线效率工具</h3>
+<div class="links-container">
+<a class="link-pill" href="https://www.canva.com" target="_blank"><span class="link-dot bg-purple-400"></span>Canva</a>
+<a class="link-pill" href="https://www.ilovepdf.com" target="_blank"><span class="link-dot bg-red-400"></span>iLovePDF</a>
+<a class="link-pill" href="https://www.remove.bg" target="_blank"><span class="link-dot bg-green-400"></span>Remove.bg</a>
+</div>
+</section>
+
+<!-- AI工具分类 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-emerald-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><i class="fas fa-robot mr-2.5"></i> AI智能工具</h3>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://chat.openai.com" target="_blank"><span class="link-dot bg-emerald-400"></span>ChatGPT</a>
+<a class="link-pill" href="https://claude.ai" target="_blank"><span class="link-dot bg-orange-400"></span>Claude</a>
+<a class="link-pill" href="https://gemini.google.com" target="_blank"><span class="link-dot bg-blue-400"></span>Gemini</a>
+<a class="link-pill" href="https://www.midjourney.com" target="_blank"><span class="link-dot bg-purple-400"></span>Midjourney</a>
+</div>
+</div>
+<!-- 设计素材分类 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-pink-400 mb-4 flex items-center"><i class="fas fa-palette mr-2.5"></i> 设计素材</h3>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.canva.com" target="_blank"><span class="link-dot bg-blue-400"></span>Canva</a>
+<a class="link-pill" href="https://www.figma.com" target="_blank"><span class="link-dot bg-purple-400"></span>Figma</a>
+<a class="link-pill" href="https://unsplash.com" target="_blank"><span class="link-dot bg-slate-400"></span>Unsplash</a>
+<a class="link-pill" href="https://www.iconfont.cn" target="_blank"><span class="link-dot bg-orange-400"></span>Iconfont</a>
+</div>
+</div>
+
+<!-- ============ 新增分类卡片（开始） ============ -->
+<!-- 常用入口 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-indigo-400 mb-4 flex items-center"><i class="fas fa-compass mr-2.5"></i> 常用入口</h3>
+<div class="subcat-title text-indigo-400/50">搜索引擎</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.baidu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>百度</a>
+<a class="link-pill" href="https://www.google.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>Google</a>
+<a class="link-pill" href="https://www.bing.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-teal-400"></span>Bing</a>
+<a class="link-pill" href="https://www.sogou.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>搜狗搜索</a>
+</div>
+<div class="subcat-title text-indigo-400/50">邮箱</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://mail.qq.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>QQ邮箱</a>
+<a class="link-pill" href="https://mail.163.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>163邮箱</a>
+<a class="link-pill" href="https://mail.google.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-rose-400"></span>Gmail</a>
+<a class="link-pill" href="https://outlook.live.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>Outlook</a>
+</div>
+<div class="subcat-title text-indigo-400/50">常用生活</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.weather.com.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>天气查询</a>
+<a class="link-pill" href="https://www.kuaidi100.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>快递100</a>
+<a class="link-pill" href="https://fanyi.baidu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>百度翻译</a>
+<a class="link-pill" href="https://www.deepl.com/translator" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-indigo-400"></span>DeepL翻译</a>
+</div>
+</div>
+<!-- 工作办公 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-blue-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><i class="fas fa-briefcase mr-2.5"></i> 工作办公</h3>
+<div class="subcat-title text-blue-400/50">协作文档</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://docs.qq.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>腾讯文档</a>
+<a class="link-pill" href="https://shimo.im" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>石墨文档</a>
+<a class="link-pill" href="https://www.notion.so" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-500"></span>Notion</a>
+<a class="link-pill" href="https://www.yuque.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>语雀</a>
+</div>
+<div class="subcat-title text-blue-400/50">视频会议</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://meeting.tencent.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>腾讯会议</a>
+<a class="link-pill" href="https://zoom.us" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>Zoom</a>
+<a class="link-pill" href="https://teams.microsoft.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Teams</a>
+</div>
+<div class="subcat-title text-blue-400/50">云存储</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://pan.baidu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>百度网盘</a>
+<a class="link-pill" href="https://www.aliyundrive.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>阿里云盘</a>
+<a class="link-pill" href="https://drive.google.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-yellow-400"></span>Google Drive</a>
+<a class="link-pill" href="https://pan.quark.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-violet-400"></span>夸克网盘</a>
+</div>
+<div class="subcat-title text-blue-400/50">求职招聘</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.zhipin.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>Boss直聘</a>
+<a class="link-pill" href="https://www.liepin.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>猎聘</a>
+<a class="link-pill" href="https://www.linkedin.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-500"></span>LinkedIn</a>
+<a class="link-pill" href="https://www.lagou.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-green-400"></span>拉勾</a>
+</div>
+</div>
+<!-- 开发技术 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-purple-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center"><i class="fas fa-code mr-2.5"></i> 开发技术</h3>
+<div class="subcat-title text-purple-400/50">代码托管</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://github.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>GitHub</a>
+<a class="link-pill" href="https://gitlab.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>GitLab</a>
+<a class="link-pill" href="https://gitee.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>Gitee</a>
+</div>
+<div class="subcat-title text-purple-400/50">技术社区</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://stackoverflow.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Stack Overflow</a>
+<a class="link-pill" href="https://juejin.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>掘金</a>
+<a class="link-pill" href="https://segmentfault.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>SegmentFault</a>
+<a class="link-pill" href="https://www.v2ex.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>V2EX</a>
+</div>
+<div class="subcat-title text-purple-400/50">前端开发</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://developer.mozilla.org" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>MDN</a>
+<a class="link-pill" href="https://caniuse.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>Can I Use</a>
+<a class="link-pill" href="https://cn.vuejs.org" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>Vue.js</a>
+<a class="link-pill" href="https://react.dev" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>React</a>
+</div>
+<div class="subcat-title text-purple-400/50">在线工具</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.json.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>JSON格式化</a>
+<a class="link-pill" href="https://regex101.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>正则测试</a>
+<a class="link-pill" href="https://codesandbox.io" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>CodeSandbox</a>
+<a class="link-pill" href="https://stackblitz.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>StackBlitz</a>
+</div>
+</div>
+<!-- AI 工具 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-emerald-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><i class="fas fa-robot mr-2.5"></i> AI 工具</h3>
+<div class="subcat-title text-emerald-400/50">对话助手</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://chatgpt.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>ChatGPT</a>
+<a class="link-pill" href="https://claude.ai" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Claude</a>
+<a class="link-pill" href="https://kimi.moonshot.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Kimi</a>
+<a class="link-pill" href="https://tongyi.aliyun.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>通义千问</a>
+<a class="link-pill" href="https://www.doubao.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>豆包</a>
+<a class="link-pill" href="https://chat.deepseek.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>DeepSeek</a>
+</div>
+<div class="subcat-title text-emerald-400/50">AI 绘画</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.midjourney.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-indigo-400"></span>Midjourney</a>
+<a class="link-pill" href="https://www.liblib.art" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-pink-400"></span>LiblibAI</a>
+</div>
+<div class="subcat-title text-emerald-400/50">AI 编程</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://cursor.sh" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Cursor</a>
+<a class="link-pill" href="https://github.com/features/copilot" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>GitHub Copilot</a>
+<a class="link-pill" href="https://v0.dev" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>v0.dev</a>
+</div>
+<div class="subcat-title text-emerald-400/50">AI 搜索</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.perplexity.ai" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>Perplexity</a>
+<a class="link-pill" href="https://metaso.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-violet-400"></span>秘塔AI</a>
+<a class="link-pill" href="https://devv.ai" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>Devv</a>
+</div>
+</div>
+<!-- 设计创意 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-pink-400 mb-4 flex items-center"><i class="fas fa-palette mr-2.5"></i> 设计创意</h3>
+<div class="subcat-title text-pink-400/50">灵感采集</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://dribbble.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-pink-400"></span>Dribbble</a>
+<a class="link-pill" href="https://www.behance.net" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>Behance</a>
+<a class="link-pill" href="https://www.zcool.com.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-yellow-400"></span>站酷</a>
+<a class="link-pill" href="https://www.pinterest.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>Pinterest</a>
+</div>
+<div class="subcat-title text-pink-400/50">UI/UX 资源</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.figma.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Figma</a>
+<a class="link-pill" href="https://ant.design" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>Ant Design</a>
+<a class="link-pill" href="https://arco.design" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>Arco Design</a>
+<a class="link-pill" href="https://tdesign.tencent.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>TDesign</a>
+</div>
+<div class="subcat-title text-pink-400/50">素材资源</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://unsplash.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>Unsplash</a>
+<a class="link-pill" href="https://www.pexels.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>Pexels</a>
+<a class="link-pill" href="https://www.iconfont.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>IconFont</a>
+<a class="link-pill" href="https://fonts.google.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>Google Fonts</a>
+</div>
+<div class="subcat-title text-pink-400/50">色彩工具</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://coolors.co" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-violet-400"></span>Coolors</a>
+<a class="link-pill" href="https://color.adobe.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>Adobe Color</a>
+</div>
+</div>
+<!-- 学习进修 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-sky-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-sky-400 mb-4 flex items-center"><i class="fas fa-graduation-cap mr-2.5"></i> 学习进修</h3>
+<div class="subcat-title text-sky-400/50">在线课程</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.bilibili.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-pink-400"></span>B站</a>
+<a class="link-pill" href="https://www.imooc.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>慕课网</a>
+<a class="link-pill" href="https://www.coursera.org" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>Coursera</a>
+<a class="link-pill" href="https://time.geekbang.org" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>极客时间</a>
+<a class="link-pill" href="https://www.icourse163.org" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>中国大学MOOC</a>
+</div>
+<div class="subcat-title text-sky-400/50">电子书与论文</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.cnki.net" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>中国知网</a>
+<a class="link-pill" href="https://scholar.google.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>Google Scholar</a>
+</div>
+<div class="subcat-title text-sky-400/50">算法刷题</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://leetcode.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>LeetCode</a>
+<a class="link-pill" href="https://www.nowcoder.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>牛客网</a>
+<a class="link-pill" href="https://codeforces.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>Codeforces</a>
+</div>
+</div>
+<!-- 资讯阅读 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-amber-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-amber-400 mb-4 flex items-center"><i class="fas fa-newspaper mr-2.5"></i> 资讯阅读</h3>
+<div class="subcat-title text-amber-400/50">综合新闻</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.xinhuanet.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>新华社</a>
+<a class="link-pill" href="https://www.thepaper.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>澎湃新闻</a>
+<a class="link-pill" href="https://news.cctv.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-500"></span>央视新闻</a>
+</div>
+<div class="subcat-title text-amber-400/50">科技资讯</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://36kr.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>36氪</a>
+<a class="link-pill" href="https://sspai.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>少数派</a>
+<a class="link-pill" href="https://www.pingwest.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>品玩</a>
+<a class="link-pill" href="https://techcrunch.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>TechCrunch</a>
+<a class="link-pill" href="https://news.ycombinator.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Hacker News</a>
+</div>
+<div class="subcat-title text-amber-400/50">RSS 阅读</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://feedly.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>Feedly</a>
+<a class="link-pill" href="https://www.inoreader.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>Inoreader</a>
+</div>
+</div>
+<!-- 实用工具 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-teal-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-teal-400 mb-4 flex items-center"><i class="fas fa-toolbox mr-2.5"></i> 实用工具</h3>
+<div class="subcat-title text-teal-400/50">图片处理</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.remove.bg" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>在线抠图</a>
+<a class="link-pill" href="https://tinypng.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-pink-400"></span>TinyPNG</a>
+<a class="link-pill" href="https://ezgif.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>GIF制作</a>
+</div>
+<div class="subcat-title text-teal-400/50">PDF 工具</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.ilovepdf.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>iLovePDF</a>
+<a class="link-pill" href="https://smallpdf.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>SmallPDF</a>
+</div>
+<div class="subcat-title text-teal-400/50">文件传输</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://cowtransfer.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>奶牛快传</a>
+<a class="link-pill" href="https://airportal.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>AirPortal</a>
+</div>
+<div class="subcat-title text-teal-400/50">笔记与思维</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://flomoapp.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-indigo-400"></span>Flomo</a>
+<a class="link-pill" href="https://note.youdao.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>有道云笔记</a>
+<a class="link-pill" href="https://www.processon.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>ProcessOn</a>
+<a class="link-pill" href="https://app.diagrams.net" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Draw.io</a>
+</div>
+</div>
+<!-- 金融理财 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-green-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-green-400 mb-4 flex items-center"><i class="fas fa-chart-line mr-2.5"></i> 金融理财</h3>
+<div class="subcat-title text-green-400/50">网上银行</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.icbc.com.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>工商银行</a>
+<a class="link-pill" href="https://www.cmbchina.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-500"></span>招商银行</a>
+<a class="link-pill" href="https://www.ccb.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>建设银行</a>
+<a class="link-pill" href="https://www.boc.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>中国银行</a>
+</div>
+<div class="subcat-title text-green-400/50">证券与基金</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.eastmoney.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>东方财富</a>
+<a class="link-pill" href="https://xueqiu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>雪球</a>
+<a class="link-pill" href="https://fund.eastmoney.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>天天基金</a>
+</div>
+<div class="subcat-title text-green-400/50">支付与税务</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.alipay.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>支付宝</a>
+<a class="link-pill" href="https://etax.chinatax.gov.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>个税查询</a>
+</div>
+</div>
+<!-- 购物消费 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-orange-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-orange-400 mb-4 flex items-center"><i class="fas fa-shopping-cart mr-2.5"></i> 购物消费</h3>
+<div class="subcat-title text-orange-400/50">综合电商</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.taobao.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>淘宝</a>
+<a class="link-pill" href="https://www.jd.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>京东</a>
+<a class="link-pill" href="https://www.pinduoduo.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-500"></span>拼多多</a>
+<a class="link-pill" href="https://www.tmall.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>天猫</a>
+</div>
+<div class="subcat-title text-orange-400/50">比价与二手</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.smzdm.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>什么值得买</a>
+<a class="link-pill" href="https://www.goofish.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>闲鱼</a>
+<a class="link-pill" href="https://www.zhuanzhuan.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>转转</a>
+</div>
+<div class="subcat-title text-orange-400/50">出行票务</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.12306.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>铁路12306</a>
+<a class="link-pill" href="https://www.ctrip.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>携程旅行</a>
+<a class="link-pill" href="https://www.fliggy.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>飞猪</a>
+<a class="link-pill" href="https://www.umetrip.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>航旅纵横</a>
+</div>
+</div>
+<!-- 社交媒体 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-violet-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-violet-400 mb-4 flex items-center"><i class="fas fa-users mr-2.5"></i> 社交媒体</h3>
+<div class="subcat-title text-violet-400/50">社区平台</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://weibo.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>微博</a>
+<a class="link-pill" href="https://www.xiaohongshu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-500"></span>小红书</a>
+<a class="link-pill" href="https://www.zhihu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>知乎</a>
+</div>
+<div class="subcat-title text-violet-400/50">论坛</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.v2ex.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>V2EX</a>
+<a class="link-pill" href="https://www.hupu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>虎扑</a>
+<a class="link-pill" href="https://tieba.baidu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>贴吧</a>
+</div>
+<div class="subcat-title text-violet-400/50">国际社交</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://x.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>Twitter / X</a>
+<a class="link-pill" href="https://www.reddit.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Reddit</a>
+<a class="link-pill" href="https://discord.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-indigo-400"></span>Discord</a>
+</div>
+</div>
+<!-- 视频与流媒体 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-red-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-red-400 mb-4 flex items-center"><i class="fas fa-play mr-2.5"></i> 视频与流媒体</h3>
+<div class="subcat-title text-red-400/50">长视频</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://v.qq.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>腾讯视频</a>
+<a class="link-pill" href="https://www.iqiyi.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>爱奇艺</a>
+<a class="link-pill" href="https://www.youku.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>优酷</a>
+<a class="link-pill" href="https://www.bilibili.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-pink-400"></span>B站</a>
+<a class="link-pill" href="https://www.youtube.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>YouTube</a>
+<a class="link-pill" href="https://www.netflix.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-500"></span>Netflix</a>
+</div>
+<div class="subcat-title text-red-400/50">直播</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.douyu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>斗鱼</a>
+<a class="link-pill" href="https://www.huya.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>虎牙</a>
+<a class="link-pill" href="https://www.twitch.tv" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Twitch</a>
+</div>
+</div>
+<!-- 音乐与播客 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-fuchsia-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-fuchsia-400 mb-4 flex items-center"><i class="fas fa-headphones mr-2.5"></i> 音乐与播客</h3>
+<div class="subcat-title text-fuchsia-400/50">音乐平台</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://music.163.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>网易云音乐</a>
+<a class="link-pill" href="https://y.qq.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>QQ音乐</a>
+<a class="link-pill" href="https://open.spotify.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>Spotify</a>
+<a class="link-pill" href="https://www.kugou.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>酷狗音乐</a>
+</div>
+<div class="subcat-title text-fuchsia-400/50">播客</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.xiaoyuzhoufm.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>小宇宙</a>
+<a class="link-pill" href="https://www.ximalaya.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>喜马拉雅</a>
+</div>
+</div>
+<!-- 游戏相关 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-lime-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-lime-400 mb-4 flex items-center"><i class="fas fa-gamepad mr-2.5"></i> 游戏相关</h3>
+<div class="subcat-title text-lime-400/50">游戏平台</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://store.steampowered.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>Steam</a>
+<a class="link-pill" href="https://store.epicgames.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>Epic Games</a>
+</div>
+<div class="subcat-title text-lime-400/50">游戏社区</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.taptap.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-sky-400"></span>TapTap</a>
+<a class="link-pill" href="https://www.gamersky.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>游民星空</a>
+</div>
+</div>
+<!-- 运动健康 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-rose-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-rose-400 mb-4 flex items-center"><i class="fas fa-heart-pulse mr-2.5"></i> 运动健康</h3>
+<div class="subcat-title text-rose-400/50">运动健身</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.gotokeep.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-purple-400"></span>Keep</a>
+<a class="link-pill" href="https://www.strava.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Strava</a>
+</div>
+<div class="subcat-title text-rose-400/50">医疗健康</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://dxy.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>丁香医生</a>
+<a class="link-pill" href="https://www.haodf.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>好大夫在线</a>
+<a class="link-pill" href="https://www.guahao.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>微医</a>
+</div>
+</div>
+<!-- 生活出行 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-cyan-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-cyan-400 mb-4 flex items-center"><i class="fas fa-car mr-2.5"></i> 生活出行</h3>
+<div class="subcat-title text-cyan-400/50">地图导航</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.amap.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>高德地图</a>
+<a class="link-pill" href="https://map.baidu.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>百度地图</a>
+</div>
+<div class="subcat-title text-cyan-400/50">租房购房</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="https://www.ke.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>贝壳找房</a>
+<a class="link-pill" href="https://www.ziroom.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-amber-400"></span>自如</a>
+<a class="link-pill" href="https://www.lianjia.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-emerald-400"></span>链家</a>
+</div>
+<div class="subcat-title text-cyan-400/50">汽车与政务</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://www.autohome.com.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>汽车之家</a>
+<a class="link-pill" href="https://gab.122.gov.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>交管12123</a>
+<a class="link-pill" href="https://gjzwfw.www.gov.cn" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-red-400"></span>政务服务平台</a>
+</div>
+</div>
+<!-- 个人收藏 -->
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-yellow-500/30 transition-all duration-300 cat-card">
+<h3 class="text-lg font-semibold text-yellow-400 mb-4 flex items-center"><i class="fas fa-bookmark mr-2.5"></i> 个人收藏</h3>
+<div class="subcat-title text-yellow-400/50">我的项目</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="#"><span class="link-dot bg-slate-400"></span>项目A</a>
+<a class="link-pill" href="#"><span class="link-dot bg-slate-400"></span>项目B</a>
+</div>
+<div class="subcat-title text-yellow-400/50">我的主页</div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<a class="link-pill" href="#"><span class="link-dot bg-blue-400"></span>个人博客</a>
+<a class="link-pill" href="#"><span class="link-dot bg-slate-400"></span>GitHub主页</a>
+</div>
+<div class="subcat-title text-yellow-400/50">待整理</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="#"><span class="link-dot bg-amber-400"></span>稍后阅读</a>
+<a class="link-pill" href="#"><span class="link-dot bg-slate-400"></span>临时暂存</a>
+</div>
+</div>
+<!-- ============ 新增分类卡片（结束） ============ -->
+<!-- 添加动态分类按钮 (管理员可见) -->
 <div class="admin-only glass-card rounded-2xl p-6 flex flex-col items-center justify-center cursor-pointer hover:border-indigo-500/50 transition-all border-dashed border-2 border-slate-500/30 xl:col-span-1" id="add-section-card" onclick="addCustomSection()" style="min-height: 180px;">
-<i class="fas fa-plus text-3xl text-slate-400 mb-2" aria-hidden="true"></i>
+<i class="fas fa-plus text-3xl text-slate-400 mb-2"></i>
 <span class="text-sm font-medium text-slate-400 mt-1" data-i18n="addSectionBtn">添加自定义区域</span>
 </div>
+<div class="glass-card rounded-2xl p-6 shadow-xl hover:border-cyan-500/30 transition-all duration-300 cat-card" id="card-resource-extra"><h3 class="text-lg font-semibold text-cyan-400 mb-4 flex items-center"><i class="fas fa-layer-group mr-2.5"></i> 精品资源</h3>
+<div class="subcat-title text-cyan-400/50">综合资源</div>
+<div class="grid grid-cols-2 gap-2">
+<a class="link-pill" href="https://github.com/trending" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-slate-400"></span>GitHub趋势</a>
+<a class="link-pill" href="https://www.producthunt.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-orange-400"></span>Product Hunt</a>
+<a class="link-pill" href="https://alternativeto.net" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-blue-400"></span>软件替代</a>
+<a class="link-pill" href="https://www.appinn.com" rel="noopener noreferrer" target="_blank"><span class="link-dot bg-green-400"></span>小众软件</a>
+</div></div></div>
 <!-- 友情链接 -->
 <div class="w-full relative z-10 mb-12">
 <div class="glass-card rounded-2xl p-6 shadow-xl hover:border-emerald-500/20 transition-all duration-300">
 <div class="flex justify-between items-center mb-4">
 <h3 class="text-base font-semibold text-emerald-400 flex items-center"><i class="fas fa-handshake mr-2.5"></i> <span data-i18n="cardFriend">友情链接</span></h3>
-<button class="admin-only text-xs px-2.5 py-1 bg-emerald-600/20 text-emerald-400 border border-emerald-500/20 rounded-lg hover:bg-emerald-600/40 transition-colors cursor-pointer z-[50]" data-i18n="addCloud" onclick="openLinkModal('friend')" type="button">添加 (本地)</button>
+<button class="admin-only text-xs px-2.5 py-1 bg-emerald-600/20 text-emerald-400 border border-emerald-500/20 rounded-lg hover:bg-emerald-600/40 transition-colors cursor-pointer z-[50]" data-i18n="addLocal" onclick="openLinkModal('friend')" type="button">添加 (本地)</button>
 </div>
 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3" id="friend-links-container"></div>
 </div>
@@ -301,23 +771,11 @@ v12升级：
 <div class="space-y-4 mb-6">
 <div>
 <label class="text-xs text-slate-400 block mb-1.5 font-medium" data-i18n="siteName">网站名称</label>
-<input class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition-all" data-i18n-placeholder="siteNamePlace" id="site-name" placeholder="例如：百度" type="text" autocomplete="off"/>
+<input class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition-all" data-i18n-placeholder="siteNamePlace" id="site-name" placeholder="例如：百度" type="text"/>
 </div>
 <div>
 <label class="text-xs text-slate-400 block mb-1.5 font-medium" data-i18n="siteUrl">网站网址 (URL)</label>
-<input class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition-all" id="site-url" placeholder="www.baidu.com" type="url" inputmode="url" autocomplete="url"/>
-</div>
-<div id="modal-category-wrap" class="hidden">
-<label class="text-xs text-slate-400 block mb-1.5 font-medium" for="site-category">所属分类</label>
-<select id="site-category" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition-all"></select>
-</div>
-<div id="modal-subcategory-wrap" class="hidden">
-<label class="text-xs text-slate-400 block mb-1.5 font-medium" for="site-subcategory">子分类</label>
-<select id="site-subcategory" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition-all"></select>
-</div>
-<div id="modal-section-name-wrap" class="hidden">
-<label class="text-xs text-slate-400 block mb-1.5 font-medium" for="site-section-name">新分类名称</label>
-<input id="site-section-name" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition-all" placeholder="例如：AI工具" type="text"/>
+<input class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-indigo-500 transition-all" id="site-url" placeholder="www.baidu.com" type="text"/>
 </div>
 </div>
 <div class="flex justify-end space-x-3">
@@ -332,11 +790,7 @@ v12升级：
         let expandedDynamicSections = {};
         let currentModalTarget = 'custom';
         let currentEngineKey = 'google';
-        let cloudConfig = { wallpaper: "", dynamicSections: [], adminPwd: "", managedCategories: [], friendLinks: [], linkStatuses: {} };
-        const INITIAL_MANAGED_CATEGORIES = [{"id":"cat-1","title":"常用","iconClass":"fas fa-star mr-2.5","titleClass":"text-lg font-semibold text-indigo-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300","groups":[{"title":"","titleClass":"","links":[{"name":"GitHub","url":"https://github.com","layout":"feature","iconClass":"fab fa-github text-xl text-slate-400","dotClass":""},{"name":"YouTube","url":"https://www.youtube.com","layout":"feature","iconClass":"fab fa-youtube text-xl text-red-500","dotClass":""},{"name":"科技共享博客","url":"https://kjgx668.blogspot.com","layout":"feature","iconClass":"fas fa-globe text-xl text-blue-400","dotClass":""},{"name":"哔哩哔哩","url":"https://x.com/kejigongxiang","layout":"feature","iconClass":"fas fa-tv text-xl text-pink-400","dotClass":""},{"name":"知乎","url":"https://www.zhihu.com","layout":"feature","iconClass":"fab fa-zhihu text-xl text-blue-500","dotClass":""},{"name":"微博","url":"https://weibo.com","layout":"feature","iconClass":"fab fa-weibo text-xl text-red-400","dotClass":""}]}]},{"id":"cat-2","title":"效率与开发","iconClass":"fas fa-code mr-2.5","titleClass":"text-lg font-semibold text-purple-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-purple-500/30 transition-all duration-300","groups":[{"title":"","titleClass":"","links":[{"name":"Cloudflare","url":"https://dash.cloudflare.com","layout":"feature","iconClass":"fas fa-cloud text-xl text-orange-400","dotClass":""},{"name":"ChatGPT","url":"https://chatgpt.com","layout":"feature","iconClass":"fas fa-robot text-xl text-emerald-400","dotClass":""},{"name":"稀土掘金","url":"https://juejin.cn","layout":"feature","iconClass":"fas fa-book text-xl text-blue-500","dotClass":""},{"name":"Vercel","url":"https://vercel.com","layout":"feature","iconClass":"fas fa-triangle-exclamation text-xl","dotClass":""},{"name":"StackOverflow","url":"https://stackoverflow.com","layout":"feature","iconClass":"fab fa-stack-overflow text-xl text-orange-500","dotClass":""},{"name":"CanIUse","url":"https://caniuse.com","layout":"feature","iconClass":"fas fa-browser text-xl text-sky-400","dotClass":""}]}]},{"id":"cat-3","title":"开发与学习资源","iconClass":"fas fa-code mr-2.5","titleClass":"text-lg font-semibold text-cyan-400 mb-4 flex items-center","cardClass":"nav-card","groups":[{"title":"","titleClass":"","links":[{"name":"GitHub","url":"https://github.com","layout":"pill","iconClass":"","dotClass":"link-dot bg-gray-400"},{"name":"MDN Web Docs","url":"https://developer.mozilla.org","layout":"pill","iconClass":"","dotClass":"link-dot bg-blue-400"},{"name":"菜鸟教程","url":"https://www.runoob.com","layout":"pill","iconClass":"","dotClass":"link-dot bg-green-400"}]}]},{"id":"cat-4","title":"在线效率工具","iconClass":"fas fa-tools mr-2.5","titleClass":"text-lg font-semibold text-orange-400 mb-4 flex items-center","cardClass":"nav-card","groups":[{"title":"","titleClass":"","links":[{"name":"Canva","url":"https://www.canva.com","layout":"pill","iconClass":"","dotClass":"link-dot bg-purple-400"},{"name":"iLovePDF","url":"https://www.ilovepdf.com","layout":"pill","iconClass":"","dotClass":"link-dot bg-red-400"},{"name":"Remove.bg","url":"https://www.remove.bg","layout":"pill","iconClass":"","dotClass":"link-dot bg-green-400"}]}]},{"id":"cat-5","title":"AI智能工具","iconClass":"fas fa-robot mr-2.5","titleClass":"text-lg font-semibold text-emerald-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-emerald-500/30 transition-all duration-300 cat-card","groups":[{"title":"","titleClass":"","links":[{"name":"ChatGPT","url":"https://chat.openai.com","layout":"pill","iconClass":"","dotClass":"link-dot bg-emerald-400"},{"name":"Claude","url":"https://claude.ai","layout":"pill","iconClass":"","dotClass":"link-dot bg-orange-400"},{"name":"Gemini","url":"https://gemini.google.com","layout":"pill","iconClass":"","dotClass":"link-dot bg-blue-400"},{"name":"Midjourney","url":"https://www.midjourney.com","layout":"pill","iconClass":"","dotClass":"link-dot bg-purple-400"}]}]},{"id":"cat-6","title":"设计素材","iconClass":"fas fa-palette mr-2.5","titleClass":"text-lg font-semibold text-pink-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 cat-card","groups":[{"title":"","titleClass":"","links":[{"name":"Canva","url":"https://www.canva.com","layout":"pill","iconClass":"","dotClass":"link-dot bg-blue-400"},{"name":"Figma","url":"https://www.figma.com","layout":"pill","iconClass":"","dotClass":"link-dot bg-purple-400"},{"name":"Unsplash","url":"https://unsplash.com","layout":"pill","iconClass":"","dotClass":"link-dot bg-slate-400"},{"name":"Iconfont","url":"https://www.iconfont.cn","layout":"pill","iconClass":"","dotClass":"link-dot bg-orange-400"}]}]},{"id":"cat-7","title":"常用入口","iconClass":"fas fa-compass mr-2.5","titleClass":"text-lg font-semibold text-indigo-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 cat-card","groups":[{"title":"搜索引擎","titleClass":"subcat-title text-indigo-400/50","links":[{"name":"百度","url":"https://www.baidu.com","layout":"pill","dotClass":"link-dot bg-blue-500"},{"name":"Google","url":"https://www.google.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"Bing","url":"https://www.bing.com","layout":"pill","dotClass":"link-dot bg-teal-400"},{"name":"搜狗搜索","url":"https://www.sogou.com","layout":"pill","dotClass":"link-dot bg-orange-400"}]},{"title":"邮箱","titleClass":"subcat-title text-indigo-400/50","links":[{"name":"QQ邮箱","url":"https://mail.qq.com","layout":"pill","dotClass":"link-dot bg-sky-400"},{"name":"163邮箱","url":"https://mail.163.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"Gmail","url":"https://mail.google.com","layout":"pill","dotClass":"link-dot bg-rose-400"},{"name":"Outlook","url":"https://outlook.live.com","layout":"pill","dotClass":"link-dot bg-blue-500"}]},{"title":"常用生活","titleClass":"subcat-title text-indigo-400/50","links":[{"name":"天气查询","url":"https://www.weather.com.cn","layout":"pill","dotClass":"link-dot bg-amber-400"},{"name":"快递100","url":"https://www.kuaidi100.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"百度翻译","url":"https://fanyi.baidu.com","layout":"pill","dotClass":"link-dot bg-blue-500"},{"name":"DeepL翻译","url":"https://www.deepl.com/translator","layout":"pill","dotClass":"link-dot bg-indigo-400"}]}]},{"id":"cat-8","title":"工作办公","iconClass":"fas fa-briefcase mr-2.5","titleClass":"text-lg font-semibold text-blue-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-blue-500/30 transition-all duration-300 cat-card","groups":[{"title":"协作文档","titleClass":"subcat-title text-blue-400/50","links":[{"name":"腾讯文档","url":"https://docs.qq.com","layout":"pill","dotClass":"link-dot bg-blue-500"},{"name":"石墨文档","url":"https://shimo.im","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"Notion","url":"https://www.notion.so","layout":"pill","dotClass":"link-dot bg-slate-500"},{"name":"语雀","url":"https://www.yuque.com","layout":"pill","dotClass":"link-dot bg-emerald-400"}]},{"title":"视频会议","titleClass":"subcat-title text-blue-400/50","links":[{"name":"腾讯会议","url":"https://meeting.tencent.com","layout":"pill","dotClass":"link-dot bg-blue-500"},{"name":"Zoom","url":"https://zoom.us","layout":"pill","dotClass":"link-dot bg-sky-400"},{"name":"Teams","url":"https://teams.microsoft.com","layout":"pill","dotClass":"link-dot bg-purple-400"}]},{"title":"云存储","titleClass":"subcat-title text-blue-400/50","links":[{"name":"百度网盘","url":"https://pan.baidu.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"阿里云盘","url":"https://www.aliyundrive.com","layout":"pill","dotClass":"link-dot bg-orange-400"},{"name":"Google Drive","url":"https://drive.google.com","layout":"pill","dotClass":"link-dot bg-yellow-400"},{"name":"夸克网盘","url":"https://pan.quark.cn","layout":"pill","dotClass":"link-dot bg-violet-400"}]},{"title":"求职招聘","titleClass":"subcat-title text-blue-400/50","links":[{"name":"Boss直聘","url":"https://www.zhipin.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"猎聘","url":"https://www.liepin.com","layout":"pill","dotClass":"link-dot bg-amber-400"},{"name":"LinkedIn","url":"https://www.linkedin.com","layout":"pill","dotClass":"link-dot bg-blue-500"},{"name":"拉勾","url":"https://www.lagou.com","layout":"pill","dotClass":"link-dot bg-green-400"}]}]},{"id":"cat-9","title":"开发技术","iconClass":"fas fa-code mr-2.5","titleClass":"text-lg font-semibold text-purple-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-purple-500/30 transition-all duration-300 cat-card","groups":[{"title":"代码托管","titleClass":"subcat-title text-purple-400/50","links":[{"name":"GitHub","url":"https://github.com","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"GitLab","url":"https://gitlab.com","layout":"pill","dotClass":"link-dot bg-orange-400"},{"name":"Gitee","url":"https://gitee.com","layout":"pill","dotClass":"link-dot bg-red-400"}]},{"title":"技术社区","titleClass":"subcat-title text-purple-400/50","links":[{"name":"Stack Overflow","url":"https://stackoverflow.com","layout":"pill","dotClass":"link-dot bg-orange-400"},{"name":"掘金","url":"https://juejin.cn","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"SegmentFault","url":"https://segmentfault.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"V2EX","url":"https://www.v2ex.com","layout":"pill","dotClass":"link-dot bg-slate-400"}]},{"title":"前端开发","titleClass":"subcat-title text-purple-400/50","links":[{"name":"MDN","url":"https://developer.mozilla.org","layout":"pill","dotClass":"link-dot bg-sky-400"},{"name":"Can I Use","url":"https://caniuse.com","layout":"pill","dotClass":"link-dot bg-amber-400"},{"name":"Vue.js","url":"https://cn.vuejs.org","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"React","url":"https://react.dev","layout":"pill","dotClass":"link-dot bg-sky-400"}]},{"title":"在线工具","titleClass":"subcat-title text-purple-400/50","links":[{"name":"JSON格式化","url":"https://www.json.cn","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"正则测试","url":"https://regex101.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"CodeSandbox","url":"https://codesandbox.io","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"StackBlitz","url":"https://stackblitz.com","layout":"pill","dotClass":"link-dot bg-amber-400"}]}]},{"id":"cat-10","title":"AI 工具","iconClass":"fas fa-robot mr-2.5","titleClass":"text-lg font-semibold text-emerald-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-emerald-500/30 transition-all duration-300 cat-card","groups":[{"title":"对话助手","titleClass":"subcat-title text-emerald-400/50","links":[{"name":"ChatGPT","url":"https://chatgpt.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"Claude","url":"https://claude.ai","layout":"pill","dotClass":"link-dot bg-orange-400"},{"name":"Kimi","url":"https://kimi.moonshot.cn","layout":"pill","dotClass":"link-dot bg-purple-400"},{"name":"通义千问","url":"https://tongyi.aliyun.com","layout":"pill","dotClass":"link-dot bg-sky-400"},{"name":"豆包","url":"https://www.doubao.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"DeepSeek","url":"https://chat.deepseek.com","layout":"pill","dotClass":"link-dot bg-blue-400"}]},{"title":"AI 绘画","titleClass":"subcat-title text-emerald-400/50","links":[{"name":"Midjourney","url":"https://www.midjourney.com","layout":"pill","dotClass":"link-dot bg-indigo-400"},{"name":"LiblibAI","url":"https://www.liblib.art","layout":"pill","dotClass":"link-dot bg-pink-400"}]},{"title":"AI 编程","titleClass":"subcat-title text-emerald-400/50","links":[{"name":"Cursor","url":"https://cursor.sh","layout":"pill","dotClass":"link-dot bg-purple-400"},{"name":"GitHub Copilot","url":"https://github.com/features/copilot","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"v0.dev","url":"https://v0.dev","layout":"pill","dotClass":"link-dot bg-sky-400"}]},{"title":"AI 搜索","titleClass":"subcat-title text-emerald-400/50","links":[{"name":"Perplexity","url":"https://www.perplexity.ai","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"秘塔AI","url":"https://metaso.cn","layout":"pill","dotClass":"link-dot bg-violet-400"},{"name":"Devv","url":"https://devv.ai","layout":"pill","dotClass":"link-dot bg-sky-400"}]}]},{"id":"cat-11","title":"设计创意","iconClass":"fas fa-palette mr-2.5","titleClass":"text-lg font-semibold text-pink-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-pink-500/30 transition-all duration-300 cat-card","groups":[{"title":"灵感采集","titleClass":"subcat-title text-pink-400/50","links":[{"name":"Dribbble","url":"https://dribbble.com","layout":"pill","dotClass":"link-dot bg-pink-400"},{"name":"Behance","url":"https://www.behance.net","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"站酷","url":"https://www.zcool.com.cn","layout":"pill","dotClass":"link-dot bg-yellow-400"},{"name":"Pinterest","url":"https://www.pinterest.com","layout":"pill","dotClass":"link-dot bg-red-400"}]},{"title":"UI/UX 资源","titleClass":"subcat-title text-pink-400/50","links":[{"name":"Figma","url":"https://www.figma.com","layout":"pill","dotClass":"link-dot bg-purple-400"},{"name":"Ant Design","url":"https://ant.design","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"Arco Design","url":"https://arco.design","layout":"pill","dotClass":"link-dot bg-sky-400"},{"name":"TDesign","url":"https://tdesign.tencent.com","layout":"pill","dotClass":"link-dot bg-blue-400"}]},{"title":"素材资源","titleClass":"subcat-title text-pink-400/50","links":[{"name":"Unsplash","url":"https://unsplash.com","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"Pexels","url":"https://www.pexels.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"IconFont","url":"https://www.iconfont.cn","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"Google Fonts","url":"https://fonts.google.com","layout":"pill","dotClass":"link-dot bg-amber-400"}]},{"title":"色彩工具","titleClass":"subcat-title text-pink-400/50","links":[{"name":"Coolors","url":"https://coolors.co","layout":"pill","dotClass":"link-dot bg-violet-400"},{"name":"Adobe Color","url":"https://color.adobe.com","layout":"pill","dotClass":"link-dot bg-red-400"}]}]},{"id":"cat-12","title":"学习进修","iconClass":"fas fa-graduation-cap mr-2.5","titleClass":"text-lg font-semibold text-sky-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-sky-500/30 transition-all duration-300 cat-card","groups":[{"title":"在线课程","titleClass":"subcat-title text-sky-400/50","links":[{"name":"B站","url":"https://www.bilibili.com","layout":"pill","dotClass":"link-dot bg-pink-400"},{"name":"慕课网","url":"https://www.imooc.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"Coursera","url":"https://www.coursera.org","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"极客时间","url":"https://time.geekbang.org","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"中国大学MOOC","url":"https://www.icourse163.org","layout":"pill","dotClass":"link-dot bg-emerald-400"}]},{"title":"电子书与论文","titleClass":"subcat-title text-sky-400/50","links":[{"name":"中国知网","url":"https://www.cnki.net","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"Google Scholar","url":"https://scholar.google.com","layout":"pill","dotClass":"link-dot bg-amber-400"}]},{"title":"算法刷题","titleClass":"subcat-title text-sky-400/50","links":[{"name":"LeetCode","url":"https://leetcode.cn","layout":"pill","dotClass":"link-dot bg-amber-400"},{"name":"牛客网","url":"https://www.nowcoder.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"Codeforces","url":"https://codeforces.com","layout":"pill","dotClass":"link-dot bg-red-400"}]}]},{"id":"cat-13","title":"资讯阅读","iconClass":"fas fa-newspaper mr-2.5","titleClass":"text-lg font-semibold text-amber-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-amber-500/30 transition-all duration-300 cat-card","groups":[{"title":"综合新闻","titleClass":"subcat-title text-amber-400/50","links":[{"name":"新华社","url":"https://www.xinhuanet.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"澎湃新闻","url":"https://www.thepaper.cn","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"央视新闻","url":"https://news.cctv.com","layout":"pill","dotClass":"link-dot bg-red-500"}]},{"title":"科技资讯","titleClass":"subcat-title text-amber-400/50","links":[{"name":"36氪","url":"https://36kr.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"少数派","url":"https://sspai.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"品玩","url":"https://www.pingwest.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"TechCrunch","url":"https://techcrunch.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"Hacker News","url":"https://news.ycombinator.com","layout":"pill","dotClass":"link-dot bg-orange-400"}]},{"title":"RSS 阅读","titleClass":"subcat-title text-amber-400/50","links":[{"name":"Feedly","url":"https://feedly.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"Inoreader","url":"https://www.inoreader.com","layout":"pill","dotClass":"link-dot bg-blue-400"}]}]},{"id":"cat-14","title":"实用工具","iconClass":"fas fa-toolbox mr-2.5","titleClass":"text-lg font-semibold text-teal-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-teal-500/30 transition-all duration-300 cat-card","groups":[{"title":"图片处理","titleClass":"subcat-title text-teal-400/50","links":[{"name":"在线抠图","url":"https://www.remove.bg","layout":"pill","dotClass":"link-dot bg-purple-400"},{"name":"TinyPNG","url":"https://tinypng.com","layout":"pill","dotClass":"link-dot bg-pink-400"},{"name":"GIF制作","url":"https://ezgif.com","layout":"pill","dotClass":"link-dot bg-emerald-400"}]},{"title":"PDF 工具","titleClass":"subcat-title text-teal-400/50","links":[{"name":"iLovePDF","url":"https://www.ilovepdf.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"SmallPDF","url":"https://smallpdf.com","layout":"pill","dotClass":"link-dot bg-blue-400"}]},{"title":"文件传输","titleClass":"subcat-title text-teal-400/50","links":[{"name":"奶牛快传","url":"https://cowtransfer.com","layout":"pill","dotClass":"link-dot bg-sky-400"},{"name":"AirPortal","url":"https://airportal.cn","layout":"pill","dotClass":"link-dot bg-blue-400"}]},{"title":"笔记与思维","titleClass":"subcat-title text-teal-400/50","links":[{"name":"Flomo","url":"https://flomoapp.com","layout":"pill","dotClass":"link-dot bg-indigo-400"},{"name":"有道云笔记","url":"https://note.youdao.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"ProcessOn","url":"https://www.processon.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"Draw.io","url":"https://app.diagrams.net","layout":"pill","dotClass":"link-dot bg-orange-400"}]}]},{"id":"cat-15","title":"金融理财","iconClass":"fas fa-chart-line mr-2.5","titleClass":"text-lg font-semibold text-green-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-green-500/30 transition-all duration-300 cat-card","groups":[{"title":"网上银行","titleClass":"subcat-title text-green-400/50","links":[{"name":"工商银行","url":"https://www.icbc.com.cn","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"招商银行","url":"https://www.cmbchina.com","layout":"pill","dotClass":"link-dot bg-red-500"},{"name":"建设银行","url":"https://www.ccb.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"中国银行","url":"https://www.boc.cn","layout":"pill","dotClass":"link-dot bg-red-400"}]},{"title":"证券与基金","titleClass":"subcat-title text-green-400/50","links":[{"name":"东方财富","url":"https://www.eastmoney.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"雪球","url":"https://xueqiu.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"天天基金","url":"https://fund.eastmoney.com","layout":"pill","dotClass":"link-dot bg-orange-400"}]},{"title":"支付与税务","titleClass":"subcat-title text-green-400/50","links":[{"name":"支付宝","url":"https://www.alipay.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"个税查询","url":"https://etax.chinatax.gov.cn","layout":"pill","dotClass":"link-dot bg-red-400"}]}]},{"id":"cat-16","title":"购物消费","iconClass":"fas fa-shopping-cart mr-2.5","titleClass":"text-lg font-semibold text-orange-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-orange-500/30 transition-all duration-300 cat-card","groups":[{"title":"综合电商","titleClass":"subcat-title text-orange-400/50","links":[{"name":"淘宝","url":"https://www.taobao.com","layout":"pill","dotClass":"link-dot bg-orange-400"},{"name":"京东","url":"https://www.jd.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"拼多多","url":"https://www.pinduoduo.com","layout":"pill","dotClass":"link-dot bg-red-500"},{"name":"天猫","url":"https://www.tmall.com","layout":"pill","dotClass":"link-dot bg-red-400"}]},{"title":"比价与二手","titleClass":"subcat-title text-orange-400/50","links":[{"name":"什么值得买","url":"https://www.smzdm.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"闲鱼","url":"https://www.goofish.com","layout":"pill","dotClass":"link-dot bg-amber-400"},{"name":"转转","url":"https://www.zhuanzhuan.com","layout":"pill","dotClass":"link-dot bg-red-400"}]},{"title":"出行票务","titleClass":"subcat-title text-orange-400/50","links":[{"name":"铁路12306","url":"https://www.12306.cn","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"携程旅行","url":"https://www.ctrip.com","layout":"pill","dotClass":"link-dot bg-sky-400"},{"name":"飞猪","url":"https://www.fliggy.com","layout":"pill","dotClass":"link-dot bg-amber-400"},{"name":"航旅纵横","url":"https://www.umetrip.com","layout":"pill","dotClass":"link-dot bg-blue-400"}]}]},{"id":"cat-17","title":"社交媒体","iconClass":"fas fa-users mr-2.5","titleClass":"text-lg font-semibold text-violet-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-violet-500/30 transition-all duration-300 cat-card","groups":[{"title":"社区平台","titleClass":"subcat-title text-violet-400/50","links":[{"name":"微博","url":"https://weibo.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"小红书","url":"https://www.xiaohongshu.com","layout":"pill","dotClass":"link-dot bg-red-500"},{"name":"知乎","url":"https://www.zhihu.com","layout":"pill","dotClass":"link-dot bg-blue-400"}]},{"title":"论坛","titleClass":"subcat-title text-violet-400/50","links":[{"name":"V2EX","url":"https://www.v2ex.com","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"虎扑","url":"https://www.hupu.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"贴吧","url":"https://tieba.baidu.com","layout":"pill","dotClass":"link-dot bg-blue-400"}]},{"title":"国际社交","titleClass":"subcat-title text-violet-400/50","links":[{"name":"Twitter / X","url":"https://x.com","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"Reddit","url":"https://www.reddit.com","layout":"pill","dotClass":"link-dot bg-orange-400"},{"name":"Discord","url":"https://discord.com","layout":"pill","dotClass":"link-dot bg-indigo-400"}]}]},{"id":"cat-18","title":"视频与流媒体","iconClass":"fas fa-play mr-2.5","titleClass":"text-lg font-semibold text-red-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-red-500/30 transition-all duration-300 cat-card","groups":[{"title":"长视频","titleClass":"subcat-title text-red-400/50","links":[{"name":"腾讯视频","url":"https://v.qq.com","layout":"pill","dotClass":"link-dot bg-sky-400"},{"name":"爱奇艺","url":"https://www.iqiyi.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"优酷","url":"https://www.youku.com","layout":"pill","dotClass":"link-dot bg-sky-400"},{"name":"B站","url":"https://www.bilibili.com","layout":"pill","dotClass":"link-dot bg-pink-400"},{"name":"YouTube","url":"https://www.youtube.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"Netflix","url":"https://www.netflix.com","layout":"pill","dotClass":"link-dot bg-red-500"}]},{"title":"直播","titleClass":"subcat-title text-red-400/50","links":[{"name":"斗鱼","url":"https://www.douyu.com","layout":"pill","dotClass":"link-dot bg-orange-400"},{"name":"虎牙","url":"https://www.huya.com","layout":"pill","dotClass":"link-dot bg-amber-400"},{"name":"Twitch","url":"https://www.twitch.tv","layout":"pill","dotClass":"link-dot bg-purple-400"}]}]},{"id":"cat-19","title":"音乐与播客","iconClass":"fas fa-headphones mr-2.5","titleClass":"text-lg font-semibold text-fuchsia-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-fuchsia-500/30 transition-all duration-300 cat-card","groups":[{"title":"音乐平台","titleClass":"subcat-title text-fuchsia-400/50","links":[{"name":"网易云音乐","url":"https://music.163.com","layout":"pill","dotClass":"link-dot bg-red-400"},{"name":"QQ音乐","url":"https://y.qq.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"Spotify","url":"https://open.spotify.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"酷狗音乐","url":"https://www.kugou.com","layout":"pill","dotClass":"link-dot bg-sky-400"}]},{"title":"播客","titleClass":"subcat-title text-fuchsia-400/50","links":[{"name":"小宇宙","url":"https://www.xiaoyuzhoufm.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"喜马拉雅","url":"https://www.ximalaya.com","layout":"pill","dotClass":"link-dot bg-orange-400"}]}]},{"id":"cat-20","title":"游戏相关","iconClass":"fas fa-gamepad mr-2.5","titleClass":"text-lg font-semibold text-lime-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-lime-500/30 transition-all duration-300 cat-card","groups":[{"title":"游戏平台","titleClass":"subcat-title text-lime-400/50","links":[{"name":"Steam","url":"https://store.steampowered.com","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"Epic Games","url":"https://store.epicgames.com","layout":"pill","dotClass":"link-dot bg-slate-400"}]},{"title":"游戏社区","titleClass":"subcat-title text-lime-400/50","links":[{"name":"TapTap","url":"https://www.taptap.cn","layout":"pill","dotClass":"link-dot bg-sky-400"},{"name":"游民星空","url":"https://www.gamersky.com","layout":"pill","dotClass":"link-dot bg-blue-400"}]}]},{"id":"cat-21","title":"运动健康","iconClass":"fas fa-heart-pulse mr-2.5","titleClass":"text-lg font-semibold text-rose-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-rose-500/30 transition-all duration-300 cat-card","groups":[{"title":"运动健身","titleClass":"subcat-title text-rose-400/50","links":[{"name":"Keep","url":"https://www.gotokeep.com","layout":"pill","dotClass":"link-dot bg-purple-400"},{"name":"Strava","url":"https://www.strava.com","layout":"pill","dotClass":"link-dot bg-orange-400"}]},{"title":"医疗健康","titleClass":"subcat-title text-rose-400/50","links":[{"name":"丁香医生","url":"https://dxy.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"好大夫在线","url":"https://www.haodf.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"微医","url":"https://www.guahao.com","layout":"pill","dotClass":"link-dot bg-red-400"}]}]},{"id":"cat-22","title":"生活出行","iconClass":"fas fa-car mr-2.5","titleClass":"text-lg font-semibold text-cyan-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-cyan-500/30 transition-all duration-300 cat-card","groups":[{"title":"地图导航","titleClass":"subcat-title text-cyan-400/50","links":[{"name":"高德地图","url":"https://www.amap.com","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"百度地图","url":"https://map.baidu.com","layout":"pill","dotClass":"link-dot bg-blue-400"}]},{"title":"租房购房","titleClass":"subcat-title text-cyan-400/50","links":[{"name":"贝壳找房","url":"https://www.ke.com","layout":"pill","dotClass":"link-dot bg-emerald-400"},{"name":"自如","url":"https://www.ziroom.com","layout":"pill","dotClass":"link-dot bg-amber-400"},{"name":"链家","url":"https://www.lianjia.com","layout":"pill","dotClass":"link-dot bg-emerald-400"}]},{"title":"汽车与政务","titleClass":"subcat-title text-cyan-400/50","links":[{"name":"汽车之家","url":"https://www.autohome.com.cn","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"交管12123","url":"https://gab.122.gov.cn","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"政务服务平台","url":"https://gjzwfw.www.gov.cn","layout":"pill","dotClass":"link-dot bg-red-400"}]}]},{"id":"cat-23","title":"个人收藏","iconClass":"fas fa-bookmark mr-2.5","titleClass":"text-lg font-semibold text-yellow-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-yellow-500/30 transition-all duration-300 cat-card","groups":[{"title":"我的项目","titleClass":"subcat-title text-yellow-400/50","links":[{"name":"项目A","url":"#","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"项目B","url":"#","layout":"pill","dotClass":"link-dot bg-slate-400"}]},{"title":"我的主页","titleClass":"subcat-title text-yellow-400/50","links":[{"name":"个人博客","url":"#","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"GitHub主页","url":"#","layout":"pill","dotClass":"link-dot bg-slate-400"}]},{"title":"待整理","titleClass":"subcat-title text-yellow-400/50","links":[{"name":"稍后阅读","url":"#","layout":"pill","dotClass":"link-dot bg-amber-400"},{"name":"临时暂存","url":"#","layout":"pill","dotClass":"link-dot bg-slate-400"}]}]},{"id":"cat-24","title":"精品资源","iconClass":"fas fa-layer-group mr-2.5","titleClass":"text-lg font-semibold text-cyan-400 mb-4 flex items-center","cardClass":"glass-card rounded-2xl p-6 shadow-xl hover:border-cyan-500/30 transition-all duration-300 cat-card","groups":[{"title":"综合资源","titleClass":"subcat-title text-cyan-400/50","links":[{"name":"GitHub趋势","url":"https://github.com/trending","layout":"pill","dotClass":"link-dot bg-slate-400"},{"name":"Product Hunt","url":"https://www.producthunt.com","layout":"pill","dotClass":"link-dot bg-orange-400"},{"name":"软件替代","url":"https://alternativeto.net","layout":"pill","dotClass":"link-dot bg-blue-400"},{"name":"小众软件","url":"https://www.appinn.com","layout":"pill","dotClass":"link-dot bg-green-400"}]}]}];
-        let editingLinkRef = null;
-        let adminPanelTab = 'sites';
-        let cloudSeedPending = false;
+        let cloudConfig = { wallpaper: "", dynamicSections: [], adminPwd: "" };
         let dragType = null;
         let dragSecId = null;
         let dragLinkIdx = null;
@@ -357,7 +811,6 @@ v12升级：
                 weatherCloudy: "多云", weatherClear: "晴朗", weatherRain: "阵雨", weatherSnow: "降雪", weatherThunder: "雷阵雨", weatherDefault: "风调雨顺 · 晴", validUrlMsg: "提示：请输入有效的网址！",
                 addSectionBtn: "添加自定义区域", promptSectionName: "请输入新区域的名称 (例如：AI工具)：", delSectionConfirm: "确定要删除整个区域及其所有链接吗？", modalAddSection: "添加到自定义区域",
                 renameSectionPrompt: "请输入新的区域名称：",
-                adminPanelTitle: "后台管理中心", adminSitesTab: "网址管理", adminCatsTab: "分类管理", adminCheckTab: "有效性检测", addSite: "新增网站", addCategory: "新增分类", edit: "编辑", delete: "删除", move: "移动", check: "检测", checkAll: "检测全部网址", cloudSync: "云端同步", cloudReady: "云端已连接", cloudFail: "云端连接失败", saveCloudFail: "云端保存失败，请检查网络或后台接口。", categoryName: "分类名称", siteCategory: "所属分类", siteSubcategory: "子分类", noSites: "暂无网站", noCategories: "暂无分类", checking: "检测中…", reachable: "网络可达", unreachable: "无法连接", unknown: "未检测", removeBad: "删除失效网址", close: "关闭", addSubcategory: "添加子分类", subcategoryName: "子分类名称", confirmDeleteCategory: "确定要删除此分类及其全部网址吗？", confirmDeleteSite: "确定要删除此网址吗？", friendLinks: "友情链接", seedCloud: "首次进入后台时将把当前 HTML 内置网址迁移到云端。",
                 pwdTitle: "修改管理员密码 (全站同步)", pwdInputPlace: "输入新密码", saveBtn: "保存", pwdUpdateSuccess: "管理员密码修改成功！下次登录生效。"
             },
             en: {
@@ -375,7 +828,6 @@ v12升级：
                 weatherCloudy: "Cloudy", weatherClear: "Clear", weatherRain: "Rain", weatherSnow: "Snow", weatherThunder: "Thunder", weatherDefault: "Good Weather · Clear", validUrlMsg: "Please enter a valid URL!",
                 addSectionBtn: "Add Custom Section", promptSectionName: "Enter new section name (e.g., AI Tools):", delSectionConfirm: "Are you sure you want to delete this entire section?", modalAddSection: "Add to Custom Section",
                 renameSectionPrompt: "Enter new section name:",
-                adminPanelTitle: "Admin Center", adminSitesTab: "Websites", adminCatsTab: "Categories", adminCheckTab: "Validity Check", addSite: "Add Website", addCategory: "Add Category", edit: "Edit", delete: "Delete", move: "Move", check: "Check", checkAll: "Check All Websites", cloudSync: "Cloud Sync", cloudReady: "Cloud connected", cloudFail: "Cloud connection failed", saveCloudFail: "Cloud save failed. Check the network or API.", categoryName: "Category Name", siteCategory: "Category", siteSubcategory: "Subcategory", noSites: "No websites", noCategories: "No categories", checking: "Checking…", reachable: "Reachable", unreachable: "Unreachable", unknown: "Not checked", removeBad: "Delete failed links", close: "Close", addSubcategory: "Add subcategory", subcategoryName: "Subcategory name", confirmDeleteCategory: "Delete this category and all its websites?", confirmDeleteSite: "Delete this website?", friendLinks: "Friend Links", seedCloud: "On first admin entry, the built-in HTML links will be migrated to the cloud.",
                 pwdTitle: "Change Admin Password (Cloud Sync)", pwdInputPlace: "Enter new password", saveBtn: "Save", pwdUpdateSuccess: "Admin password updated successfully! Valid on next login."
             }
         };
@@ -389,7 +841,7 @@ v12升级：
         function getLocalizedLinkName(originalName, url) { if (url && dynamicLinkDict[url]) return dynamicLinkDict[url][currentLang]; return originalName; }
         function t(key) { return i18n[currentLang][key] || key; }
         function setLanguage(lang) { currentLang = lang; localStorage.setItem('nav_lang', lang); document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'; applyLanguage(); updateClockAndGreeting(); renderWeather(); selectEngine(currentEngineKey); document.getElementById('theme-panel').classList.add('hidden'); }
-        function applyLanguage() { document.getElementById('page-title').innerText = t('pageTitle'); document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n')); }); document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.getAttribute('data-i18n-placeholder')); }); renderManagedCategories(); loadCustomLinks(); loadFriendLinks(); renderDynamicSections(); renderAdminPanel(); }
+        function applyLanguage() { document.getElementById('page-title').innerText = t('pageTitle'); document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n')); }); document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.getAttribute('data-i18n-placeholder')); }); loadCustomLinks(); loadFriendLinks(); renderDynamicSections(); }
 
         const ADMIN_AUTH_KEY = 'nav_admin_auth';
         const ADMIN_LAST_ACTIVITY_KEY = 'nav_admin_last_activity';
@@ -452,17 +904,14 @@ v12升级：
             const isAdmin = isAdminAuthenticated();
             const loginBtn = document.getElementById('admin-login-btn');
             const logoutBtn = document.getElementById('admin-logout-btn');
-            const panelBtn = document.getElementById('admin-panel-open-btn');
             const badge = document.getElementById('admin-badge');
             const hint = document.getElementById('admin-status-hint');
             if (isAdmin) {
                 document.body.classList.add('is-admin');
-                setTimeout(() => { renderManagedCategories(); renderDynamicSections(); renderAdminPanel(); }, 0);
                 if (badge) badge.classList.remove('hidden');
                 if (hint) hint.classList.remove('hidden');
                 if (loginBtn) loginBtn.classList.add('hidden');
                 if (logoutBtn) logoutBtn.classList.remove('hidden');
-                if (panelBtn) panelBtn.classList.remove('hidden');
                 scheduleAdminTimeout();
             } else {
                 document.body.classList.remove('is-admin');
@@ -470,8 +919,6 @@ v12升级：
                 if (hint) hint.classList.add('hidden');
                 if (loginBtn) loginBtn.classList.remove('hidden');
                 if (logoutBtn) logoutBtn.classList.add('hidden');
-                if (panelBtn) panelBtn.classList.add('hidden');
-                const panel = document.getElementById('v14-admin-panel'); if (panel) panel.classList.add('hidden');
                 if (adminActivityTimer) clearTimeout(adminActivityTimer);
                 adminActivityTimer = null;
             }
@@ -491,7 +938,6 @@ v12升级：
                 localStorage.setItem(ADMIN_LAST_ACTIVITY_KEY, String(Date.now()));
                 alert(t('pwdSuccess'));
                 checkAdminSession();
-                if (cloudSeedPending) { cloudSeedPending = false; updateCloudConfig('managedCategories', cloudConfig.managedCategories, true); updateCloudConfig('friendLinks', cloudConfig.friendLinks, true); }
             } else {
                 alert(t('pwdFail'));
             }
@@ -526,113 +972,26 @@ v12升级：
         function handleDragOver(e, type) { e.preventDefault(); e.stopPropagation(); e.dataTransfer.dropEffect = 'move'; return false; }
         function handleDrop(e, type, targetSecId, targetLinkIdx = null) { e.stopPropagation(); e.preventDefault(); if (!isAdminAuthenticated()) return; markAdminActivity(); let secs = cloudConfig.dynamicSections || []; if (dragType === 'section' && type === 'section') { if (dragSecId === targetSecId) return; const fromIdx = secs.findIndex(s => s.id === dragSecId); const toIdx = secs.findIndex(s => s.id === targetSecId); if(fromIdx > -1 && toIdx > -1) { const [moved] = secs.splice(fromIdx, 1); secs.splice(toIdx, 0, moved); } } else if (dragType === 'link' && type === 'link') { if (dragSecId === targetSecId && dragLinkIdx === targetLinkIdx) return; const fromSec = secs.find(s => s.id === dragSecId); const toSec = secs.find(s => s.id === targetSecId); if (fromSec && toSec) { const [movedLink] = fromSec.links.splice(dragLinkIdx, 1); toSec.links.splice(targetLinkIdx, 0, movedLink); } } else if (dragType === 'link' && type === 'section') { const fromSec = secs.find(s => s.id === dragSecId); const toSec = secs.find(s => s.id === targetSecId); if (fromSec && toSec) { if (fromSec === toSec) return; const [movedLink] = fromSec.links.splice(dragLinkIdx, 1); toSec.links.push(movedLink); } } saveDynamicSections(secs); }
 
-        async function initCloudData() {
-            const savedTheme = localStorage.getItem('nav_theme_mode') || 'theme-dark';
-            document.body.classList.remove('theme-light', 'theme-dark'); document.body.classList.add(savedTheme);
-            const globalDefaultBg = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop";
-            let savedBg = localStorage.getItem('nav_custom_wallpaper');
-            let cloudLoaded = false;
-            try {
-                const res = await fetch('/api/config', { cache: 'no-store' });
-                if (res.ok) {
-                    const configData = await res.json(); cloudLoaded = true;
-                    if (configData) {
-                        cloudConfig = Object.assign(cloudConfig, configData);
-                        if (!Array.isArray(cloudConfig.dynamicSections)) cloudConfig.dynamicSections = [];
-                        if (!Array.isArray(cloudConfig.managedCategories)) cloudConfig.managedCategories = [];
-                        if (!Array.isArray(cloudConfig.friendLinks)) cloudConfig.friendLinks = [];
-                        if (!cloudConfig.linkStatuses || typeof cloudConfig.linkStatuses !== 'object') cloudConfig.linkStatuses = {};
-                        if (configData.wallpaper !== undefined) {
-                            if (configData.wallpaper === "") { savedBg = null; localStorage.removeItem('nav_custom_wallpaper'); document.body.classList.add('bg-cleared'); }
-                            else { savedBg = configData.wallpaper; localStorage.setItem('nav_custom_wallpaper', savedBg); document.body.classList.remove('bg-cleared'); }
-                        }
-                    }
-                }
-            } catch (e) { cloudLoaded = false; }
-            if (!cloudConfig.managedCategories.length) {
-                cloudSeedPending = true;
-                cloudConfig.managedCategories = JSON.parse(JSON.stringify(INITIAL_MANAGED_CATEGORIES));
-                if (isAdminAuthenticated() && cloudLoaded) await updateCloudConfig('managedCategories', cloudConfig.managedCategories, true);
-            }
-            if (!cloudConfig.friendLinks.length) {
-                cloudConfig.friendLinks = [{ name: "IT头条博客", url: "https://it-toutiao.blogspot.com" }, { name: "科技共享导航", url: "https://kjgx.168668520.xyz" }];
-                const localFriends = JSON.parse(localStorage.getItem('nav_friend_links') || '[]');
-                if (localFriends.length && isAdminAuthenticated() && cloudLoaded) cloudConfig.friendLinks = localFriends;
-                if (isAdminAuthenticated() && cloudLoaded) await updateCloudConfig('friendLinks', cloudConfig.friendLinks, true);
-            }
-            if (!savedBg && !document.body.classList.contains('bg-cleared')) savedBg = globalDefaultBg;
-            if (savedBg) { applyWallpaperStyles(savedBg); const bg=document.getElementById('custom-bg-input'); if(bg)bg.value=savedBg; const cb=document.getElementById('clear-bg-btn'); if(cb)cb.classList.remove('hidden'); }
-            renderManagedCategories(); renderDynamicSections(); loadCustomLinks(); loadFriendLinks(); renderAdminPanel();
-        }
+        async function initCloudData() { const savedTheme = localStorage.getItem('nav_theme_mode') || 'theme-dark'; document.body.classList.remove('theme-light', 'theme-dark'); document.body.classList.add(savedTheme); const globalDefaultBg = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"; let savedBg = localStorage.getItem('nav_custom_wallpaper'); cloudConfig.dynamicSections = JSON.parse(localStorage.getItem('nav_dynamic_sections') || '[]'); try { const res = await fetch('/api/config'); if (res.ok) { const configData = await res.json(); if (configData) { if (configData.wallpaper !== undefined) { if (configData.wallpaper === "") { savedBg = null; localStorage.removeItem('nav_custom_wallpaper'); document.body.classList.add('bg-cleared'); } else { savedBg = configData.wallpaper; localStorage.setItem('nav_custom_wallpaper', savedBg); document.body.classList.remove('bg-cleared'); } } if (configData.dynamicSections) { cloudConfig.dynamicSections = configData.dynamicSections; localStorage.setItem('nav_dynamic_sections', JSON.stringify(cloudConfig.dynamicSections)); } if (configData.adminPwd) { cloudConfig.adminPwd = configData.adminPwd; } } } } catch (e) {} if (!savedBg && !document.body.classList.contains('bg-cleared')) savedBg = globalDefaultBg; if (savedBg) { applyWallpaperStyles(savedBg); document.getElementById('custom-bg-input').value = savedBg; document.getElementById('clear-bg-btn').classList.remove('hidden'); } renderDynamicSections(); }
 
-        async function updateCloudConfig(key, value, silent = false) {
-            cloudConfig[key] = value;
-            try {
-                const res = await fetch('/api/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cloudConfig) });
-                if (!res.ok) throw new Error('cloud save failed');
-                if (!silent) setAdminCloudStatus(true);
-                return true;
-            } catch (e) { if (!silent) { setAdminCloudStatus(false); alert(t('saveCloudFail')); } return false; }
-        }
+        async function updateCloudConfig(key, value) { cloudConfig[key] = value; try { await fetch('/api/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(cloudConfig) }); } catch (e) {} }
 
-        function setAdminCloudStatus(ok) { const el=document.getElementById('admin-cloud-status'); if(el){el.textContent=ok?t('cloudReady'):t('cloudFail');el.className=ok?'text-emerald-400 text-xs':'text-rose-400 text-xs';} }
-        function getManagedCategories(){ return Array.isArray(cloudConfig.managedCategories)?cloudConfig.managedCategories:[]; }
-        function getCategoryById(id){ return getManagedCategories().find(c=>c.id===id); }
-        function escapeHtml(v){ return String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+        function toggleThemeMenu(e) { e.stopPropagation(); document.getElementById('theme-panel').classList.toggle('hidden'); }
+        function setBaseTheme(themeName) { document.body.classList.remove('theme-light', 'theme-dark'); document.body.classList.add(themeName); localStorage.setItem('nav_theme_mode', themeName); document.getElementById('theme-panel').classList.add('hidden'); }
+        function applyWallpaperStyles(url) { document.body.style.backgroundImage = `url('${url}')`; document.body.style.backgroundPosition = 'center'; document.body.style.backgroundSize = 'cover'; document.body.style.backgroundRepeat = 'no-repeat'; document.body.style.backgroundAttachment = 'fixed'; document.body.classList.add('has-custom-bg'); }
 
-        function renderManagedCategories(){
-            const root=document.getElementById('managed-categories-container'); if(!root)return;
-            const cats=getManagedCategories(); root.innerHTML='';
-            cats.forEach((cat,ci)=>{
-                const card=document.createElement('div');
-                card.className=cat.cardClass||'glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 cat-card';
-                card.dataset.categoryId=cat.id;
-                card.setAttribute('aria-label',cat.title);
-                let html=`<div class="flex justify-between items-center mb-4"><h3 class="${escapeHtml(cat.titleClass||'text-lg font-semibold text-indigo-400 mb-4 flex items-center')}"><i class="${escapeHtml(cat.iconClass||'fas fa-layer-group mr-2.5')}" aria-hidden="true"></i> <span>${escapeHtml(cat.title)}</span></h3><div class="admin-only flex gap-1.5 shrink-0 ml-2"><button type="button" class="px-2 py-1 rounded-md bg-indigo-600/20 text-indigo-400 text-[10px]" aria-label="${escapeHtml(t('addSite'))}" onclick="openManagedLinkModal('${cat.id}')">${escapeHtml(t('addSite'))}</button><button type="button" class="px-2 py-1 rounded-md bg-sky-600/20 text-sky-400 text-[10px]" aria-label="${escapeHtml(t('edit'))}" onclick="editCategory('${cat.id}')">${escapeHtml(t('edit'))}</button><button type="button" class="px-2 py-1 rounded-md bg-red-600/20 text-red-400 text-[10px]" aria-label="${escapeHtml(t('delete'))}" onclick="deleteCategory('${cat.id}')">${escapeHtml(t('delete'))}</button></div></div>`;
-                (cat.groups||[]).forEach((group,gi)=>{
-                    if(group.title) html+=`<div class="${escapeHtml(group.titleClass||'subcat-title text-indigo-400/50')}">${escapeHtml(group.title)}</div>`;
-                    const links=group.links||[]; const gridClass=links.some(x=>x.layout==='feature')?'grid grid-cols-2 gap-3':'grid grid-cols-2 gap-2'+(gi<cat.groups.length-1?' mb-3':'');
-                    html+=`<div class="${gridClass}">`;
-                    links.forEach((link,li)=>{
-                        if(link.layout==='feature') html+=`<div class="group relative"><a class="flex items-center space-x-3 p-3 bg-slate-500/5 rounded-xl hover:bg-indigo-600/20 transition-all" href="${escapeHtml(link.url)}" rel="noopener noreferrer" target="_blank"><i class="${escapeHtml(link.iconClass||'fas fa-link text-xl text-slate-400')}" aria-hidden="true"></i><span class="text-sm font-medium truncate">${escapeHtml(link.name)}</span></a><div class="admin-only absolute right-1 top-1 flex gap-1"><button type="button" class="px-1.5 py-1 rounded bg-slate-800/80 text-sky-400" aria-label="${escapeHtml(t('edit'))}: ${escapeHtml(link.name)}" onclick="editManagedLink('${cat.id}',${ci},${gi},${li})"><i class="fas fa-pen" aria-hidden="true"></i></button><button type="button" class="px-1.5 py-1 rounded bg-slate-800/80 text-red-400" aria-label="${escapeHtml(t('delete'))}: ${escapeHtml(link.name)}" onclick="deleteManagedLink('${cat.id}',${gi},${li})"><i class="fas fa-trash" aria-hidden="true"></i></button></div></div>`;
-                        else html+=`<div class="group relative"><a class="link-pill" href="${escapeHtml(link.url)}" rel="noopener noreferrer" target="_blank"><span class="${escapeHtml(link.dotClass||'link-dot bg-indigo-400')}"></span>${escapeHtml(link.name)}</a><div class="admin-only absolute right-1 top-0 flex gap-1"><button type="button" class="px-1 py-0.5 rounded bg-slate-900/80 text-sky-400 text-[9px]" aria-label="${escapeHtml(t('edit'))}: ${escapeHtml(link.name)}" onclick="editManagedLink('${cat.id}',${ci},${gi},${li})"><i class="fas fa-pen" aria-hidden="true"></i></button><button type="button" class="px-1 py-0.5 rounded bg-slate-900/80 text-red-400 text-[9px]" aria-label="${escapeHtml(t('delete'))}: ${escapeHtml(link.name)}" onclick="deleteManagedLink('${cat.id}',${gi},${li})"><i class="fas fa-trash" aria-hidden="true"></i></button></div></div>`;
-                    }); html+='</div>';
-                });
-                card.innerHTML=html; root.appendChild(card);
-            });
-        }
+        async function applyCustomBg() { const url = document.getElementById('custom-bg-input').value.trim(); if (!url) return alert(t('validUrlMsg')); applyWallpaperStyles(url); localStorage.setItem('nav_custom_wallpaper', url); document.body.classList.remove('bg-cleared'); document.getElementById('clear-bg-btn').classList.remove('hidden'); document.getElementById('theme-panel').classList.add('hidden'); updateCloudConfig('wallpaper', url); }
+        async function clearCustomBg() { document.body.style.backgroundImage = ''; document.body.classList.remove('has-custom-bg'); localStorage.removeItem('nav_custom_wallpaper'); document.body.classList.add('bg-cleared'); document.getElementById('custom-bg-input').value = ''; document.getElementById('clear-bg-btn').classList.add('hidden'); document.getElementById('theme-panel').classList.add('hidden'); updateCloudConfig('wallpaper', ""); }
 
-        async function saveManagedCategories(){ return await updateCloudConfig('managedCategories', getManagedCategories()); }
-        function newCategoryTemplate(title){ return {id:'cat-'+Date.now()+'-'+Math.random().toString(36).slice(2,7),title:title,titleClass:'text-lg font-semibold text-indigo-400 mb-4 flex items-center',iconClass:'fas fa-layer-group mr-2.5',cardClass:'glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 cat-card',groups:[{title:'',titleClass:'',links:[]}]}; }
-        async function addSubcategory(catId){if(!isAdminAuthenticated())return;const cat=getCategoryById(catId);if(!cat)return;const title=prompt(t('subcategoryName'));if(!title||!title.trim())return;cat.groups=cat.groups||[];cat.groups.push({title:title.trim(),titleClass:(cat.groups[0]&&cat.groups[0].titleClass)||'subcat-title text-indigo-400/50',links:[]});await saveManagedCategories();renderManagedCategories();renderAdminPanel();}
-        async function addManagedCategory(){ if(!isAdminAuthenticated())return; const title=prompt(t('categoryName')); if(!title||!title.trim())return; getManagedCategories().push(newCategoryTemplate(title.trim())); await saveManagedCategories(); renderManagedCategories(); renderAdminPanel(); }
-        async function editCategory(id){ if(!isAdminAuthenticated())return; const cat=getCategoryById(id); if(!cat)return; const title=prompt(t('categoryName'),cat.title); if(!title||!title.trim()||title.trim()===cat.title)return; cat.title=title.trim(); await saveManagedCategories(); renderManagedCategories(); renderAdminPanel(); }
-        async function deleteCategory(id){ if(!isAdminAuthenticated()||!confirm(t('confirmDeleteCategory')))return; cloudConfig.managedCategories=getManagedCategories().filter(c=>c.id!==id); await saveManagedCategories(); renderManagedCategories(); renderAdminPanel(); }
-        function populateCategorySelect(selectedId, selectedGroup){
-            const sel=document.getElementById('site-category'), sub=document.getElementById('site-subcategory'); if(!sel||!sub)return;
-            sel.innerHTML=getManagedCategories().map(c=>`<option value="${escapeHtml(c.id)}" ${c.id===selectedId?'selected':''}>${escapeHtml(c.title)}</option>`).join('');
-            const cat=getCategoryById(sel.value); const groups=cat&&cat.groups?cat.groups:[]; sub.innerHTML=groups.map((g,i)=>`<option value="${i}" ${String(i)===String(selectedGroup)?'selected':''}>${escapeHtml(g.title||'默认')}</option>`).join('');
-        }
-        document.addEventListener('change',e=>{if(e.target&&e.target.id==='site-category'){populateCategorySelect(e.target.value,0);}});
+        function saveDynamicSections(sections) { localStorage.setItem('nav_dynamic_sections', JSON.stringify(sections)); updateCloudConfig('dynamicSections', sections); renderDynamicSections(); }
+        function addCustomSection() { const title = prompt(t('promptSectionName')); if (!title || title.trim() === '') return; let secs = cloudConfig.dynamicSections || []; secs.push({ id: Date.now().toString(), title: title.trim(), links: [] }); saveDynamicSections(secs); }
+        function renameCustomSection(id) { let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === id); if (!sec) return; const newTitle = prompt(t('renameSectionPrompt'), sec.title); if (!newTitle || newTitle.trim() === '' || newTitle === sec.title) return; sec.title = newTitle.trim(); saveDynamicSections(secs); }
+        function deleteCustomSection(id) { if (!confirm(t('delSectionConfirm'))) return; let secs = cloudConfig.dynamicSections || []; secs = secs.filter(s => s.id !== id); saveDynamicSections(secs); }
+        function toggleDynamicSectionExpand(secId) { expandedDynamicSections[secId] = !expandedDynamicSections[secId]; renderDynamicSections(); }
 
-        function openManagedLinkModal(catId, groupIdx=0){ editingLinkRef=null; currentModalTarget='managed'; document.getElementById('modal-title-text').innerText=t('addSite'); document.getElementById('site-name').value=''; document.getElementById('site-url').value=''; document.getElementById('modal-category-wrap').classList.remove('hidden'); document.getElementById('modal-subcategory-wrap').classList.remove('hidden'); populateCategorySelect(catId,groupIdx); toggleModal(true); }
-        function editManagedLink(catId,catIdx,groupIdx,linkIdx){ const cat=getCategoryById(catId); const link=cat&&cat.groups[groupIdx]&&cat.groups[groupIdx].links[linkIdx]; if(!link)return; editingLinkRef={catId,groupIdx,linkIdx}; currentModalTarget='managed'; document.getElementById('modal-title-text').innerText=t('edit'); document.getElementById('site-name').value=link.name; document.getElementById('site-url').value=link.url; document.getElementById('modal-category-wrap').classList.remove('hidden'); document.getElementById('modal-subcategory-wrap').classList.remove('hidden'); populateCategorySelect(catId,groupIdx); toggleModal(true); }
-        async function deleteManagedLink(catId,groupIdx,linkIdx){ if(!isAdminAuthenticated()||!confirm(t('confirmDeleteSite')))return; const cat=getCategoryById(catId); if(cat&&cat.groups[groupIdx]){cat.groups[groupIdx].links.splice(linkIdx,1); await saveManagedCategories(); renderManagedCategories(); renderAdminPanel();} }
+        function renderDynamicSections() { document.querySelectorAll('.dynamic-section-card').forEach(el => el.remove()); const grid = document.getElementById('main-nav-grid'); const addBtnCard = document.getElementById('add-section-card'); let secs = cloudConfig.dynamicSections || []; secs.forEach((sec) => { const isExpanded = !!expandedDynamicSections[sec.id]; const linkCount = sec.links.length; const isCompact = linkCount > 6; let gridCols = isCompact ? 'grid-cols-3 gap-2' : 'grid-cols-2 gap-3'; let visibleLinks = sec.links; let showExpandBtn = false; if (linkCount > 9) { showExpandBtn = true; if (!isExpanded) visibleLinks = sec.links.slice(0, 9); } const card = document.createElement('div'); card.className = "dynamic-section-card glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 relative xl:col-span-1"; card.id = `section-${sec.id}`; card.draggable = true; card.ondragstart = (e) => handleDragStart(e, 'section', sec.id); card.ondragend = handleDragEnd; card.ondragover = (e) => handleDragOver(e, 'section'); card.ondrop = (e) => handleDrop(e, 'section', sec.id); let linksHtml = ''; if (linkCount === 0) { linksHtml = `<div class="col-span-full text-center text-xs text-slate-400/60 py-4">${t('noCloudLinks')}</div>`; } else { const pClass = isCompact ? 'p-2' : 'p-3'; const spaceXClass = isCompact ? 'space-x-1.5' : 'space-x-2.5'; const iconSizeClass = isCompact ? 'w-4 h-4 text-[9px]' : 'w-5 h-5 text-[10px]'; const imgSizeClass = isCompact ? 'w-4 h-4' : 'w-5 h-5'; const textSizeClass = isCompact ? 'text-[11px]' : 'text-sm'; const prClass = isCompact ? 'pr-4' : 'pr-5'; visibleLinks.forEach((link, idx) => { const displayName = getLocalizedLinkName(link.name, link.url); let displayIcon = `<div class="${iconSizeClass} rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">${displayName.charAt(0).toUpperCase()}</div>`; try { if (link.url) displayIcon = `<img src="https://unavatar.io/duckduckgo/${new URL(link.url).hostname}" draggable="false" onerror="this.style.display='none'" class="${imgSizeClass} rounded object-contain shrink-0" alt="网站图标" />`; } catch (e) {} linksHtml += `<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all" draggable="true" ondragstart="handleDragStart(event, 'link', '${sec.id}', ${idx})" ondragend="handleDragEnd(event)" ondragover="handleDragOver(event, 'link')" ondrop="handleDrop(event, 'link', '${sec.id}', ${idx})"><div class="flex items-center w-full overflow-hidden"><i class="fas fa-grip-vertical text-slate-500 opacity-0 group-hover:opacity-50 transition-opacity mr-2.5 cursor-move admin-only text-[10px] shrink-0"></i><a href="${link.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="flex items-center ${spaceXClass} truncate w-full ${prClass}">${displayIcon} <span class="${textSizeClass} font-medium truncate">${displayName}</span></a></div><button type="button" onclick="deleteSectionLink(event, '${sec.id}', ${idx})" class="admin-only absolute right-2 text-xs p-1 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/20 rounded cursor-pointer shrink-0"><i class="fas fa-trash-alt" aria-hidden="true"></i><span class="sr-only">删除</span></button></div>`; }); } let expandHtml = ''; if (showExpandBtn) { expandHtml = `<div class="mt-4 pt-2 border-t border-slate-500/10 text-center"><button type="button" onclick="toggleDynamicSectionExpand('${sec.id}')" class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer inline-flex items-center gap-1">${isExpanded ? `<span data-i18n="collapseMore">${t('collapseMore')}</span> <i class="fas fa-chevron-up text-[10px]"></i>` : `<span data-i18n="expandMore">${t('expandMore')}</span> (${linkCount - 9}) <i class="fas fa-chevron-down text-[10px]"></i>`}</button></div>`; } card.innerHTML = `<div class="flex justify-between items-center mb-4"><h3 class="text-lg font-semibold text-indigo-400 flex items-center cursor-move" style="cursor: grab;"><i class="fas fa-grip-vertical mr-2 text-slate-500 opacity-60 admin-only text-sm"></i><i class="fas fa-layer-group mr-2.5"></i> <span>${sec.title}</span></h3><div class="flex gap-1.5 shrink-0 ml-2"><button type="button" onclick="openLinkModal('section_${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-indigo-600/20 text-indigo-400 border border-indigo-500/20 rounded-md hover:bg-indigo-600/40 transition-colors cursor-pointer z-[50]">${t('addCloud')}</button><button type="button" onclick="renameCustomSection('${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-sky-600/20 text-sky-400 border border-sky-500/20 rounded-md hover:bg-sky-600/40 transition-colors cursor-pointer z-[50]"><i class="fas fa-pen"></i></button><button type="button" onclick="deleteCustomSection('${sec.id}')" class="admin-only text-[10px] px-2 py-1 bg-red-600/20 text-red-400 border border-red-500/20 rounded-md hover:bg-red-600/40 transition-colors cursor-pointer z-[50]"><i class="fas fa-trash"></i></button></div></div><div class="grid ${gridCols}" style="min-height: 40px;" ondragover="handleDragOver(event, 'section')" ondrop="handleDrop(event, 'section', '${sec.id}')">${linksHtml}</div>${expandHtml}`; grid.insertBefore(card, addBtnCard); }); checkAdminSession(); }
 
-        function renderDynamicSections(){
-            document.querySelectorAll('.dynamic-section-card').forEach(el=>el.remove());
-            const grid=document.getElementById('main-content'); const addBtnCard=document.getElementById('add-section-card'); if(!grid||!addBtnCard)return;
-            let secs=cloudConfig.dynamicSections||[];
-            secs.forEach((sec)=>{ const isExpanded=!!expandedDynamicSections[sec.id]; const linkCount=(sec.links||[]).length; const isCompact=linkCount>6; let gridCols=isCompact?'grid-cols-3 gap-2':'grid-cols-2 gap-3'; let visibleLinks=sec.links||[]; let showExpandBtn=false; if(linkCount>9){showExpandBtn=true;if(!isExpanded)visibleLinks=visibleLinks.slice(0,9);} const card=document.createElement('div'); card.className='dynamic-section-card glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 relative xl:col-span-1'; card.id=`section-${sec.id}`; let linksHtml=''; if(!linkCount)linksHtml=`<div class="col-span-full text-center text-xs text-slate-400/60 py-4">${escapeHtml(t('noCloudLinks'))}</div>`; else {const pClass=isCompact?'p-2':'p-3'; const textSizeClass=isCompact?'text-[11px]':'text-sm'; visibleLinks.forEach((link,idx)=>{const displayName=getLocalizedLinkName(link.name,link.url); linksHtml+=`<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all"><div class="flex items-center w-full overflow-hidden"><a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer" class="truncate w-full"><span class="${textSizeClass} font-medium truncate">${escapeHtml(displayName)}</span></a></div><div class="admin-only absolute right-1 flex gap-1"><button type="button" class="text-sky-400 text-[10px]" aria-label="${escapeHtml(t('edit'))}: ${escapeHtml(displayName)}" onclick="editDynamicLink('${sec.id}',${idx})"><i class="fas fa-pen"></i></button><button type="button" class="text-red-400 text-[10px]" aria-label="${escapeHtml(t('delete'))}: ${escapeHtml(displayName)}" onclick="deleteSectionLink(event,'${sec.id}',${idx})"><i class="fas fa-trash"></i></button></div></div>`;});} let expandHtml=showExpandBtn?`<div class="mt-4 pt-2 border-t border-slate-500/10 text-center"><button type="button" onclick="toggleDynamicSectionExpand('${sec.id}')" class="text-xs font-semibold text-indigo-400">${isExpanded?t('collapseMore'):t('expandMore')} (${linkCount-9})</button></div>`:''; card.innerHTML=`<div class="flex justify-between items-center mb-4"><h3 class="text-lg font-semibold text-indigo-400 flex items-center"><i class="fas fa-layer-group mr-2.5"></i><span>${escapeHtml(sec.title)}</span></h3><div class="admin-only flex gap-1.5"><button type="button" onclick="openLinkModal('section_${sec.id}')" class="text-[10px] px-2 py-1 bg-indigo-600/20 text-indigo-400 rounded-md">${escapeHtml(t('addCloud'))}</button><button type="button" onclick="renameCustomSection('${sec.id}')" class="text-[10px] px-2 py-1 bg-sky-600/20 text-sky-400 rounded-md" aria-label="${escapeHtml(t('edit'))}"><i class="fas fa-pen"></i></button><button type="button" onclick="deleteCustomSection('${sec.id}')" class="text-[10px] px-2 py-1 bg-red-600/20 text-red-400 rounded-md" aria-label="${escapeHtml(t('delete'))}"><i class="fas fa-trash"></i></button></div></div><div class="grid ${gridCols}" style="min-height:40px;">${linksHtml}</div>${expandHtml}`; grid.insertBefore(card,addBtnCard); });
-        }
-        function editDynamicLink(secId,idx){const sec=(cloudConfig.dynamicSections||[]).find(s=>s.id===secId);const link=sec&&sec.links[idx];if(!link)return;editingLinkRef={dynamic:true,secId,idx};currentModalTarget='managed';document.getElementById('modal-title-text').innerText=t('edit');document.getElementById('site-name').value=link.name;document.getElementById('site-url').value=link.url;document.getElementById('modal-category-wrap').classList.add('hidden');document.getElementById('modal-subcategory-wrap').classList.add('hidden');toggleModal(true);}
-        function deleteSectionLink(e,secId,linkIdx){e.preventDefault();e.stopPropagation();if(!confirm(t('confirmDeleteSite')))return;let secs=cloudConfig.dynamicSections||[];const sec=secs.find(s=>s.id===secId);if(sec){sec.links.splice(linkIdx,1);saveDynamicSections(secs);}}
-
-        function saveDynamicSections(sections){ cloudConfig.dynamicSections=sections; updateCloudConfig('dynamicSections',sections); renderDynamicSections(); renderAdminPanel(); }
-        function addCustomSection(){ const title=prompt(t('promptSectionName')); if(!title||!title.trim())return; let secs=cloudConfig.dynamicSections||[]; secs.push({id:Date.now().toString(),title:title.trim(),links:[]}); saveDynamicSections(secs); }
-        function renameCustomSection(id){ let secs=cloudConfig.dynamicSections||[]; const sec=secs.find(s=>s.id===id); if(!sec)return; const newTitle=prompt(t('renameSectionPrompt'),sec.title); if(!newTitle||!newTitle.trim()||newTitle.trim()===sec.title)return; sec.title=newTitle.trim(); saveDynamicSections(secs); }
-        function deleteCustomSection(id){if(!confirm(t('delSectionConfirm')))return;cloudConfig.dynamicSections=(cloudConfig.dynamicSections||[]).filter(s=>s.id!==id);saveDynamicSections(cloudConfig.dynamicSections);}
-        function toggleDynamicSectionExpand(id){expandedDynamicSections[id]=!expandedDynamicSections[id];renderDynamicSections();}
+        function deleteSectionLink(e, secId, linkIdx) { e.preventDefault(); e.stopPropagation(); let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === secId); if (sec) { sec.links.splice(linkIdx, 1); saveDynamicSections(secs); } }
 
         const sTermNames = ["小寒","大寒","立春","雨水","惊蛰","春分","清明","谷雨","立夏","小满","芒种","夏至","小暑","大暑","立秋","处暑","白露","秋分","寒露","霜降","立冬","小雪","大雪","冬至"];
         const sTermInfo = [0,21208,42467,63836,85337,107014,128867,150921,173149,195551,218072,240693,263343,285989,308563,331033,353350,375494,397447,419210,440795,462224,483532,504758];
@@ -648,68 +1007,18 @@ v12升级：
         function toggleEngineMenu(e) { e.stopPropagation(); document.getElementById('engine-menu').classList.toggle('hidden'); }
         function selectEngine(key) { currentEngineKey = key; const form = document.getElementById('search-form'); const input = document.getElementById('search-input'); const icon = document.getElementById('engine-icon'); form.action = engines[key].action; input.name = engines[key].name; input.setAttribute('data-i18n-placeholder', engines[key].placeholderKey); input.placeholder = t(engines[key].placeholderKey); icon.className = engines[key].icon; document.getElementById('engine-menu').classList.add('hidden'); clearSiteSearchHighlights(); if (key === 'site') { form.setAttribute('target', '_self'); form.setAttribute('rel', ''); } else { form.setAttribute('target', '_blank'); form.setAttribute('rel', 'noopener noreferrer'); } }
 
-        function openLinkModal(target){ currentModalTarget=target; editingLinkRef=null; const textEl=document.getElementById('modal-title-text'); document.getElementById('modal-category-wrap').classList.add('hidden'); document.getElementById('modal-subcategory-wrap').classList.add('hidden'); document.getElementById('modal-section-name-wrap').classList.add('hidden'); if(target==='friend'){textEl.innerText=t('friendLinks');} else if(target==='custom'){textEl.innerText=t('modalAddCloud');} else if(target.startsWith('section_')){textEl.innerText=t('modalAddSection');} toggleModal(true); }
-        function toggleModal(show){const modal=document.getElementById('modal');if(show){document.getElementById('site-name').focus();}else{modal.classList.add('hidden');editingLinkRef=null;}if(show)modal.classList.remove('hidden');}
-        function closeModalOnBlank(e){if(e.target.id==='modal')toggleModal(false);}
-        async function saveActiveLink(){
-            let name=document.getElementById('site-name').value.trim(), url=document.getElementById('site-url').value.trim();
-            if(!name||!url)return alert(currentLang==='zh'?'请完整填写名称和网址！':'Please fill in both name and URL!');
-            if(!/^https?:\/\//i.test(url))url='https://'+url;
-            if(editingLinkRef&&editingLinkRef.custom){let links=[];try{const r=await fetch('/api/links',{cache:'no-store'});if(!r.ok)throw new Error();links=await r.json();}catch(e){return alert(t('cloudFail'));}links[editingLinkRef.index]={name,url};const sr=await fetch('/api/links',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(links)});if(!sr.ok)return alert(t('saveCloudFail'));loadCustomLinks();toggleModal(false);renderAdminPanel();return;}
-            if(editingLinkRef&&editingLinkRef.friend){cloudConfig.friendLinks[editingLinkRef.index]={name,url};await updateCloudConfig('friendLinks',cloudConfig.friendLinks);loadFriendLinks();toggleModal(false);renderAdminPanel();return;}
-            if(editingLinkRef&&editingLinkRef.dynamic){const secs=cloudConfig.dynamicSections||[];const sec=secs.find(s=>s.id===editingLinkRef.secId);if(sec&&sec.links[editingLinkRef.idx]){sec.links[editingLinkRef.idx]={name,url};await updateCloudConfig('dynamicSections',secs);renderDynamicSections();}toggleModal(false);renderAdminPanel();return;}
-            if(editingLinkRef){const oldCat=getCategoryById(editingLinkRef.catId);const selectedCatId=document.getElementById('site-category').value;const selectedGroupIdx=Number(document.getElementById('site-subcategory').value||0);if(oldCat&&oldCat.groups[editingLinkRef.groupIdx]){const [moved]=oldCat.groups[editingLinkRef.groupIdx].links.splice(editingLinkRef.linkIdx,1);const newCat=getCategoryById(selectedCatId);if(newCat){if(!newCat.groups[selectedGroupIdx])newCat.groups.push({title:'',titleClass:'',links:[]});newCat.groups[selectedGroupIdx].links.push(Object.assign({},moved,{name,url}));await saveManagedCategories();renderManagedCategories();}}}
-            else if(currentModalTarget==='managed'){const cat=getCategoryById(document.getElementById('site-category').value);const gi=Number(document.getElementById('site-subcategory').value||0);if(cat){if(!cat.groups[gi])cat.groups.push({title:'',titleClass:'',links:[]});cat.groups[gi].links.push({name,url,layout:'pill',dotClass:'link-dot bg-indigo-400'});await saveManagedCategories();renderManagedCategories();}}
-            else if(currentModalTarget.startsWith('section_')){const secId=currentModalTarget.replace('section_','');const sec=(cloudConfig.dynamicSections||[]).find(s=>s.id===secId);if(sec){sec.links.push({name,url});await updateCloudConfig('dynamicSections',cloudConfig.dynamicSections);renderDynamicSections();}}
-            else if(currentModalTarget==='friend'){let links=Array.isArray(cloudConfig.friendLinks)?cloudConfig.friendLinks:[];links.push({name,url});await updateCloudConfig('friendLinks',links);loadFriendLinks();}
-            else {let links=[];try{const res=await fetch('/api/links',{cache:'no-store'});if(!res.ok)throw new Error();links=await res.json();}catch(e){return alert(t('saveCloudFail'));}links.push({name,url});const save=await fetch('/api/links',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(links)});if(!save.ok)return alert(t('saveCloudFail'));loadCustomLinks();}
-            toggleModal(false);renderAdminPanel();
-        }
+        function openLinkModal(target) { currentModalTarget = target; const textEl = document.getElementById('modal-title-text'); if (target === 'friend') textEl.innerText = t('modalAddFriend'); else if (target === 'custom') textEl.innerText = t('modalAddCloud'); else textEl.innerText = t('modalAddSection'); toggleModal(true); }
+        function toggleModal(show) { const modal = document.getElementById('modal'); if (show) { document.getElementById('site-name').value = ''; document.getElementById('site-url').value = ''; modal.classList.remove('hidden'); } else { modal.classList.add('hidden'); } }
+        function closeModalOnBlank(e) { if (e.target.id === 'modal') toggleModal(false); }
 
-        async function loadCustomLinks(){
-            const container=document.getElementById('custom-links-container'), actionWrapper=document.getElementById('expand-action-wrapper'); if(!container)return; container.innerHTML=`<div class="col-span-full text-center text-xs text-slate-400/60 py-10"><i class="fas fa-spinner fa-spin" aria-hidden="true"></i> ${escapeHtml(t('loadingCloud'))}</div>`; let links=[];
-            try{const res=await fetch('/api/links',{cache:'no-store'});if(!res.ok)throw new Error();links=await res.json();setAdminCloudStatus(true);}catch(e){container.innerHTML=`<div class="col-span-full text-center text-xs text-rose-400/80 py-10">${escapeHtml(t('cloudFail'))}</div>`;actionWrapper.classList.add('hidden');return;}
-            container.innerHTML='';if(!links.length){container.innerHTML=`<div class="col-span-full text-center text-xs text-slate-400/60 py-10">${escapeHtml(t('noCloudLinks'))}</div>`;actionWrapper.classList.add('hidden');container.className='grid grid-cols-2 gap-3';return;}
-            const isCompact=links.length>6;container.className=isCompact?'grid grid-cols-3 gap-2':'grid grid-cols-2 gap-3';let visibleLinks=links,showExpandBtn=false;if(links.length>9){showExpandBtn=true;if(!isCustomLinksExpanded)visibleLinks=links.slice(0,9);}const pClass=isCompact?'p-2':'p-3',spaceXClass=isCompact?'space-x-1.5':'space-x-2.5',iconSizeClass=isCompact?'w-4 h-4 text-[9px]':'w-5 h-5 text-[10px]',imgSizeClass=isCompact?'w-4 h-4':'w-5 h-5',textSizeClass=isCompact?'text-[11px]':'text-sm',prClass=isCompact?'pr-4':'pr-5';
-            visibleLinks.forEach((item,index)=>{const displayName=getLocalizedLinkName(item.name,item.url);let displayIcon=`<div class="${iconSizeClass} rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">${escapeHtml(displayName.charAt(0).toUpperCase())}</div>`;try{if(item.url)displayIcon=`<img src="https://unavatar.io/duckduckgo/${encodeURIComponent(new URL(item.url).hostname)}" draggable="false" onerror="this.style.display='none'" class="${imgSizeClass} rounded object-contain shrink-0" alt="${escapeHtml(displayName)} 网站图标"/>`;}catch(e){}container.innerHTML+=`<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all"><div class="flex items-center w-full overflow-hidden"><a href="${escapeHtml(item.url)}" draggable="false" target="_blank" rel="noopener noreferrer" class="flex items-center ${spaceXClass} truncate w-full ${prClass}">${displayIcon}<span class="${textSizeClass} font-medium truncate">${escapeHtml(displayName)}</span></a></div><div class="admin-only absolute right-1 flex gap-1"><button type="button" onclick="editCustomLink(event,${index})" class="text-sky-400 text-[10px]" aria-label="${escapeHtml(t('edit'))}: ${escapeHtml(displayName)}"><i class="fas fa-pen"></i></button><button type="button" onclick="deleteCustomLink(event,${index})" class="text-red-400 text-[10px]" aria-label="${escapeHtml(t('delete'))}: ${escapeHtml(displayName)}"><i class="fas fa-trash"></i></button></div></div>`;});if(showExpandBtn){actionWrapper.classList.remove('hidden');document.getElementById('expand-btn').innerHTML=isCustomLinksExpanded?`<span>${escapeHtml(t('collapseMore'))}</span>`:`<span>${escapeHtml(t('expandMore'))}</span> (${links.length-9})`;}else actionWrapper.classList.add('hidden');
-        }
-        function toggleExpandCustomLinks(){isCustomLinksExpanded=!isCustomLinksExpanded;loadCustomLinks();}
-        async function editCustomLink(e,index){e.preventDefault();e.stopPropagation();if(!isAdminAuthenticated())return;let links=[];try{const r=await fetch('/api/links',{cache:'no-store'});if(!r.ok)throw new Error();links=await r.json();}catch(err){return alert(t('cloudFail'));}const l=links[index];if(!l)return;editingLinkRef={custom:true,index};currentModalTarget='custom';document.getElementById('modal-title-text').innerText=t('edit');document.getElementById('site-name').value=l.name;document.getElementById('site-url').value=l.url;toggleModal(true);}
-        async function deleteCustomLink(e,index){e.preventDefault();e.stopPropagation();if(!isAdminAuthenticated()||!confirm(t('confirmDeleteSite')))return;let links=[];try{const r=await fetch('/api/links',{cache:'no-store'});if(!r.ok)throw new Error();links=await r.json();}catch(err){return alert(t('cloudFail'));}links.splice(index,1);const save=await fetch('/api/links',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(links)});if(!save.ok)return alert(t('saveCloudFail'));loadCustomLinks();renderAdminPanel();}
+        async function saveActiveLink() { const name = document.getElementById('site-name').value.trim(); let url = document.getElementById('site-url').value.trim(); if (!name || !url) return alert(currentLang === 'zh' ? '请完整填写名称和网址！' : 'Please fill in both name and URL!'); if (!/^https?:\/\//i.test(url)) url = 'https://' + url; if (currentModalTarget.startsWith('section_')) { const secId = currentModalTarget.replace('section_', ''); let secs = cloudConfig.dynamicSections || []; const sec = secs.find(s => s.id === secId); if (sec) { sec.links.push({ name, url }); saveDynamicSections(secs); } } else if (currentModalTarget === 'friend') { let links = JSON.parse(localStorage.getItem('nav_friend_links') || '[]'); links.push({ name, url }); localStorage.setItem('nav_friend_links', JSON.stringify(links)); loadFriendLinks(); } else { try { const res = await fetch('/api/links'); let links = res.ok ? await res.json() : JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.push({ name, url }); await fetch('/api/links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(links) }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); loadCustomLinks(); } catch (error) { const links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.push({ name, url }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); loadCustomLinks(); } } toggleModal(false); }
 
-        async function loadFriendLinks(){const container=document.getElementById('friend-links-container');if(!container)return;const links=Array.isArray(cloudConfig.friendLinks)?cloudConfig.friendLinks:[];container.innerHTML='';if(!links.length){container.innerHTML=`<div class="col-span-full text-center text-xs text-slate-400/60 py-4">${escapeHtml(t('noCloudLinks'))}</div>`;return;}links.forEach((item,index)=>{const displayName=getLocalizedLinkName(item.name,item.url);container.innerHTML+=`<div class="group relative flex items-center justify-between p-2.5 bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-emerald-600/10 transition-all text-center"><a href="${escapeHtml(item.url)}" draggable="false" target="_blank" rel="noopener noreferrer" class="w-full text-xs font-medium text-slate-400 hover:text-emerald-400 transition-colors truncate px-2">${escapeHtml(displayName)}</a><div class="admin-only absolute right-1 flex gap-1"><button type="button" onclick="editFriendLink(event,${index})" class="text-sky-400 text-[10px]" aria-label="${escapeHtml(t('edit'))}: ${escapeHtml(displayName)}"><i class="fas fa-pen"></i></button><button type="button" onclick="deleteFriendLink(event,${index})" class="text-red-400 text-[10px]" aria-label="${escapeHtml(t('delete'))}: ${escapeHtml(displayName)}"><i class="fas fa-trash"></i></button></div></div>`;});}
-        function editFriendLink(e,index){e.preventDefault();e.stopPropagation();const l=(cloudConfig.friendLinks||[])[index];if(!l)return;editingLinkRef={friend:true,index};currentModalTarget='friend';document.getElementById('modal-title-text').innerText=t('edit');document.getElementById('site-name').value=l.name;document.getElementById('site-url').value=l.url;toggleModal(true);}
-        async function deleteFriendLink(e,index){e.preventDefault();e.stopPropagation();if(!confirm(t('confirmDeleteSite')))return;cloudConfig.friendLinks.splice(index,1);await updateCloudConfig('friendLinks',cloudConfig.friendLinks);loadFriendLinks();renderAdminPanel();}
+        async function loadCustomLinks() { const container = document.getElementById('custom-links-container'); const actionWrapper = document.getElementById('expand-action-wrapper'); container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-400/60 py-10"><i class="fas fa-spinner fa-spin"></i> ${t('loadingCloud')}</div>`; let links = []; try { const res = await fetch('/api/links'); if (res.ok) links = await res.json(); else throw new Error(); } catch (e) { links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); } container.innerHTML = ''; if (links.length === 0) { container.innerHTML = `<div class="col-span-full text-center text-xs text-slate-400/60 py-10">${t('noCloudLinks')}</div>`; actionWrapper.classList.add('hidden'); container.className = 'grid grid-cols-2 gap-3'; return; } const isCompact = links.length > 6; container.className = isCompact ? 'grid grid-cols-3 gap-2' : 'grid grid-cols-2 gap-3'; let visibleLinks = links; let showExpandBtn = false; if (links.length > 9) { showExpandBtn = true; if (!isCustomLinksExpanded) visibleLinks = links.slice(0, 9); } const pClass = isCompact ? 'p-2' : 'p-3'; const spaceXClass = isCompact ? 'space-x-1.5' : 'space-x-2.5'; const iconSizeClass = isCompact ? 'w-4 h-4 text-[9px]' : 'w-5 h-5 text-[10px]'; const imgSizeClass = isCompact ? 'w-4 h-4' : 'w-5 h-5'; const textSizeClass = isCompact ? 'text-[11px]' : 'text-sm'; const prClass = isCompact ? 'pr-4' : 'pr-5'; visibleLinks.forEach((item, index) => { const displayName = getLocalizedLinkName(item.name, item.url); let displayIcon = `<div class="${iconSizeClass} rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold shrink-0">${displayName.charAt(0).toUpperCase()}</div>`; try { if (item.url) displayIcon = `<img src="https://unavatar.io/duckduckgo/${new URL(item.url).hostname}" draggable="false" onerror="this.style.display='none'" class="${imgSizeClass} rounded object-contain shrink-0" alt="网站图标" />`; } catch (err) {} container.innerHTML += `<div class="group relative flex items-center justify-between ${pClass} bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-indigo-600/10 transition-all"><div class="flex items-center w-full overflow-hidden"><a href="${item.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="flex items-center ${spaceXClass} truncate w-full ${prClass}">${displayIcon} <span class="${textSizeClass} font-medium truncate">${displayName}</span></a></div><button type="button" onclick="deleteCustomLink(event, ${index})" class="admin-only absolute right-2 text-xs p-1 text-slate-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/20 rounded cursor-pointer shrink-0"><i class="fas fa-trash-alt" aria-hidden="true"></i><span class="sr-only">删除</span></button></div>`; }); if (showExpandBtn) { actionWrapper.classList.remove('hidden'); const btn = document.getElementById('expand-btn'); btn.innerHTML = isCustomLinksExpanded ? `<span data-i18n="collapseMore">${t('collapseMore')}</span> <i class="fas fa-chevron-up text-[10px]"></i>` : `<span data-i18n="expandMore">${t('expandMore')}</span> (${links.length - 9}) <i class="fas fa-chevron-down text-[10px]"></i>`; } else { actionWrapper.classList.add('hidden'); } }
+        function toggleExpandCustomLinks() { isCustomLinksExpanded = !isCustomLinksExpanded; loadCustomLinks(); }
+        async function deleteCustomLink(e, index) { e.preventDefault(); e.stopPropagation(); if (!confirm(t('delConfirm'))) return; try { const res = await fetch('/api/links'); let links = res.ok ? await res.json() : JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.splice(index, 1); await fetch('/api/links', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(links) }); localStorage.setItem('nav_custom_links', JSON.stringify(links)); if (links.length <= 9) isCustomLinksExpanded = false; loadCustomLinks(); } catch (error) { const links = JSON.parse(localStorage.getItem('nav_custom_links') || '[]'); links.splice(index, 1); localStorage.setItem('nav_custom_links', JSON.stringify(links)); if (links.length <= 9) isCustomLinksExpanded = false; loadCustomLinks(); } }
 
-        function flattenCloudSites(){
-            const rows=[];
-            getManagedCategories().forEach(cat=>(cat.groups||[]).forEach((g,gi)=>(g.links||[]).forEach((l,li)=>rows.push({type:'managed',catId:cat.id,groupIdx:gi,linkIdx:li,category:cat.title,subcategory:g.title||'',name:l.name,url:l.url,status:(cloudConfig.linkStatuses||{})[l.url]||'unknown'}))));
-            (cloudConfig.dynamicSections||[]).forEach(sec=>(sec.links||[]).forEach((l,i)=>rows.push({type:'dynamic',secId:sec.id,linkIdx:i,category:sec.title,subcategory:'',name:l.name,url:l.url,status:(cloudConfig.linkStatuses||{})[l.url]||'unknown'})));
-            (cloudConfig.friendLinks||[]).forEach((l,i)=>rows.push({type:'friend',linkIdx:i,category:t('friendLinks'),subcategory:'',name:l.name,url:l.url,status:(cloudConfig.linkStatuses||{})[l.url]||'unknown'}));
-            return rows;
-        }
-        async function getCustomCloudLinks(){try{const r=await fetch('/api/links',{cache:'no-store'});if(!r.ok)throw new Error();return await r.json();}catch(e){return [];}}
-
-        async function renderAdminPanel(){
-            const box=document.getElementById('v14-admin-sites'); if(!box)return;
-            const rows=flattenCloudSites();
-            const custom=await getCustomCloudLinks();
-            custom.forEach((l,i)=>rows.push({type:'custom',linkIdx:i,category:t('cardCustom'),subcategory:'',name:l.name,url:l.url,status:(cloudConfig.linkStatuses||{})[l.url]||'unknown'}));
-            const summary=document.getElementById('v14-admin-summary'); if(summary)summary.innerHTML=`<span>${escapeHtml(t('cloudSync'))}：</span><span id="admin-cloud-status" class="text-emerald-400 text-xs">${escapeHtml(t('cloudReady'))}</span> · ${rows.length} 个网址`;
-            box.innerHTML=rows.length?rows.map((s,i)=>`<div class="v14-admin-row"><div class="min-w-0"><strong>${escapeHtml(s.name)}</strong><div class="text-[11px] text-slate-400 truncate">${escapeHtml(s.category)}${s.subcategory?' / '+escapeHtml(s.subcategory):''}</div><small class="text-slate-500 break-all">${escapeHtml(s.url)}</small></div><div class="flex gap-1.5 items-center shrink-0"><span class="${s.status==='bad'?'v14-bad':s.status==='good'?'v14-good':'text-slate-400'} text-[11px]">${s.status==='bad'?escapeHtml(t('unreachable')):s.status==='good'?escapeHtml(t('reachable')):escapeHtml(t('unknown'))}</span><button type="button" class="text-sky-400" onclick="adminEditRow(${i})" aria-label="${escapeHtml(t('edit'))}: ${escapeHtml(s.name)}"><i class="fas fa-pen"></i></button><button type="button" class="text-red-400" onclick="adminDeleteRow(${i})" aria-label="${escapeHtml(t('delete'))}: ${escapeHtml(s.name)}"><i class="fas fa-trash"></i></button></div></div>`).join(''):`<div class="text-sm text-slate-400 p-4">${escapeHtml(t('noSites'))}</div>`;
-            const catsBox=document.getElementById('v14-admin-categories'); if(catsBox){const cats=getManagedCategories();catsBox.innerHTML=cats.map(c=>`<div class="v14-admin-row"><div><strong>${escapeHtml(c.title)}</strong><div class="text-[11px] text-slate-500">${(c.groups||[]).reduce((n,g)=>n+(g.links||[]).length,0)} 个网址 · ${(c.groups||[]).length} 个子分类</div></div><div class="flex gap-2"><button type="button" class="text-emerald-400" onclick="addSubcategory('${c.id}')">子分类+</button><button type="button" class="text-sky-400" onclick="editCategory('${c.id}')">${escapeHtml(t('edit'))}</button><button type="button" class="text-red-400" onclick="deleteCategory('${c.id}')">${escapeHtml(t('delete'))}</button></div></div>`).join('')||`<div class="p-4 text-sm text-slate-400">${escapeHtml(t('noCategories'))}</div>`;}
-            const check=document.getElementById('v14-check-results');if(check)check.innerHTML=rows.map(s=>`<div class="v14-admin-row"><div><strong>${escapeHtml(s.name)}</strong><div class="text-[11px] text-slate-500">${escapeHtml(s.url)}</div></div><span class="${s.status==='bad'?'v14-bad':s.status==='good'?'v14-good':'text-slate-400'}">${s.status==='bad'?escapeHtml(t('unreachable')):s.status==='good'?escapeHtml(t('reachable')):escapeHtml(t('unknown'))}</span></div>`).join('')||`<div class="p-4 text-sm text-slate-400">${escapeHtml(t('noSites'))}</div>`;
-        }
-        async function adminEditRow(i){const rows=flattenCloudSites();const custom=await getCustomCloudLinks();custom.forEach((l,idx)=>rows.push({type:'custom',linkIdx:idx,name:l.name,url:l.url}));const s=rows[i];if(!s)return;if(s.type==='managed')editManagedLink(s.catId,0,s.groupIdx,s.linkIdx);else if(s.type==='dynamic')editDynamicLink(s.secId,s.linkIdx);else if(s.type==='friend')editFriendLink({preventDefault(){},stopPropagation(){}},s.linkIdx);else editCustomLink({preventDefault(){},stopPropagation(){}},s.linkIdx);}
-        async function adminDeleteRow(i){const rows=flattenCloudSites();const custom=await getCustomCloudLinks();custom.forEach((l,idx)=>rows.push({type:'custom',linkIdx:idx,name:l.name,url:l.url}));const s=rows[i];if(!s)return;if(s.type==='managed')deleteManagedLink(s.catId,s.groupIdx,s.linkIdx);else if(s.type==='dynamic')deleteSectionLink({preventDefault(){},stopPropagation(){}},s.secId,s.linkIdx);else if(s.type==='friend')deleteFriendLink({preventDefault(){},stopPropagation(){}},s.linkIdx);else deleteCustomLink({preventDefault(){},stopPropagation(){}},s.linkIdx);}
-        async function v14ScanSites(){
-            if(!isAdminAuthenticated())return; const rows=flattenCloudSites(); const custom=await getCustomCloudLinks();custom.forEach(l=>rows.push({type:'custom',name:l.name,url:l.url,status:(cloudConfig.linkStatuses||{})[l.url]||'unknown'})); const status=cloudConfig.linkStatuses||{};
-            for(const s of rows){status[s.url]='checking';renderAdminPanel();try{await fetch(s.url,{method:'HEAD',mode:'no-cors',cache:'no-store'});status[s.url]='good';}catch(e){status[s.url]='bad';}cloudConfig.linkStatuses=status;}
-            await updateCloudConfig('linkStatuses',status);renderAdminPanel();
-        }
-        async function removeBadSites(){const bad=flattenCloudSites().filter(s=>s.status==='bad');const custom=await getCustomCloudLinks();custom.forEach((l,i)=>{if((cloudConfig.linkStatuses||{})[l.url]==='bad')bad.push({type:'custom',linkIdx:i,name:l.name,url:l.url});});if(!bad.length)return alert('当前没有检测为无法连接的网址。');if(!confirm(`${t('removeBad')}：${bad.length}？`))return;const managedByCat={};bad.slice().reverse().forEach(s=>{if(s.type==='managed'){const c=getCategoryById(s.catId);if(c&&c.groups[s.groupIdx])c.groups[s.groupIdx].links.splice(s.linkIdx,1);}else if(s.type==='dynamic'){const sec=(cloudConfig.dynamicSections||[]).find(x=>x.id===s.secId);if(sec)sec.links.splice(s.linkIdx,1);}else if(s.type==='friend'){cloudConfig.friendLinks.splice(s.linkIdx,1);}});await saveManagedCategories();await updateCloudConfig('dynamicSections',cloudConfig.dynamicSections);await updateCloudConfig('friendLinks',cloudConfig.friendLinks);for(const s of bad.filter(x=>x.type==='custom').sort((a,b)=>b.linkIdx-a.linkIdx)){let links=await getCustomCloudLinks();links.splice(s.linkIdx,1);await fetch('/api/links',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(links)});}renderManagedCategories();renderDynamicSections();loadFriendLinks();loadCustomLinks();renderAdminPanel();}
-        function showAdminTab(tab){adminPanelTab=tab;document.querySelectorAll('.v14-tab-panel').forEach(el=>el.classList.add('hidden'));const el=document.getElementById('v14-tab-'+tab);if(el)el.classList.remove('hidden');document.querySelectorAll('.v14-admin-tab').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===tab?'true':'false'));renderAdminPanel();}
-        function addAdminSite(){if(!getManagedCategories().length)return addManagedCategory();openManagedLinkModal(getManagedCategories()[0].id,0);}
+        function loadFriendLinks() { const container = document.getElementById('friend-links-container'); let linksStr = localStorage.getItem('nav_friend_links'); let links = linksStr ? JSON.parse(linksStr) : []; container.innerHTML = ''; if (links.length === 0) { links = [{ name: "IT头条博客", url: "https://it-toutiao.blogspot.com" }, { name: "科技共享导航", url: "https://kjgx.168668520.xyz" }]; } links.forEach((item, index) => { const displayName = getLocalizedLinkName(item.name, item.url); container.innerHTML += `<div class="group relative flex items-center justify-between p-2.5 bg-slate-500/5 border border-slate-500/10 rounded-xl hover:bg-emerald-600/10 transition-all text-center"><a href="${item.url}" draggable="false" target="_blank" rel="noopener noreferrer" class="w-full text-xs font-medium text-slate-400 hover:text-emerald-400 transition-colors truncate px-2">${displayName}</a><button type="button" onclick="deleteFriendLink(event, ${index})" class="admin-only absolute right-1 text-[10px] text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-500/10 px-1 rounded cursor-pointer"><i class="fas fa-times"></i></button></div>`; }); }
+        function deleteFriendLink(e, index) { e.preventDefault(); e.stopPropagation(); let linksStr = localStorage.getItem('nav_friend_links'); let links = linksStr ? JSON.parse(linksStr) : []; if (links.length === 0) { links = [{ name: "IT头条博客", url: "https://it-toutiao.blogspot.com" }, { name: "科技共享导航", url: "https://kjgx.168668520.xyz" }]; } links.splice(index, 1); localStorage.setItem('nav_friend_links', JSON.stringify(links)); loadFriendLinks(); }
 
         function clearSiteSearchHighlights() { document.querySelectorAll('.site-search-highlight').forEach(el => { el.classList.remove('site-search-highlight'); el.style.outline = ''; el.style.outlineOffset = ''; el.style.backgroundColor = ''; el.style.borderRadius = ''; }); } document.getElementById('search-form').addEventListener('submit', function(e) { 
             if (currentEngineKey === 'site') { 
@@ -737,26 +1046,68 @@ v12升级：
         checkAdminSession(); document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en'; applyLanguage(); updateClockAndGreeting(); fetchWeather(); initCloudData();
     </script>
 
-<!-- v14 全站云端后台管理面板 -->
+<!-- v14 后台管理面板升级 -->
 <style>
-#v14-admin-panel{display:none;position:fixed;inset:5rem 1rem 1rem;z-index:200;background:rgba(15,23,42,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(99,102,241,.25);border-radius:20px;overflow:auto;padding:20px;color:#fff;max-width:1100px;margin-left:auto;box-shadow:0 25px 70px rgba(0,0,0,.45)}
+#v14-admin-panel{display:none;position:fixed;inset:5rem 1rem 1rem;z-index:200;background:rgba(15,23,42,.96);backdrop-filter:blur(16px);border:1px solid rgba(99,102,241,.25);border-radius:20px;overflow:auto;padding:20px;color:#fff}
 body.is-admin #v14-admin-panel{display:block}
-body.is-admin #v14-admin-panel.hidden{display:none!important}
-.v14-admin-row{display:flex;justify-content:space-between;gap:12px;padding:12px;border-bottom:1px solid rgba(148,163,184,.15);font-size:13px;align-items:center}
-.v14-bad{color:#fb7185}.v14-good{color:#34d399}.v14-admin-tab[aria-selected="true"]{background:rgba(99,102,241,.35);color:#fff}
-@media(max-width:640px){#v14-admin-panel{inset:4.5rem .5rem .5rem;padding:14px}.v14-admin-row{align-items:flex-start;flex-direction:column}.v14-admin-row>div:last-child{width:100%;justify-content:flex-end;display:flex}}
+.v14-admin-row{display:flex;justify-content:space-between;gap:10px;padding:10px;border-bottom:1px solid rgba(148,163,184,.15);font-size:13px}
+.v14-bad{color:#fb7185}.v14-good{color:#34d399}
+
+/* v16 cloud admin center */
+#v16-admin-panel{display:none;position:fixed;inset:4.5rem .75rem .75rem;z-index:260;background:rgba(15,23,42,.98);backdrop-filter:blur(18px);border:1px solid rgba(99,102,241,.28);border-radius:20px;overflow:auto;padding:18px;color:#fff;box-shadow:0 24px 80px rgba(0,0,0,.45)}
+body.is-admin #v16-admin-panel{display:block}
+.v16-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.v16-tab{min-height:44px;padding:8px 12px;border-radius:10px;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.12);color:#cbd5e1}.v16-tab[aria-selected="true"]{background:rgba(99,102,241,.22);border-color:rgba(99,102,241,.45);color:#c7d2fe}.v16-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}.v16-stat{padding:12px;border:1px solid rgba(148,163,184,.12);border-radius:12px;background:rgba(148,163,184,.05)}.v16-list{display:flex;flex-direction:column;gap:8px}.v16-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px;border:1px solid rgba(148,163,184,.12);border-radius:12px;background:rgba(148,163,184,.04)}.v16-row.drag-over{border-color:#818cf8;background:rgba(99,102,241,.12)}.v16-row input[type=checkbox]{width:20px;height:20px}.v16-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.v16-btn{min-height:40px;padding:7px 10px;border-radius:9px;border:1px solid rgba(148,163,184,.15);background:rgba(148,163,184,.08);color:#e2e8f0}.v16-btn:hover{background:rgba(99,102,241,.18)}.v16-danger{color:#fda4af}.v16-good{color:#86efac}.v16-muted{color:#94a3b8;font-size:12px}.v16-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.v16-toolbar input,.v16-toolbar select{min-height:42px;border-radius:9px;background:#0f172a;border:1px solid #334155;color:#e2e8f0;padding:7px 10px}.v16-hidden{display:none!important}.v16-disabled-link{display:none!important}@media(max-width:700px){#v16-admin-panel{inset:3.8rem .35rem .35rem;padding:12px}.v16-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.v16-row{grid-template-columns:32px minmax(0,1fr)}.v16-actions{grid-column:2;justify-content:flex-start}.v16-toolbar>*{width:100%}}
 </style>
-<div id="v14-admin-panel" role="dialog" aria-modal="false" aria-labelledby="v14-admin-title">
-<div class="flex items-center justify-between gap-3 mb-4"><div><h2 id="v14-admin-title" class="text-xl font-bold">后台管理中心</h2><p class="text-xs text-slate-400 mt-1">分类、网址、有效性检测全部通过云端配置同步</p></div><button type="button" onclick="document.getElementById('v14-admin-panel').classList.add('hidden');" class="text-slate-400 hover:text-white" aria-label="关闭后台管理面板"><i class="fas fa-xmark" aria-hidden="true"></i></button></div>
-<div class="flex gap-2 mb-4 flex-wrap" role="tablist" aria-label="后台管理功能">
-<button type="button" class="v14-admin-tab px-3 py-2 rounded-lg bg-slate-700 text-xs" data-tab="sites" aria-selected="true" role="tab" onclick="showAdminTab('sites')">网址管理</button>
-<button type="button" class="v14-admin-tab px-3 py-2 rounded-lg bg-slate-700 text-xs" data-tab="cats" aria-selected="false" role="tab" onclick="showAdminTab('cats')">分类管理</button>
-<button type="button" class="v14-admin-tab px-3 py-2 rounded-lg bg-slate-700 text-xs" data-tab="check" aria-selected="false" role="tab" onclick="showAdminTab('check')">有效性检测</button>
+
+<div id="v16-admin-panel" role="dialog" aria-modal="false" aria-labelledby="v16-title">
+<div class="flex items-center justify-between gap-3 mb-3"><div><h2 id="v16-title" class="text-xl font-bold">云端后台管理中心 · v16</h2><p id="v16-sync" class="v16-muted mt-1" aria-live="polite">云端数据初始化中…</p></div><button type="button" class="v16-btn" onclick="v16Close()" aria-label="关闭后台管理中心">关闭</button></div>
+<div class="v16-tabs" role="tablist" aria-label="后台管理模块"><button class="v16-tab" role="tab" aria-selected="true" onclick="v16Tab('sites',this)">网址管理</button><button class="v16-tab" role="tab" aria-selected="false" onclick="v16Tab('cats',this)">分类管理</button><button class="v16-tab" role="tab" aria-selected="false" onclick="v16Tab('trash',this)">云端回收站</button></div>
+<div id="v16-stats" class="v16-grid"></div>
+<section id="v16-sites-tab" role="tabpanel"><div class="v16-toolbar"><input id="v16-search" type="search" placeholder="搜索网站名称或网址" aria-label="搜索网站名称或网址" oninput="v16RenderSites()"><select id="v16-cat-filter" aria-label="按分类筛选" onchange="v16RenderSites()"></select><select id="v16-status-filter" aria-label="按状态筛选" onchange="v16RenderSites()"><option value="">全部状态</option><option value="active">启用</option><option value="disabled">停用</option></select><button class="v16-btn" onclick="v16AddSite()">新增网站</button><button class="v16-btn" onclick="v16Batch('enable')">批量启用</button><button class="v16-btn" onclick="v16Batch('disable')">批量停用</button><button class="v16-btn v16-danger" onclick="v16Batch('trash')">批量删除</button></div><div class="v16-toolbar"><button class="v16-btn" onclick="v16SelectAll(true)">全选当前</button><button class="v16-btn" onclick="v16SelectAll(false)">取消全选</button><button class="v16-btn" onclick="v16MoveSelected()">批量移动分类</button></div><div id="v16-sites-list" class="v16-list"></div></section>
+<section id="v16-cats-tab" class="v16-hidden" role="tabpanel"><div class="v16-toolbar"><button class="v16-btn" onclick="v16AddCategory()">新增分类</button></div><div id="v16-cats-list" class="v16-list"></div></section>
+<section id="v16-trash-tab" class="v16-hidden" role="tabpanel"><div class="v16-toolbar"><button class="v16-btn" onclick="v16RestoreSelected()">批量恢复</button><button class="v16-btn v16-danger" onclick="v16PurgeSelected()">永久删除选中</button><button class="v16-btn v16-danger" onclick="v16EmptyTrash()">清空回收站</button></div><div id="v16-trash-list" class="v16-list"></div></section>
 </div>
-<div id="v14-tab-sites" class="v14-tab-panel"><div class="flex gap-2 mb-4 flex-wrap"><button type="button" onclick="addAdminSite()" class="px-3 py-2 rounded-lg bg-indigo-600 text-xs">新增网站</button><button type="button" onclick="renderAdminPanel()" class="px-3 py-2 rounded-lg bg-slate-700 text-xs">刷新列表</button></div><div id="v14-admin-summary" class="mb-3 text-sm"></div><div id="v14-admin-sites"></div></div>
-<div id="v14-tab-cats" class="v14-tab-panel hidden"><div class="flex gap-2 mb-4"><button type="button" onclick="addManagedCategory()" class="px-3 py-2 rounded-lg bg-indigo-600 text-xs">新增分类</button></div><div id="v14-admin-categories"></div></div>
-<div id="v14-tab-check" class="v14-tab-panel hidden"><div class="flex gap-2 mb-4 flex-wrap"><button type="button" onclick="v14ScanSites()" class="px-3 py-2 rounded-lg bg-indigo-600 text-xs">检测全部网址</button><button type="button" onclick="removeBadSites()" class="px-3 py-2 rounded-lg bg-red-700 text-xs">删除失效网址</button></div><p class="text-xs text-slate-400 mb-3">检测采用浏览器网络层探测；部分站点会因跨域/防火墙无法返回 HTTP 状态，因此“可达”代表网络请求成功，“无法连接”代表请求失败。</p><div id="v14-check-results"></div></div>
+<div id="v14-admin-panel">
+<h2 class="text-xl font-bold mb-4">后台管理中心</h2>
+<div class="flex gap-2 mb-4 flex-wrap">
+<button onclick="v14ScanSites()" class="px-3 py-2 rounded-lg bg-indigo-600">检测全部网站</button>
+<button onclick="v14RenderAdmin()" class="px-3 py-2 rounded-lg bg-slate-700">刷新列表</button>
 </div>
+<div id="v14-admin-summary" class="mb-3 text-sm"></div>
+<div id="v14-admin-sites"></div>
+</div>
+<script>
+function v14GetSites(){
+ const map=new Map();
+ document.querySelectorAll('a[href^="http"]').forEach(a=>{if(!map.has(a.href))map.set(a.href,{name:a.textContent.trim()||a.href,url:a.href});});
+ return [...map.values()];
+}
+function v14RenderAdmin(){
+ const box=document.getElementById('v14-admin-sites'); if(!box)return;
+ let sites=JSON.parse(localStorage.getItem('v14_site_status')||'[]');
+ if(!sites.length) sites=v14GetSites();
+ sites.sort((a,b)=>(a.status==='bad'?0:1)-(b.status==='bad'?0:1));
+ box.innerHTML=sites.map(s=>`<div class="v14-admin-row"><span>${s.name}<br><small>${s.url}</small></span><span class="${s.status==='bad'?'v14-bad':'v14-good'}">${s.status==='bad'?'异常':'正常'}</span></div>`).join('');
+ document.getElementById('v14-admin-summary').innerText='网站数量：'+sites.length+'  异常优先排序';
+}
+async function v14ScanSites(){
+ let sites=v14GetSites();
+ for(const s of sites){
+  s.status='checking';
+  try{
+   await fetch(s.url,{mode:'no-cors',cache:'no-store'});s.status='good';
+  }catch(e){s.status='bad';}
+ }
+ localStorage.setItem('v14_site_status',JSON.stringify(sites));
+ v14RenderAdmin();
+}
+const oldCheckAdminSession=window.checkAdminSession;
+window.checkAdminSession=function(){
+ if(oldCheckAdminSession) oldCheckAdminSession();
+ setTimeout(v14RenderAdmin,500);
+}
+</script>
+
 <script>
 /* v14 无障碍第二轮优化：动态内容辅助识别 */
 (function(){
@@ -859,5 +1210,99 @@ body.is-admin #v14-admin-panel.hidden{display:none!important}
 })();
 </script>
 
+\n<script>
+/* v16 cloud content management */
+(function(){
+let D={version:16,categories:[],trash:[]}; let selected=new Set(); let dragSiteId=null, dragCatId=null;
+const uid=p=>p+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const msg=x=>{const e=document.getElementById('v16-sync');if(e)e.textContent=x};
+async function save(){cloudConfig.cloudNavData=D;try{const r=await fetch('/api/config',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(cloudConfig)});if(!r.ok)throw Error(r.status);msg('☁️ 已同步到云端');return true}catch(e){msg('❌ 云端同步失败，未将本地修改视为成功');console.error(e);return false}}
+function seed(){const cats=[];document.querySelectorAll('#main-nav-grid > .cat-card').forEach((card,ci)=>{if(card.id==='card-resource-extra')return;const h=card.querySelector('h3');if(!h)return;const title=h.textContent.replace(/\s+/g,' ').trim();if(!title)return;const links=[];card.querySelectorAll('a[href^="http"]').forEach((a,li)=>{const url=a.href,name=(a.querySelector('span')?.textContent||a.textContent||url).replace(/\s+/g,' ').trim();links.push({id:uid('site'),name,url,domUrl:url,status:'active',order:li,source:'html'});});cats.push({id:uid('cat'),title,domTitle:title,order:ci,links,source:'html'});});return {version:16,categories:cats,trash:[]}}
+function norm(){D.categories.forEach((c,i)=>{c.id ||= uid('cat');c.order=i;c.links ||= [];c.links.forEach((l,j)=>{l.id ||= uid('site');l.order=j;l.status ||= 'active'})});D.trash ||= []}
+async function init(){
+  try{
+    const r=await fetch('/api/config',{cache:'no-store'});
+    if(!r.ok) throw Error('CONFIG_'+r.status);
+    const cfg=await r.json();
+    if(cfg && cfg.cloudNavData && Array.isArray(cfg.cloudNavData.categories)){
+      D=cfg.cloudNavData; norm(); msg('☁️ 已从云端加载');
+    }else{
+      D=seed(); norm();
+      const ok=await save();
+      msg(ok ? '☁️ 云端数据初始化完成' : '⚠️ 云端初始化失败，请检查 Cloudflare KV 绑定 NAV_DB');
+    }
+  }catch(e){
+    D={version:16,categories:[],trash:[]};
+    msg('❌ 无法读取云端数据，未覆盖或假定初始化成功');
+    console.error(e);
+  }
+  norm();apply();render();
+}
+function apply(){
+ const cats=D.categories,grid=document.getElementById('main-nav-grid'); if(!grid)return;
+ const activeCats=new Set(cats.map(c=>c.id));
+ const trashCats=new Set(D.trash.filter(x=>x.type==='category').map(x=>x.category?.id));
+ const trashUrls=new Set(D.trash.filter(x=>x.type==='site').map(x=>x.item?.domUrl||x.item?.url));
+ [...grid.querySelectorAll(':scope > .cat-card')].forEach(card=>{
+  const h=card.querySelector('h3'); if(!h)return;
+  const oldTitle=(h.dataset.v16OriginalTitle||h.textContent||'').replace(/\s+/g,' ').trim();
+  const c=cats.find(x=>x.id===card.dataset.v16CatId)||cats.find(x=>x.domTitle===oldTitle||x.title===oldTitle);
+  if(!c){if(card.dataset.v16CatId)card.style.display='none';return;}
+  card.dataset.v16CatId=c.id; h.dataset.v16OriginalTitle=c.domTitle||oldTitle; card.style.display=activeCats.has(c.id)?'':'';
+  const titleNode=h.querySelector('span'); if(titleNode)titleNode.textContent=c.title;
+  const byId=new Map(c.links.map(l=>[l.id,l])),byUrl=new Map(c.links.map(l=>[l.domUrl||l.url,l]));
+  card.querySelectorAll('a[href^="http"]').forEach(a=>{
+   const original=a.dataset.v16OriginalUrl||a.href; a.dataset.v16OriginalUrl=original;
+   const l=byId.get(a.dataset.v16Id)||byUrl.get(original);
+   if(!l||trashUrls.has(original)){a.closest('div')?.classList.add('v16-disabled-link');return;}
+   a.dataset.v16Id=l.id;a.href=l.url;a.dataset.v16Status=l.status;
+   a.closest('div')?.classList.toggle('v16-disabled-link',l.status==='disabled');
+   const sp=a.querySelector('span'); if(sp)sp.textContent=l.name;
+  });
+  c.links.filter(l=>l.source==='cloud'&&!l.domUrl&&l.status!=='disabled'&&!card.querySelector(`[data-v16-id="${CSS.escape(l.id)}"]`)).forEach(l=>{const wrap=document.createElement('div');wrap.className='group relative flex items-center justify-between p-3 bg-slate-500/5 border border-slate-500/10 rounded-xl';wrap.innerHTML=`<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer" class="flex items-center truncate w-full pr-5"><span class="text-sm font-medium truncate">${esc(l.name)}</span></a>`;wrap.querySelector('a').dataset.v16Id=l.id;card.appendChild(wrap)});
+ });
+ const known=[...grid.querySelectorAll(':scope > .cat-card')].filter(x=>x.dataset.v16CatId&&x.style.display!=='none');
+ known.sort((a,b)=>(cats.find(c=>c.id===a.dataset.v16CatId)?.order??9999)-(cats.find(c=>c.id===b.dataset.v16CatId)?.order??9999)).forEach(x=>grid.appendChild(x));
+ cats.filter(c=>c.source==='cloud'&&!grid.querySelector(`[data-v16-cat-id="${CSS.escape(c.id)}"]`)).forEach(c=>{const card=document.createElement('div');card.className='glass-card rounded-2xl p-6 shadow-xl hover:border-indigo-500/30 transition-all duration-300 cat-card';card.dataset.v16CatId=c.id;card.innerHTML=`<h3 class="text-lg font-semibold text-indigo-400 mb-4 flex items-center"><i class="fas fa-layer-group mr-2.5"></i><span>${esc(c.title)}</span></h3><div class="grid grid-cols-2 gap-3 v16-cloud-links"></div>`;const box=card.querySelector('.v16-cloud-links');c.links.filter(l=>l.status!=='disabled').forEach(l=>{const w=document.createElement('div');w.className='p-3 bg-slate-500/5 border border-slate-500/10 rounded-xl';w.innerHTML=`<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium truncate block">${esc(l.name)}</a>`;w.querySelector('a').dataset.v16Id=l.id;box.appendChild(w)});grid.appendChild(card)});
+}
+function sites(){return D.categories.flatMap(c=>c.links.map(l=>({...l,categoryId:c.id,categoryTitle:c.title})))}
+function render(){renderStats();renderFilters();renderSites();renderCats();renderTrash()}
+function renderStats(){const a=sites();document.getElementById('v16-stats').innerHTML=`<div class="v16-stat"><b>${D.categories.length}</b><div class="v16-muted">分类</div></div><div class="v16-stat"><b>${a.length}</b><div class="v16-muted">网站</div></div><div class="v16-stat"><b class="v16-good">${a.filter(x=>x.status!=='disabled').length}</b><div class="v16-muted">启用</div></div><div class="v16-stat"><b class="v16-danger">${a.filter(x=>x.status==='disabled').length}</b><div class="v16-muted">停用 · 回收站 ${D.trash.length}</div></div>`}
+function renderFilters(){const s=document.getElementById('v16-cat-filter'),old=s.value;s.innerHTML='<option value="">全部分类</option>'+D.categories.map(c=>`<option value="${c.id}">${esc(c.title)}</option>`).join('');s.value=old}
+function renderSites(){const q=(document.getElementById('v16-search').value||'').toLowerCase(),cf=document.getElementById('v16-cat-filter').value,sf=document.getElementById('v16-status-filter').value;const a=sites().filter(x=>(!cf||x.categoryId===cf)&&(!sf||(sf==='active'?x.status!=='disabled':x.status==='disabled'))&&(!q||x.name.toLowerCase().includes(q)||x.url.toLowerCase().includes(q)));const box=document.getElementById('v16-sites-list');box.innerHTML=a.length?a.map(x=>`<div class="v16-row" draggable="true" data-id="${x.id}" ondragstart="v16DragSite(event,'${x.id}')" ondragover="v16Over(event)" ondrop="v16DropSite(event,'${x.id}')"><input type="checkbox" class="v16-site-check" value="${x.id}" aria-label="选择 ${esc(x.name)}"><div><b>${esc(x.name)}</b><div class="v16-muted">${esc(x.categoryTitle)} · ${esc(x.url)} · ${x.status==='disabled'?'已停用':'已启用'}</div></div><div class="v16-actions"><button class="v16-btn" onclick="v16EditSite('${x.id}')">编辑</button><button class="v16-btn" onclick="v16MoveSite('${x.id}')">移动</button><button class="v16-btn" onclick="v16ToggleSite('${x.id}')">${x.status==='disabled'?'启用':'停用'}</button><button class="v16-btn" onclick="v16MoveOrder('${x.id}',-1)">↑</button><button class="v16-btn" onclick="v16MoveOrder('${x.id}',1)">↓</button><button class="v16-btn v16-danger" onclick="v16Trash('${x.id}')">删除</button></div></div>`).join(''):'<div class="v16-muted p-4">没有符合条件的网站。</div>'}
+function renderCats(){const b=document.getElementById('v16-cats-list');b.innerHTML=D.categories.map(c=>`<div class="v16-row" draggable="true" data-id="${c.id}" ondragstart="v16DragCat(event,'${c.id}')" ondragover="v16Over(event)" ondrop="v16DropCat(event,'${c.id}')"><input type="checkbox" class="v16-cat-check" value="${c.id}" aria-label="选择分类 ${esc(c.title)}"><div><b>${esc(c.title)}</b><div class="v16-muted">${c.links.length} 个网站</div></div><div class="v16-actions"><button class="v16-btn" onclick="v16RenameCat('${c.id}')">编辑</button><button class="v16-btn" onclick="v16MoveCat('${c.id}',-1)">↑</button><button class="v16-btn" onclick="v16MoveCat('${c.id}',1)">↓</button><button class="v16-btn v16-danger" onclick="v16TrashCat('${c.id}')">删除</button></div></div>`).join('')||'<div class="v16-muted p-4">暂无分类</div>'}
+function renderTrash(){const b=document.getElementById('v16-trash-list');b.innerHTML=D.trash.length?D.trash.map((x,i)=>`<div class="v16-row"><input type="checkbox" class="v16-trash-check" value="${i}" aria-label="选择回收站项目 ${esc(x.name||x.title)}"><div><b>${esc(x.name||x.title)}</b><div class="v16-muted">${x.type==='category'?'分类':'网站'} · ${new Date(x.deletedAt||Date.now()).toLocaleString()}</div></div><div class="v16-actions"><button class="v16-btn" onclick="v16Restore(${i})">恢复</button><button class="v16-btn v16-danger" onclick="v16Purge(${i})">永久删除</button></div></div>`).join(''):'<div class="v16-muted p-4">回收站为空</div>'}
+function findSite(id){for(const c of D.categories){const i=c.links.findIndex(l=>l.id===id);if(i>=0)return {c,i,l:c.links[i]}}}
+async function v16AddSite(){if(!D.categories.length)return alert('请先新增分类');const name=prompt('网站名称');if(!name)return;const url0=prompt('网站网址');if(!url0)return;const url=/^https?:\/\//i.test(url0)?url0:'https://'+url0;const opts=D.categories.map((c,i)=>`${i+1}. ${c.title}`).join('\\n');const n=prompt('输入分类序号：\\n'+opts,'1');const c=D.categories[Math.max(0,Math.min(D.categories.length-1,(parseInt(n)||1)-1))];c.links.push({id:uid('site'),name:name.trim(),url:url.trim(),status:'active',order:c.links.length,source:'cloud'});if(await save()){apply();render()}}
+async function v16EditSite(id){const f=findSite(id);if(!f)return;const name=prompt('修改网站名称',f.l.name);if(name===null)return;const url0=prompt('修改网站网址',f.l.url);if(url0===null)return;f.l.name=name.trim()||f.l.name;f.l.url=/^https?:\/\//i.test(url0.trim())?url0.trim():'https://'+url0.trim();if(await save()){apply();render()}}
+async function v16ToggleSite(id){const f=findSite(id);if(!f)return;f.l.status=f.l.status==='disabled'?'active':'disabled';await save();apply();render()}
+async function v16Trash(id){const f=findSite(id);if(!f||!confirm('确定把这个网站移入云端回收站吗？'))return;const [l]=f.c.links.splice(f.i,1);D.trash.push({type:'site',name:l.name,deletedAt:new Date().toISOString(),categoryId:f.c.id,item:l});if(await save()){apply();render()}}
+async function v16TrashCat(id){const i=D.categories.findIndex(c=>c.id===id);if(i<0||!confirm('删除分类会把分类及其中网站一起移入回收站，确定继续吗？'))return;const [c]=D.categories.splice(i,1);D.trash.push({type:'category',name:c.title,deletedAt:new Date().toISOString(),category:c});await save();apply();render()}
+async function v16AddCategory(){const title=prompt('新分类名称');if(!title)return;D.categories.push({id:uid('cat'),title:title.trim(),order:D.categories.length,links:[],source:'cloud'});if(await save()){apply();render()}}
+async function v16RenameCat(id){const c=D.categories.find(x=>x.id===id);if(!c)return;const n=prompt('修改分类名称',c.title);if(n===null||!n.trim())return;c.title=n.trim();if(await save()){apply();render()}}
+async function v16MoveSite(id){const f=findSite(id);if(!f)return;const opts=D.categories.filter(c=>c.id!==f.c.id).map((c,i)=>`${i+1}. ${c.title}`).join('\\n');if(!opts)return;const n=prompt('移动到分类：\\n'+opts,'1');if(!n)return;const targets=D.categories.filter(c=>c.id!==f.c.id);const t=targets[(parseInt(n)||1)-1];if(!t)return;const [l]=f.c.links.splice(f.i,1);l.order=t.links.length;t.links.push(l);if(await save()){apply();render()}}
+async function v16MoveSelected(){const ids=[...document.querySelectorAll('.v16-site-check:checked')].map(x=>x.value);if(!ids.length)return alert('请先选择网站');const opts=D.categories.map((c,i)=>`${i+1}. ${c.title}`).join('\\n');const n=prompt('移动到分类：\\n'+opts,'1');const t=D.categories[(parseInt(n)||1)-1];if(!t)return;ids.forEach(id=>{const f=findSite(id);if(f){const [l]=f.c.links.splice(f.i,1);l.order=t.links.length;t.links.push(l)}});await save();apply();render()}
+async function v16Batch(action){const ids=[...document.querySelectorAll('.v16-site-check:checked')].map(x=>x.value);if(!ids.length)return alert('请先选择网站');if(action==='trash'&&!confirm('确定把选中网站移入云端回收站吗？'))return;ids.forEach(id=>{const f=findSite(id);if(!f)return;if(action==='trash'){const [l]=f.c.links.splice(f.i,1);D.trash.push({type:'site',name:l.name,deletedAt:new Date().toISOString(),categoryId:f.c.id,item:l})}else f.l.status=action==='disable'?'disabled':'active'});await save();apply();render()}
+function v16SelectAll(on){document.querySelectorAll('.v16-site-check').forEach(x=>x.checked=on)}
+async function v16MoveOrder(id,dir){const f=findSite(id);if(!f)return;const j=f.i+dir;if(j<0||j>=f.c.links.length)return;[f.c.links[f.i],f.c.links[j]]=[f.c.links[j],f.c.links[f.i]];f.c.links.forEach((l,i)=>l.order=i);await save();apply();render()}
+async function v16MoveCat(id,dir){const i=D.categories.findIndex(c=>c.id===id),j=i+dir;if(i<0||j<0||j>=D.categories.length)return;[D.categories[i],D.categories[j]]=[D.categories[j],D.categories[i]];D.categories.forEach((c,k)=>c.order=k);await save();apply();render()}
+function v16Over(e){e.preventDefault();e.currentTarget.classList.add('drag-over')}
+function v16DragSite(e,id){dragSiteId=id;e.dataTransfer.effectAllowed='move'}
+async function v16DropSite(e,target){e.preventDefault();document.querySelectorAll('.drag-over').forEach(x=>x.classList.remove('drag-over'));const a=findSite(dragSiteId),b=findSite(target);if(!a||!b||a.c.id!==b.c.id||a.i===b.i)return;[a.c.links[a.i],a.c.links[b.i]]=[a.c.links[b.i],a.c.links[a.i]];a.c.links.forEach((l,i)=>l.order=i);await save();apply();render()}
+function v16DragCat(e,id){dragCatId=id;e.dataTransfer.effectAllowed='move'}
+async function v16DropCat(e,target){e.preventDefault();document.querySelectorAll('.drag-over').forEach(x=>x.classList.remove('drag-over'));const i=D.categories.findIndex(c=>c.id===dragCatId),j=D.categories.findIndex(c=>c.id===target);if(i<0||j<0||i===j)return;const [c]=D.categories.splice(i,1);D.categories.splice(j,0,c);D.categories.forEach((x,k)=>x.order=k);await save();apply();render()}
+async function v16Restore(i){const x=D.trash[i];if(!x)return;if(x.type==='site'){const c=D.categories.find(c=>c.id===x.categoryId)||D.categories[0];if(c)c.links.push(x.item)}else if(x.type==='category')D.categories.push(x.category);D.trash.splice(i,1);await save();apply();render()}
+async function v16Purge(i){if(!confirm('永久删除后无法恢复，确定吗？'))return;D.trash.splice(i,1);await save();render()}
+async function v16RestoreSelected(){const ids=[...document.querySelectorAll('.v16-trash-check:checked')].map(x=>+x.value).sort((a,b)=>b-a);ids.forEach(i=>{const x=D.trash[i];if(!x)return;if(x.type==='site'){const c=D.categories.find(c=>c.id===x.categoryId)||D.categories[0];if(c)c.links.push(x.item)}else D.categories.push(x.category);D.trash.splice(i,1)});await save();apply();render()}
+async function v16PurgeSelected(){if(!confirm('永久删除后无法恢复，确定吗？'))return;const ids=new Set([...document.querySelectorAll('.v16-trash-check:checked')].map(x=>+x.value));D.trash=D.trash.filter((_,i)=>!ids.has(i));await save();render()}
+async function v16EmptyTrash(){if(!D.trash.length||!confirm('确定清空云端回收站吗？此操作无法恢复。'))return;D.trash=[];await save();render()}
+function v16Tab(name,btn){document.querySelectorAll('.v16-tab').forEach(x=>x.setAttribute('aria-selected',String(x===btn)));['sites','cats','trash'].forEach(x=>document.getElementById('v16-'+x+'-tab').classList.toggle('v16-hidden',x!==name));if(name==='sites')document.getElementById('v16-search').focus()}
+function v16Close(){document.getElementById('v16-admin-panel')?.classList.add('v16-hidden');document.getElementById('v14-admin-panel')?.classList.add('v16-hidden')}
+// expose actions for inline handlers
+Object.assign(window,{v16RenderSites:renderSites,v16AddSite,v16EditSite,v16ToggleSite,v16Trash,v16TrashCat,v16AddCategory,v16RenameCat,v16MoveSite,v16MoveSelected,v16Batch,v16SelectAll,v16MoveOrder,v16Over,v16DragSite,v16DropSite,v16DragCat,v16DropCat,v16Restore,v16Purge,v16RestoreSelected,v16PurgeSelected,v16EmptyTrash,v16Tab,v16Close});
+window.addEventListener('load',()=>setTimeout(init,300));
+})();
+</script>\n
 </body>
 </html>
